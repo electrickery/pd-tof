@@ -1,4 +1,4 @@
-#N canvas 1 53 403 396 10;
+#N canvas 1 88 403 396 10;
 #N canvas 429 334 525 231 /id 0;
 #X text 26 42 Abstraction /id:;
 #X text 63 67 If an abstraction's arguments contains the "/id" keyword
@@ -642,7 +642,7 @@ by the value of the first argument.;
 #X connect 21 0 19 1;
 #X connect 22 0 19 2;
 #X restore 325 80 pd anim;
-#X obj -23 2 cnv 15 400 100 empty \$0c empty 20 12 0 14 -104978 -262144
+#X obj -23 2 cnv 15 400 100 empty \$0c empty 20 12 0 14 -38775 -262144
 0;
 #X text -18 54 author: mrtoftrash@gmail.com;
 #X text -19 33 tags: state routing;
@@ -651,11 +651,11 @@ system.;
 #X text -19 75 version: 2009-10-27 (de localized release);
 #X text -20 341 Keyword for defining the param path inside abstractions:
 ;
-#N canvas 276 205 494 344 META 0;
+#N canvas 274 213 494 344 META 0;
 #X text 12 85 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
 #X text 12 45 LICENSE GPL v2;
 #X text 12 65 AUTHOR Thomas Ouellet Fredericks;
 #X text 12 25 DESCRIPTION state saving and message routing system;
-#X text 12 5 KEYWORDS control needs_work (xlets);
+#X text 12 5 KEYWORDS control;
 #X restore 320 370 pd META;
