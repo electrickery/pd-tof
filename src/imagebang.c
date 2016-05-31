@@ -109,14 +109,16 @@ static int imagebang_click(t_imagebang *x, struct _glist *glist,
 static void imagebang_drawme(t_imagebang *x, t_glist *glist, int firsttime) {
      if (firsttime) {	
 		 
-		 DEBUG(post("Rendering: \n   %x_imagebang:%s \n   %x_imagebang:%s",x->image_a,x->image_a->s_name,x->image_b,x->image_b->s_name);)
+		 DEBUG(post("Rendering: \n   %x_imagebang:%s \n   %x_imagebang:%s",
+                                              x->image_a,  x->image_a->s_name, x->image_b, x->image_b->s_name);)
 		 
 		sys_vgui(".x%lx.c create image %d %d -anchor nw -image %x_imagebang -disabledimage %x_imagebang -tags %ximage\n", 
 			glist_getcanvas(glist),
 			text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist),x->image_a,x->image_b,x);
 	  
 	  
-	   sys_vgui("pdsend \"%s _imagesize [image width %x_imagebang] [image height %x_imagebang]\"\n",x->receive->s_name,x->image_a,x->image_a);
+	   sys_vgui("pdsend \"%s _imagesize [image width %x_imagebang] [image height %x_imagebang]\"\n", 
+                               x->receive->s_name,        x->image_a,                 x->image_a);
 	   
 	   
      } else {
@@ -173,22 +175,17 @@ static void imagebang_displace(t_gobj *z, t_glist *glist,
 
 static void imagebang_select(t_gobj *z, t_glist *glist, int state)
 {
-     t_imagebang *x = (t_imagebang *)z;
-     if (state) {
-	  sys_vgui(".x%lx.c create rectangle \
-%d %d %d %d -tags %xSEL -outline blue\n",
-		   glist_getcanvas(glist),
-		   text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist),
-		   text_xpix(&x->x_obj, glist) + x->width, text_ypix(&x->x_obj, glist) + x->height,
-		   x);
+    t_imagebang *x = (t_imagebang *)z;
+    if (state) {
+	    sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %xSEL -outline blue\n",
+		    glist_getcanvas(glist),
+		    text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist),
+		    text_xpix(&x->x_obj, glist) + x->width, text_ypix(&x->x_obj, glist) + x->height,
+		    x);
      }
      else {
-	  sys_vgui(".x%lx.c delete %xSEL\n",
-		   glist_getcanvas(glist), x);
+	     sys_vgui(".x%lx.c delete %xSEL\n", glist_getcanvas(glist), x);
      }
-
-
-
 }
 
 
@@ -226,7 +223,6 @@ static void imagebang_size(t_imagebang* x,t_floatarg w,t_floatarg h) {
 
 
 
-	
 static void imagebang_imagesize_callback(t_imagebang *x, t_float w, t_float h) {
 	DEBUG(post("received w %f h %f",w,h);)
 	x->width = w;
@@ -242,21 +238,53 @@ static void imagebang_free(t_imagebang *x) {
      DEBUG(sys_vgui("pdsend \"DEBUG b in use [image inuse %x_imagebang]\"\n",x->image_b);)
      DEBUG(sys_vgui("pdsend \"DEBUG a in use [image inuse %x_imagebang]\"\n",x->image_a);)
     
-    sys_vgui("if { [info exists %x_imagebang] == 1 && [image inuse %x_imagebang] == 0} { image delete %x_imagebang \n unset %x_imagebang\n} \n",x->image_b,x->image_b,x->image_b,x->image_b);
-    sys_vgui("if { [info exists %x_imagebang] == 1 && [image inuse %x_imagebang] == 0} { image delete %x_imagebang \n unset %x_imagebang\n} \n",x->image_a,x->image_a,x->image_a,x->image_a);
+    sys_vgui("if { [info exists %x_imagebang] == 1 && [image inuse %x_imagebang] == 0} { image delete %x_imagebang \n unset %x_imagebang\n} \n",
+        x->image_b, x->image_b, x->image_b, x->image_b);
+    sys_vgui("if { [info exists %x_imagebang] == 1 && [image inuse %x_imagebang] == 0} { image delete %x_imagebang \n unset %x_imagebang\n} \n",
+        x->image_a, x->image_a, x->image_a, x->image_a);
     
-    DEBUG(sys_vgui("pdsend \"DEBUG b exists [info exists %x_imagebang] \"\n",x->image_b);)
-     DEBUG(sys_vgui("pdsend \"DEBUG a exists [info exists %x_imagebang] \"\n",x->image_a);)
+    DEBUG(sys_vgui("pdsend \"DEBUG b exists [info exists %x_imagebang] \"\n",
+        x->image_b);)
+    DEBUG(sys_vgui("pdsend \"DEBUG a exists [info exists %x_imagebang] \"\n",
+        x->image_a);)
     
     if (x->receive) {
 		pd_unbind(&x->x_obj.ob_pd,x->receive);
 	}
 	clock_free(x->clock_flash);
 	clock_free(x->clock_brk);
-    
 }
-	
-	
+
+// Defaults used in case of in images specified, or files not found
+static unsigned char *bangOffXbmString = "#define bangOff_width 16\n\
+#define bangOff_height 16\n\
+static unsigned char bangOff_bits[] = {\n\
+   0xff, 0xff, 0xe1, 0x87, 0x31, 0x8c, 0x09, 0x90, 0x05, 0xa0, 0x07, 0xe0,\n\
+   0x03, 0xc0, 0x03, 0xc0, 0x03, 0xc0, 0x03, 0xc0, 0x07, 0xe0, 0x05, 0xa0,\n\
+   0x09, 0x90, 0x31, 0x8c, 0xff, 0x87, 0xff, 0xff};\0";
+   
+static unsigned char *bangOnXbmString = "#define bangOn_width 16\n\
+#define bangOn_height 16\n\
+static unsigned char bangOn_bits[] = {\n\
+   0xff, 0xff, 0xff, 0x87, 0xf1, 0x8f, 0xf9, 0x9f, 0xfd, 0xbf, 0xff, 0xff,\n\
+   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfd, 0xbf,\n\
+   0xf9, 0x9f, 0xf1, 0x8f, 0xff, 0x87, 0xff, 0xff };\0";
+
+static unsigned char *bangMaskXbmString = "#define bangMask_width 16\n\
+#define bangMask_height 16\n\
+static unsigned char bangOn_bits[] = {\n\
+   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
+   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
+   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };\0";
+
+   
+static void imagebang_createDefaultImage(t_imagebang *x, t_symbol *image, unsigned char *xbmString)
+{
+        sys_vgui("if { [info exists %x_imagebang] == 0 } { image create bitmap %x_imagebang -data \"%s\" -maskdata \"%s\"\n set %x_imagebang 1\n} \n",
+                                     image,                                     image,               xbmString,       bangMaskXbmString, image);
+} 
+
+
 static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 {
     t_imagebang *x = (t_imagebang *)pd_new(imagebang_class);
@@ -281,42 +309,49 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 	// images are only created if they have not been created yet
 	// we use the symbol pointer to distinguish between image files
 	
-	
 	if ( argc && (argv)->a_type == A_SYMBOL ) {
-		image_a= atom_getsymbol(argv);
-		fname = imagebang_get_filename(x,image_a->s_name); // Get image file path
+		image_a = atom_getsymbol(argv);
+		fname = imagebang_get_filename(x, image_a->s_name); // Get image file path
 		if (fname) {
 			x->image_a = gensym(fname);
 			//sys_vgui("set %x_a \"%s\" \n",x,fname);
 			// Create the image only if the class has not already loaded the same image (with the same symbolic path name)
-			sys_vgui("if { [info exists %x_imagebang] == 0 } { image create photo %x_imagebang -file \"%s\"\n set %x_imagebang 1\n} \n",x->image_a,x->image_a,fname,x->image_a); 
-		    //sys_vgui("pdsend {test %x_imagebang}\n",x->image_a);
+			sys_vgui("if { [info exists %x_imagebang] == 0 } { image create photo %x_imagebang -file \"%s\"\n set %x_imagebang 1\n} \n",
+                                                     x->image_a,                               x->image_a,          fname,     x->image_a); 
+                        sys_vgui("pdsend {test %x_imagebang}\n", x->image_a);
 		} else {
-			post("Oups... [imagebang] could not find \"%s\"",image_a->s_name);
+			post("[imagebang] could not find \"%s\"", image_a->s_name);
 		}
-	}
-    
-    
-    
+    }
+
     if ( argc > 1 && (argv+1)->a_type == A_SYMBOL ) {
-		image_b= atom_getsymbol(argv+1);
-		fname = imagebang_get_filename(x,image_b->s_name); // Get image file path
+		image_b = atom_getsymbol(argv+1);
+		fname = imagebang_get_filename(x, image_b->s_name); // Get image file path
 		if (fname) {
 			x->image_b = gensym(fname);
 			//sys_vgui("set %x_b \"%s\" \n",x,fname);
-			sys_vgui("if { [info exists %x_imagebang] == 0} { image create photo %x_imagebang -file \"%s\"\n set %x_imagebang 1\n} \n",x->image_b,x->image_b,fname,x->image_b);
-			//sys_vgui("pdsend {test %x_imagebang}\n",x->image_b);
+			sys_vgui("if { [info exists %x_imagebang] == 0} { image create photo %x_imagebang -file \"%s\"\n set %x_imagebang 1\n} \n",
+                                                     x->image_b,                              x->image_b,          fname,     x->image_b);
+                        sys_vgui("pdsend {test %x_imagebang}\n", x->image_b);
 		} else {
-			post("Oups... [imagebang] could not find \"%s\"",image_b->s_name);
-		}
+			post("[imagebang] could not find \"%s\"", image_b->s_name);
+        }
+    }
+
+	// Plan B; use build in defaults (which look just like a bang)
+	if (x->image_a == NULL) {
+        image_a = gensym("bangOff");
+        imagebang_createDefaultImage(x, image_a, bangOffXbmString);
+        post("[imagebang] used default for Off; \"%s\" instead", image_a->s_name);
+        x->image_a = image_a;
+    }        
+    if (x->image_b == NULL) {
+        image_b = gensym("bangOn");
+        imagebang_createDefaultImage(x, image_b, bangOnXbmString);
+        post("[imagebang]  used default for On; \"%s\" instead", image_b->s_name);
+        x->image_b = image_b;
 	}
-	
-	// Stop if no images	
-	if (x->image_a == NULL || x->image_b == NULL) {
-		post("Could not create [imagebang]... either no gif images defined or found!");
-		return NULL;
-	}
-	
+
 	x->send = NULL;
 	if ( argc > 2 && (argv+2)->a_type == A_SYMBOL ) {
 		x->send = atom_getsymbol(argv+2);
