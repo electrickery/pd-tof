@@ -12,6 +12,8 @@
 /* Append " x " to the following line to show debugging messages */
 #define DEBUG(x)
 
+#define CLOCKFLASH 250
+#define CLOCKBRK   50
 
 
 /* ------------------------ imagebang ----------------------------- */
@@ -32,6 +34,8 @@ typedef struct _imagebang
      t_symbol* send;
      t_clock* clock_flash;
      t_clock* clock_brk;
+     int clockflash;
+     int clockbrk;
      int 		flashing;
 	 t_outlet* outlet;
 } t_imagebang;
@@ -43,16 +47,15 @@ static void imagebang_bang(t_imagebang *x)
 	t_glist* glist = glist_getcanvas(x->glist);
     if(x->flashing) {
 		sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_a);
-        clock_delay(x->clock_brk, 50);
+        clock_delay(x->clock_brk, x->clockbrk);
         //x->flashed = 1;
     } else  {
 		sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_b);
         x->flashing = 1;
         
     }
-    clock_delay(x->clock_flash, 250);
+    clock_delay(x->clock_flash, x->clockflash);
     
-       
     outlet_bang(x->outlet);
     
     if(x->send && x->send->s_thing ) pd_bang(x->send->s_thing);
@@ -221,7 +224,23 @@ static void imagebang_size(t_imagebang* x,t_floatarg w,t_floatarg h) {
      x->height = h;
 }
 
-
+static void imagebang_float(t_imagebang *x, t_float f)
+{
+    if (f > 0) 
+    {
+        x->clockflash = (int)f;
+        return;
+    }
+    t_glist* glist = glist_getcanvas(x->glist);
+    if (f == 0)
+    {
+        sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_a);
+        x->flashing = 0;
+        return;
+    }
+    sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_b);
+    x->flashing = 1;
+}
 
 static void imagebang_imagesize_callback(t_imagebang *x, t_float w, t_float h) {
 	DEBUG(post("received w %f h %f",w,h);)
@@ -255,24 +274,38 @@ static void imagebang_free(t_imagebang *x) {
 	clock_free(x->clock_brk);
 }
 
-// Defaults used in case of in images specified, or files not found
+// Defaults used in case of in images specified, or files not found. Set identical to bang
+//static unsigned char *bangOffXbmString = "#define bangOff_width 16\n\
+//#define bangOff_height 16\n\
+//static unsigned char bangOff_bits[] = {\n\
+//   0xff, 0xff, 0xe1, 0x87, 0x31, 0x8c, 0x09, 0x90, 0x05, 0xa0, 0x07, 0xe0,\n\
+//   0x03, 0xc0, 0x03, 0xc0, 0x03, 0xc0, 0x03, 0xc0, 0x07, 0xe0, 0x05, 0xa0,\n\
+//   0x09, 0x90, 0x31, 0x8c, 0xff, 0x87, 0xff, 0xff};\0";
+   
+//static unsigned char *bangOnXbmString = "#define bangOn_width 16\n\
+//#define bangOn_height 16\n\
+//static unsigned char bangOn_bits[] = {\n\
+//   0xff, 0xff, 0xff, 0x87, 0xf1, 0x8f, 0xf9, 0x9f, 0xfd, 0xbf, 0xff, 0xff,\n\
+//   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfd, 0xbf,\n\
+//   0xf9, 0x9f, 0xf1, 0x8f, 0xff, 0x87, 0xff, 0xff };\0";
+   
 static unsigned char *bangOffXbmString = "#define bangOff_width 16\n\
 #define bangOff_height 16\n\
 static unsigned char bangOff_bits[] = {\n\
-   0xff, 0xff, 0xe1, 0x87, 0x31, 0x8c, 0x09, 0x90, 0x05, 0xa0, 0x07, 0xe0,\n\
-   0x03, 0xc0, 0x03, 0xc0, 0x03, 0xc0, 0x03, 0xc0, 0x07, 0xe0, 0x05, 0xa0,\n\
-   0x09, 0x90, 0x31, 0x8c, 0xff, 0x87, 0xff, 0xff};\0";
+   0xff, 0xff, 0xff, 0xff, 0x3f, 0xfc, 0x0f, 0xf0, 0x07, 0xe0, 0x07, 0xe0,\n\
+   0x03, 0xc0, 0x03, 0xc0, 0x03, 0xc0, 0x03, 0xc0, 0x07, 0xe0, 0x07, 0xe0,\n\
+   0x0f, 0xf0, 0x3f, 0xfc, 0xff, 0xff, 0xff, 0xff };\0";
    
 static unsigned char *bangOnXbmString = "#define bangOn_width 16\n\
 #define bangOn_height 16\n\
 static unsigned char bangOn_bits[] = {\n\
-   0xff, 0xff, 0xff, 0x87, 0xf1, 0x8f, 0xf9, 0x9f, 0xfd, 0xbf, 0xff, 0xff,\n\
-   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfd, 0xbf,\n\
-   0xf9, 0x9f, 0xf1, 0x8f, 0xff, 0x87, 0xff, 0xff };\0";
+   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
+   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
+   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };\0";
 
 static unsigned char *bangMaskXbmString = "#define bangMask_width 16\n\
 #define bangMask_height 16\n\
-static unsigned char bangOn_bits[] = {\n\
+static unsigned char bangMask_bits[] = {\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };\0";
@@ -284,6 +317,35 @@ static void imagebang_createDefaultImage(t_imagebang *x, t_symbol *image, unsign
                                      image,                                     image,               xbmString,       bangMaskXbmString, image);
 } 
 
+static void imagebang_status(t_imagebang *x) 
+{
+    post("--==## imagebang status ##==--");
+    post("width:      %d", x->width);
+    post("height:     %d", x->height);
+    post("image_a:    %s", x->image_a->s_name);
+    post("image_b:    %s", x->image_b->s_name);
+    post("receive:    %s", (x->receive) ? x->receive->s_name : "-");
+    post("send:       %s", (x->send) ? x->send->s_name : "-");
+    post("clockflash: %d", x->clockflash);
+    post("clockbrk:   %d", x->clockbrk);
+    post("flashing;   %d", x->flashing);
+}
+
+static void imagebang_setsend(t_imagebang *x, t_symbol *newSend)
+{
+    if (newSend != gensym(""))
+    {
+        x->send = newSend;
+    }
+}
+
+static void imagebang_setreceive(t_imagebang *x, t_symbol *newReceive)
+{
+    if (newReceive != gensym(""))
+    {
+        x->receive = newReceive;
+    }
+}
 
 static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 {
@@ -295,7 +357,10 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
     x->width = 10;
     x->height = 10;
 	
-	x->flashing = 0;
+	x->flashing   = 0;
+    x->clockflash = CLOCKFLASH;
+    x->clockbrk   = CLOCKBRK;
+
 	
 	x->image_a = NULL;
 	x->image_b = NULL;
@@ -318,7 +383,7 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 			// Create the image only if the class has not already loaded the same image (with the same symbolic path name)
 			sys_vgui("if { [info exists %x_imagebang] == 0 } { image create photo %x_imagebang -file \"%s\"\n set %x_imagebang 1\n} \n",
                                                      x->image_a,                               x->image_a,          fname,     x->image_a); 
-                        sys_vgui("pdsend {test %x_imagebang}\n", x->image_a);
+//            sys_vgui("pdsend {test %x_imagebang}\n", x->image_a);
 		} else {
 			post("[imagebang] could not find \"%s\"", image_a->s_name);
 		}
@@ -332,7 +397,7 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 			//sys_vgui("set %x_b \"%s\" \n",x,fname);
 			sys_vgui("if { [info exists %x_imagebang] == 0} { image create photo %x_imagebang -file \"%s\"\n set %x_imagebang 1\n} \n",
                                                      x->image_b,                              x->image_b,          fname,     x->image_b);
-                        sys_vgui("pdsend {test %x_imagebang}\n", x->image_b);
+//            sys_vgui("pdsend {test %x_imagebang}\n", x->image_b);
 		} else {
 			post("[imagebang] could not find \"%s\"", image_b->s_name);
         }
@@ -387,16 +452,23 @@ void imagebang_setup(void)
 				sizeof(t_imagebang),0, A_GIMME,0);
 
     class_addmethod(imagebang_class, (t_method)imagebang_imagesize_callback,\
-                     gensym("_imagesize"), A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym("_imagesize"), A_DEFFLOAT, A_DEFFLOAT, 0);
+    class_addmethod(imagebang_class, (t_method)imagebang_status,\
+                    gensym("status"), 0);
+    class_addmethod(imagebang_class, (t_method)imagebang_setsend,\
+                    gensym("setsend"), A_DEFSYMBOL, 0);
+    class_addmethod(imagebang_class, (t_method)imagebang_setreceive,\
+                    gensym("setreceive"), A_DEFSYMBOL, 0);
 
     class_addbang(imagebang_class,(t_method)imagebang_bang);
+    class_addfloat(imagebang_class, imagebang_float);
     
-    imagebang_widgetbehavior.w_getrectfn =     imagebang_getrect;
-    imagebang_widgetbehavior.w_displacefn =    imagebang_displace;
+    imagebang_widgetbehavior.w_getrectfn =  imagebang_getrect;
+    imagebang_widgetbehavior.w_displacefn = imagebang_displace;
     imagebang_widgetbehavior.w_selectfn =   imagebang_select;
-    imagebang_widgetbehavior.w_activatefn =   imagebang_activate;
+    imagebang_widgetbehavior.w_activatefn = imagebang_activate;
     imagebang_widgetbehavior.w_deletefn =   imagebang_delete;
-    imagebang_widgetbehavior.w_visfn =   imagebang_vis;
+    imagebang_widgetbehavior.w_visfn =      imagebang_vis;
 
     imagebang_widgetbehavior.w_clickfn = (t_clickfn)imagebang_click;
     
