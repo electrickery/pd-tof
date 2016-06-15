@@ -1,5 +1,9 @@
-// Original object by (C) 2005 Guenter Geiger
-// New version by Thomas Ouellet Fredericks
+/* getdollarzero object for PD by Thomas Ouellet Fredericks            *
+ * Based on [ggee/getdollarzero] by Guenter Geiger                     *
+ * 
+ * This code is licensed under the 3-clause BSD license                *
+ * fjkraan@xs4all.nl. 2016-06-14                                       *
+ */
 
 
 #include "m_pd.h"

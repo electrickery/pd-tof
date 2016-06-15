@@ -1,27 +1,22 @@
-/* pmenu widget for PD                                              *
- * Based on:
- * pmenu by Ben Bogart         
- * and button from GGEE by Guenter Geiger                                *
+/* pmenu widget for PD by Thomas Ouellet Fredericks                    *
+ * Based on:                                                           *
+ *  [bbogart/popup] by Ben Bogart                                      *
+ *  and [ggee/button] from GGEE by Guenter Geiger                      *
 
- * This program is distributed under the terms of the GNU General Public *
- * License                                                               *
-
- * pmenu is free software; you can redistribute it and/or modify         *
- * it under the terms of the GNU General Public License as published by  *
- * the Free Software Foundation; either version 2 of the License, or     *
- * (at your option) any later version.                                   *
-
- * pmenu is distributed in the hope that it will be useful,              *
- * but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- * GNU General Public License for more details.                          */
+ * pmenu was previously licensed under GPL, but Thomas allowed me to   *
+ * re-license it under the 3-clause BSD license. This brings it more   *
+ * in line with the original ggee/button code. The code from           *
+ * bbogart/popup is still GPL licensed.                                *
+ * fjkraan@xs4all.nl. 2016-06-14                                       *
+ */
 
 /* CHANGES
  
- 0.31 %p or %x in sprintf and sysvgui do not seem to give the same result, so generate the name in sprintf and feed it as a string to sysvgui
+ 0.31 %p or %x in sprintf and sysvgui do not seem to give the same result, 
+      so generate the name in sprintf and feed it as a string to sysvgui
  0.3 Added the possibility of adding anything (instead of only symbols)
  0.3 Split the output message into two outlets
- 
+
  */
 
 

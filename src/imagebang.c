@@ -1,3 +1,13 @@
+/* imagebang widget for PD by Thomas Ouellet Fredericks                *
+ * Based on:                                                           *
+ *   [ggee/image] by Guenter Geiger and                                *
+ *   [moonlib/image] by Antoine Rousseau (GPL-license)                 * 
+
+ * This code is licensed under the 3-clause BSD license with an        *
+ * exception for the code from  moonlib/image                          *
+ * fjkraan@xs4all.nl. 2016-06-14                                       *
+ */
+ 
 #include <m_pd.h>
 #include <g_canvas.h>
 #include <unistd.h>

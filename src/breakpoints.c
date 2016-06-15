@@ -1,4 +1,9 @@
-/* (C) Guenter Geiger <geiger@epy.co.at> */
+/* breakpoints object for PD by Thomas Ouellet Fredericks              *
+ * Based on [ggee/envgen] by Guenter Geiger                            *
+ * 
+ * This code is licensed under the 3-clause BSD license                *
+ * fjkraan@xs4all.nl. 2016-06-14                                       *
+ */
 
 #include <m_pd.h>
 
@@ -272,9 +277,6 @@ static void bindsym(t_pd* x,t_symbol* o,t_symbol* s)
      pd_bind(x,s);
 }
 
-
-
-
   
 
 
@@ -435,7 +437,6 @@ void breakpoints_setup(void)
     //class_setsavefn(breakpoints_class,&breakpoints_save);
 #endif
     class_addmethod(breakpoints_class,(t_method)breakpoints_dump,gensym("dump"),A_NULL);
-
 
 }
 

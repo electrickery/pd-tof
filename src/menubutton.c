@@ -1,20 +1,14 @@
-/* menubutton widget for PD                                              *
- * Based on:
- * menubutton by Ben Bogart         
- * and button from GGEE by Guenter Geiger                                *
+/* menubutton widget for PD by Thomas Ouellet Fredericks               *
+ * Based on:                                                           *
+ *   [ggee/button] by Guenter Geiger and                               *
+ *   [bbogart/popup] by Ben Bogart                                     *
 
- * This program is distributed under the terms of the GNU General Public *
- * License                                                               *
-
- * menubutton is free software; you can redistribute it and/or modify         *
- * it under the terms of the GNU General Public License as published by  *
- * the Free Software Foundation; either version 2 of the License, or     *
- * (at your option) any later version.                                   *
-
- * menubutton is distributed in the hope that it will be useful,              *
- * but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- * GNU General Public License for more details.                          */
+ * pmenu was previously licensed under GPL, but Thomas allowed me to   *
+ * re-license it under the 3-clause BSD license. This brings it more   *
+ * in line with the original ggee/button code. The code from           *
+ * bbogart/popup is still GPL licensed.                                *
+ * fjkraan@xs4all.nl. 2016-06-15                                       *
+ */
 
 
 

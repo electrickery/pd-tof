@@ -1,3 +1,10 @@
+/* breakpoints~ header for PD by Thomas Ouellet Fredericks             *
+ * Based on [ggee/envgen] by Guenter Geiger                            *
+ * 
+ * This code is licensed under the 3-clause BSD license                *
+ * fjkraan@xs4all.nl. 2016-06-14                                       *
+ */
+
 #ifndef __GG_breakpoints_H__
 #define __GG_breakpoints_H__
 
