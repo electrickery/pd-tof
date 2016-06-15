@@ -1,4 +1,12 @@
-
+/*
+ *      paramCustom.h
+ *      
+ *      Copyright 2009 Thomas O Fredericks <tom@hp>
+ *      
+ * paramCustom.h is part of param and licensed under the 3-clause BSD  *
+ * license.                                                            *
+ * fjkraan@xs4all.nl. 2016-06-15                                       *
+ */
 
 static t_class *paramCustom_class;
 static t_class *paramCustom_receive_class;

@@ -1,3 +1,11 @@
+/*
+ *      path.c
+ *      
+ *      Copyright 2009 Thomas O Fredericks <tom@hp>
+ *      
+ * path is licensed under the 3-clause BSD license.                    *
+ * fjkraan@xs4all.nl. 2016-06-15                                       *
+ */
 
 #include "tof.h"
 #define SLASH '/'

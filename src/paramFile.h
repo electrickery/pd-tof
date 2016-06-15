@@ -1,4 +1,12 @@
-
+/*
+ *      paramFile.h
+ *      
+ *      Copyright 2009 Thomas O Fredericks <tom@hp>
+ *      
+ * paramFile.h is part of param and licensed under the 3-clause BSD    *
+ * license.                                                            *
+ * fjkraan@xs4all.nl. 2016-06-15                                       *
+ */
 
 static t_class *paramFile_class;
 static t_class *paramFile_inlet2_class;

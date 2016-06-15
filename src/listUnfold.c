@@ -1,3 +1,12 @@
+/*
+ *      listUnfold.c
+ *      
+ *      Copyright 2009 Thomas O Fredericks <tom@hp>
+ *      
+ * listUnfold is licensed under the 3-clause BSD license.              *
+ * fjkraan@xs4all.nl. 2016-06-15                                       *
+ */
+ 
 #include "m_pd.h"
 #include <string.h>
 #define IS_A_SYMBOL(atom,index) ((atom+index)->a_type == A_SYMBOL)
