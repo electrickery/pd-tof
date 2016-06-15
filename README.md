@@ -1,18 +1,19 @@
 <h2>tof</h2>
 
-<p>tof is written by Thomas Ouellet Fredericks around 2009 and probably GPL licensed. 
+<p>tof is written by Thomas Ouellet Fredericks around 2009. Thomas allowed me to re-license the library, and the 
+ 3-clause BSD license seemed most appropriate in the Puredata eco-system. Some objects however are derived from 
+ GPL licensed source code.
 
 <p>This git-fork of the Pure-data library tof is cloned from https://git.puredata.info/cgit/svn2git/libraries/tof.git, 
 which is the svn-to-git from https://sourceforge.net/p/pure-data/svn/HEAD/tree/trunk/externals/tof/.
 
-<p>The initial changes were adding/recreating some separate directories for source and help files and replace the 
-buildsystem by pd-lib-builder. This to simplify creation of a deken package of the libary.
+<p>The initial change is replacing the build system by pd-lib-builder. This to simplify creation of a deken package of the libary.
 
 <p>These are the objects in the tof library:
 <dl>
 <dt>animate</dt>      <dd>abstraction around iemguts/canvasobjectposition</dd>
 <dt>argument</dt>     <dd>outputs arguments on bang</dd>
-<dt>arguments</dt>    <dd>outputs arguments on bang</dd>
+<dt>arguments</dt>    <dd>parses and outputs patch creation arguments on bang</dd>
 <dt>breakpoints~</dt> <dd>signal driven graphical envelope table editor / generator (based on ggee/envgen)</dd>
 <dt>breakpoints</dt>  <dd>message driven graphical envelope table editor / generator (based on ggee/envgen)</dd>
 <dt>common~</dt>      <dd>signal bus object</dd>
@@ -21,6 +22,7 @@ buildsystem by pd-lib-builder. This to simplify creation of a deken package of t
 <dt>from_ascii_code</dt><dd>converts ASCII to messages</dd>
 <dt>gemwin+</dt>      <dd>Gem window manager </dd>
 <dt>getdollarzero</dt><dd>get window id of current or parent window (recursive)</dd>
+<dt>imagebang</dt>    <dd>GIF based bang</dd>
 <dt>increment</dt>    <dd>increments float on bang</dd>
 <dt>iterate</dt>      <dd>iterates over range of floats</dd>
 <dt>list_accum</dt>   <dd>collects input into a list</dd>
@@ -40,7 +42,7 @@ buildsystem by pd-lib-builder. This to simplify creation of a deken package of t
 <dt>sample</dt>       <dd>reads wav file into array</dd>
 <dt>sample_packel</dt><dd>edits array start and end</dd>
 <dt>sample_play</dt>  <dd>array sample player</dd>
-<dt>sample_record</dt><dd>writes signal streal to array</dd>
+<dt>sample_record</dt><dd>writes signal stream to array</dd>
 <dt>sample_shift~</dt><dd>fft based pitchshifting/timestretching sample player</dd>
 <dt>sample_unpack</dt><dd>outputs array meta information and original wav file name</dd>
 <dt>streamMinMax</dt> <dd>outputs minimum and maximum of a stream of floats</dd>
@@ -48,8 +50,9 @@ buildsystem by pd-lib-builder. This to simplify creation of a deken package of t
 </dl>
 
 <p>breakpoints and breakpoints~ are derived from ggee/envgen. Common code in w_breakpoints.h, struct in breakpoints~.h.
-imagebang is derived from [image] from ggee (the original) and moonlib. 
+ imagebang is derived from [image] from ggee (the original) and moonlib. menubutton and pmenu are derived from [button] 
+ from ggee and [popup] from bbogart. moonlib/image and bbogart/popup are GPL licensed.
 
-For bugs found in this version, please report them to me. Thomas is not responsible for bugs introduced by me.
+<p>For bugs found in this version, please report them to me. Thomas is not responsible for bugs introduced by me.
 
-Fred Jan Kraan fjkraan@xs4all.nl 2016-06-03
+<p>Fred Jan Kraan fjkraan@xs4all.nl 2016-06-15
