@@ -51,7 +51,8 @@ which is the svn-to-git from https://sourceforge.net/p/pure-data/svn/HEAD/tree/t
 
 <p>breakpoints and breakpoints~ are derived from ggee/envgen. Common code in w_breakpoints.h, struct in breakpoints~.h.
  imagebang is derived from [image] from ggee (the original) and moonlib. menubutton and pmenu are derived from [button] 
- from ggee and [popup] from bbogart. moonlib/image and bbogart/popup are GPL licensed.
+ from ggee and [popup] from bbogart. param depends on objectlist.h which is based on iemguts-objlist.h. moonlib/image, 
+ bbogart/popup and iemguts/iemguts-objlist.h are GPL licensed.
 
 <p>For bugs found in this version, please report them to me. Thomas is not responsible for bugs introduced by me.
 
