@@ -1,13 +1,13 @@
 <h2>tof</h2>
 
+<p>This git-fork of the Pure-data library tof is cloned from https://git.puredata.info/cgit/svn2git/libraries/tof.git, 
+ which is the svn-to-git from https://sourceforge.net/p/pure-data/svn/HEAD/tree/trunk/externals/tof/.</p>
+
 <p>tof is written by Thomas Ouellet Fredericks around 2009. Thomas allowed me to re-license the library, and the 
  3-clause BSD license seemed most appropriate in the Puredata eco-system. Some objects however are derived from 
- GPL licensed source code.
+ GPL licensed source code.</p>
 
-<p>This git-fork of the Pure-data library tof is cloned from https://git.puredata.info/cgit/svn2git/libraries/tof.git, 
-which is the svn-to-git from https://sourceforge.net/p/pure-data/svn/HEAD/tree/trunk/externals/tof/.
-
-<p>The initial change is replacing the build system by pd-lib-builder. This to simplify creation of a deken package of the libary.
+<p>The initial change is replacing the build system by pd-lib-builder. This to simplify creation of a deken package of the libary.</p>
 
 <p>These are the objects in the tof library:
 <dl>
@@ -47,13 +47,18 @@ which is the svn-to-git from https://sourceforge.net/p/pure-data/svn/HEAD/tree/t
 <dt>sample_unpack</dt><dd>outputs array meta information and original wav file name</dd>
 <dt>streamMinMax</dt> <dd>outputs minimum and maximum of a stream of floats</dd>
 <dt>to_ascii_code</dt><dd>convert message characters to list of floats</dd>
-</dl>
+</dl></p>
 
-<p>breakpoints and breakpoints~ are derived from ggee/envgen. Common code in w_breakpoints.h, struct in breakpoints~.h.
- imagebang is derived from [image] from ggee (the original) and moonlib. menubutton and pmenu are derived from [button] 
- from ggee and [popup] from bbogart. param depends on objectlist.h which is based on iemguts-objlist.h. moonlib/image, 
- bbogart/popup and iemguts/iemguts-objlist.h are GPL licensed.
+<p>Dependencies and derivations:
+<ul>
+ <li>breakpoints and breakpoints~ are derived from ggee/envgen. Common code in w_breakpoints.h, struct in breakpoints~.h,</li>
+ <li>imagebang is derived from ggee/image (the original) and moonlib/image,</li>
+ <li>menubutton and pmenu are derived from ggee/button and bbogart/popup,</li>
+ <li>param depends on objectlist.h which is based on iemguts/iemguts-objlist.h.</li>
+</ul></p>
 
-<p>For bugs found in this version, please report them to me. Thomas is not responsible for bugs introduced by me.
+<p>moonlib/image, bbogart/popup and iemguts/iemguts-objlist.h are GPL licensed.</p>
 
-<p>Fred Jan Kraan fjkraan@xs4all.nl 2016-06-15
+<p>For bugs found in this version, please report them to me. Thomas is not responsible for bugs introduced by me.</p>
+
+<p>Fred Jan Kraan fjkraan@xs4all.nl 2016-06-15</p>
