@@ -1,4 +1,4 @@
-#N canvas 322 79 903 494 10;
+#N canvas 1029 111 903 494 10;
 #X obj 25 25 tof/animate;
 #X obj 25 50 tof/argument;
 #X obj 25 75 tof/arguments;
@@ -15,7 +15,7 @@
 #X obj 25 301 tof/list_accum;
 #X obj 25 326 tof/list_unfold;
 #X obj 25 351 tof/listUnfold;
-#X obj 369 369 tof/menubutton 124 25 empty empty 0 grey90 black grey95
+#X obj 369 402 tof/menubutton 124 25 empty empty 0 grey90 black grey95
 black -1;
 #X obj 25 376 tof/onlyone;
 #X obj 25 401 tof/open_help;
@@ -33,10 +33,10 @@ black -1;
 #X obj 184 328 tof/sample_shifft~;
 #X obj 184 353 tof/sample_unpack;
 #X obj 184 403 tof/to_ascii_code;
+#X obj 369 367 tof/imagebang panda.gif pandb.gif;
 #X obj 184 76 tof/param /name default;
 #X obj 184 378 tof/streamMinMax;
 #X text 368 18 breakpoints~;
 #X text 369 183 breakpoints;
-#X text 369 353 menubutton;
-#X text 597 18 imagebang;
-#X obj 599 34 tof/imagebang tof/panda.gif tof/pandb.gif;
+#X text 368 386 menubutton;
+#X text 367 351 imagebang;
