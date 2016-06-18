@@ -1,9 +1,8 @@
-#N canvas 1 53 658 555 10;
+#N canvas 1 79 658 555 10;
 #X obj 45 338 print;
 #X obj 45 152 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X text 27 49 [imagebang] only works with gifs;
-#X text 314 97 Arguments:;
+#X text 314 111 Arguments:;
 #X text 253 277 <- This [imagebang] was created with the following:
 ;
 #X obj 285 341 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
@@ -27,32 +26,75 @@
 ;
 #X text 118 480 [tof/imagebang homea.gif homeb.gif \$0homes \$0homer]
 ;
-#X text 28 69 based on [image] by ggee and moonlib;
 #X obj 45 177 tof/imagebang panda.gif pandb.gif \$0pandas \$0pandar
 ;
 #X obj 42 435 tof/imagebang homea.gif homeb.gif \$0homes \$0homer;
+#X text 351 130 1) image for the normal state (required);
+#X text 350 147 2) image for the clicked state (required);
+#N canvas 316 186 494 344 META 0;
+#X text 12 159 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
+Wilkes for Pd version 0.42.;
+#X text 12 139 AUTHOR Thomas Ouellet Fredericks;
+#X text 12 5 KEYWORDS control user_input GUI bang_op;
+#X text 12 99 INLET_0 anything;
+#X text 12 119 OUTLET_0 bang;
+#X text 12 25 LICENSE S.I. BSD (except the parts from [moonlib/image]
+which are GPL;
+#X text 12 57 DESCRIPTION GUI bang with an image based on [ggee/image]
+from Guenter Geiger and [moonlib/image] from Antoine Rousseau;
+#X restore 596 504 pd META;
+#X text 350 163 3) send name (optional);
+#X text 351 179 4) receive name (optional);
+#X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
+0;
+#X text 27 49 [imagebang] only works with gifs;
+#X text 28 69 based on [image] by ggee and moonlib;
 #X text 26 3 Description: a bang with an image;
 #X text 27 17 Tags: ui;
-#X text 351 116 1) image for the normal state (required);
-#X text 350 133 2) image for the clicked state (required);
 #X text 27 31 Contact: mrtoftrash@gmail.com;
-#N canvas 227 162 494 344 META 0;
-#X text 12 125 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
-Wilkes for Pd version 0.42.;
-#X text 12 25 LICENSE GPL v2;
-#X text 12 105 AUTHOR Thomas Ouellet Fredericks;
-#X text 12 5 KEYWORDS control user_input GUI bang_op;
-#X text 12 45 DESCRIPTION GUI bang with an image;
-#X text 12 65 INLET_0 anything;
-#X text 12 85 OUTLET_0 bang;
-#X restore 596 504 pd META;
-#X text 350 149 3) send name (optional);
-#X text 351 165 4) receive name (optional);
-#X connect 1 0 19 0;
-#X connect 5 0 6 0;
-#X connect 7 0 8 0;
-#X connect 9 0 20 0;
-#X connect 12 0 11 0;
-#X connect 13 0 14 0;
-#X connect 19 0 0 0;
-#X connect 20 0 10 0;
+#N canvas 605 332 450 466 more_options 0;
+#X obj 41 52 tof/imagebang;
+#X obj 41 30 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 41 75 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 62 44 This is the default image used if no GIFs are specified
+\, or they cannot be found;
+#X obj 41 219 tof/imagebang;
+#X msg 41 143 -1;
+#X msg 50 165 0;
+#X msg 57 188 250;
+#X msg 92 188 1000;
+#X text 127 144 Sets the flash time to indefinitly;
+#X text 127 165 Resets the flash time to the preset time;
+#X text 128 188 Sets the flash time in ms;
+#X obj 42 361 tof/imagebang;
+#X obj 106 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 43 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 42 312 setsend ib-foo;
+#X msg 49 333 setsend ib-bar;
+#X obj 106 386 r ib-bar;
+#X obj 43 386 r ib-foo;
+#X text 40 293 The setsend and setreceive change the send and receive
+name;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 7 0 4 0;
+#X connect 8 0 4 0;
+#X connect 15 0 12 0;
+#X connect 16 0 12 0;
+#X connect 17 0 13 0;
+#X connect 18 0 14 0;
+#X restore 511 449 pd more_options;
+#X connect 1 0 17 0;
+#X connect 4 0 5 0;
+#X connect 6 0 7 0;
+#X connect 8 0 18 0;
+#X connect 11 0 10 0;
+#X connect 12 0 13 0;
+#X connect 17 0 0 0;
+#X connect 18 0 9 0;

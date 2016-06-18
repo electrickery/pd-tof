@@ -6,6 +6,13 @@
  * This code is licensed under the 3-clause BSD license with an        *
  * exception for the code from  moonlib/image                          *
  * fjkraan@xs4all.nl. 2016-06-14                                       *
+
+ * Version 0.5 new behaviour:                                          *
+ * * default images instead of object load fail when image files are   *
+ *   not found                                                         *
+ * * like bang: change send and receive symbol                         *
+ * * like bang: change flash time                                      *
+ * * override flash time  indefinitly                                  *
  */
  
 #include <m_pd.h>
@@ -234,7 +241,7 @@ static void imagebang_size(t_imagebang* x,t_floatarg w,t_floatarg h) {
      x->height = h;
 }
 
-static void imagebang_float(t_imagebang *x, t_float f)
+static void imagebang_flashtime(t_imagebang *x, t_float f)
 {
     if (f > 0) 
     {
@@ -248,6 +255,7 @@ static void imagebang_float(t_imagebang *x, t_float f)
         x->flashing = 0;
         return;
     }
+    // f < 0
     sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_b);
     x->flashing = 1;
 }
@@ -351,11 +359,25 @@ static void imagebang_setsend(t_imagebang *x, t_symbol *newSend)
 
 static void imagebang_setreceive(t_imagebang *x, t_symbol *newReceive)
 {
+    if (x->receive) {
+		pd_unbind(&x->x_obj.ob_pd,x->receive);
+	}
     if (newReceive != gensym(""))
     {
         x->receive = newReceive;
+        pd_bind(&x->x_obj.ob_pd, x->receive );
     }
 }
+
+static int imagebang_pd_has_logpost() {
+    int major, minor, bugfix;
+    sys_getversion(&major, &minor, &bugfix);
+    if (major > 0 || minor > 42)
+        return 1;
+    else
+        return 0;
+}
+
 
 static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 {
@@ -379,7 +401,7 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 	t_symbol* image_b = NULL;
 	
 	const char *fname;
-	
+    
 	// CREATE IMAGES
 	// images are only created if they have not been created yet
 	// we use the symbol pointer to distinguish between image files
@@ -395,7 +417,8 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
                                                      x->image_a,                               x->image_a,          fname,     x->image_a); 
 //            sys_vgui("pdsend {test %x_imagebang}\n", x->image_a);
 		} else {
-			post("[imagebang] could not find \"%s\"", image_a->s_name);
+            if (imagebang_pd_has_logpost())
+                logpost(NULL, 4, "[imagebang] could not find \"%s\"", image_a->s_name);
 		}
     }
 
@@ -409,7 +432,8 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
                                                      x->image_b,                              x->image_b,          fname,     x->image_b);
 //            sys_vgui("pdsend {test %x_imagebang}\n", x->image_b);
 		} else {
-			post("[imagebang] could not find \"%s\"", image_b->s_name);
+            if (imagebang_pd_has_logpost())
+                post("[imagebang] could not find \"%s\"", image_b->s_name);
         }
     }
 
@@ -417,13 +441,15 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 	if (x->image_a == NULL) {
         image_a = gensym("bangOff");
         imagebang_createDefaultImage(x, image_a, bangOffXbmString);
-        post("[imagebang] used default for Off; \"%s\" instead", image_a->s_name);
+        if (imagebang_pd_has_logpost())
+            logpost(NULL, 4, "[imagebang] used default for Off; \"%s\" instead", image_a->s_name);
         x->image_a = image_a;
     }        
     if (x->image_b == NULL) {
         image_b = gensym("bangOn");
         imagebang_createDefaultImage(x, image_b, bangOnXbmString);
-        post("[imagebang]  used default for On; \"%s\" instead", image_b->s_name);
+        if (imagebang_pd_has_logpost())
+            logpost(NULL, 4, "[imagebang]  used default for On; \"%s\" instead", image_b->s_name);
         x->image_b = image_b;
 	}
 
@@ -456,8 +482,6 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 
 void imagebang_setup(void)
 {
-	
-	
     imagebang_class = class_new(gensym("imagebang"), (t_newmethod)imagebang_new, (t_method)imagebang_free,
 				sizeof(t_imagebang),0, A_GIMME,0);
 
@@ -466,12 +490,17 @@ void imagebang_setup(void)
     class_addmethod(imagebang_class, (t_method)imagebang_status,\
                     gensym("status"), 0);
     class_addmethod(imagebang_class, (t_method)imagebang_setsend,\
-                    gensym("setsend"), A_DEFSYMBOL, 0);
+                    gensym("send"), A_DEFSYMBOL, 0);
     class_addmethod(imagebang_class, (t_method)imagebang_setreceive,\
-                    gensym("setreceive"), A_DEFSYMBOL, 0);
+                    gensym("receive"), A_DEFSYMBOL, 0);
+    class_addmethod(imagebang_class, (t_method)imagebang_flashtime,\
+                    gensym("flashtime"), A_DEFFLOAT, 0);
 
-    class_addbang(imagebang_class,(t_method)imagebang_bang);
-    class_addfloat(imagebang_class, imagebang_float);
+    class_addbang(imagebang_class,     (t_method)imagebang_bang);
+    class_addfloat(imagebang_class,    (t_method)imagebang_bang);
+    class_addlist(imagebang_class,     (t_method)imagebang_bang);
+    class_addsymbol(imagebang_class,   (t_method)imagebang_bang);
+    class_addanything(imagebang_class, (t_method)imagebang_bang);
     
     imagebang_widgetbehavior.w_getrectfn =  imagebang_getrect;
     imagebang_widgetbehavior.w_displacefn = imagebang_displace;

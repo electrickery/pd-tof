@@ -1,0 +1,39 @@
+#N canvas 295 270 450 300 10;
+#X msg 175 93 send aap;
+#X msg 245 93 receive noot;
+#X obj 37 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 110 245 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 37 225 s noot;
+#X obj 110 224 r aap;
+#X msg 332 94 flashtime -1;
+#X obj 175 175 tof/imagebang;
+#X msg 72 158 status;
+#X msg 332 160 flashtime 1000;
+#X msg 332 138 flashtime 100;
+#X msg 331 116 flashtime 0;
+#X obj 27 70 f;
+#X msg 27 49 1;
+#X msg 59 71 any;
+#X symbolatom 93 73 10 0 0 0 - - -, f 10;
+#X obj 93 52 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 139 52 list aap noot mies;
+#X obj 175 199 print;
+#X connect 0 0 7 0;
+#X connect 1 0 7 0;
+#X connect 2 0 4 0;
+#X connect 5 0 3 0;
+#X connect 6 0 7 0;
+#X connect 7 0 18 0;
+#X connect 8 0 7 0;
+#X connect 9 0 7 0;
+#X connect 10 0 7 0;
+#X connect 11 0 7 0;
+#X connect 12 0 7 0;
+#X connect 13 0 12 0;
+#X connect 14 0 7 0;
+#X connect 15 0 7 0;
+#X connect 16 0 15 0;
+#X connect 17 0 7 0;
