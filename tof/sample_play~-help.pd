@@ -1,37 +1,32 @@
-#N canvas 1 53 553 386 10;
-#X obj 61 317 dac~;
-#X obj 59 73 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#N canvas 1 79 553 401 10;
+#X obj 33 105 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 73 94 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
-;
-#X floatatom 135 183 5 0 0 0 - - -;
-#X text 13 -28 Description: Plays a sample;
-#X text 14 -8 Tags: Sound Table Sample;
-#X text 85 71 Inlet 1 \, bang: play sample once;
-#X text 90 91 Inlet 1 \, float: stop/play sample in a loop;
-#X text 180 146 Inlet 1 \, sample symbol: set sample;
-#X msg 98 146 sample smppl;
-#X text 96 328 Outlet 1 \, signal: left channel audio output;
-#X text 97 316 Outlet 2 \, signal: right channel audio output;
-#X obj 279 -12 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 47 126 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X floatatom 109 215 5 0 0 0 - - -, f 5;
+#X text 59 103 Inlet 1 \, bang: play sample once;
+#X text 64 123 Inlet 1 \, float: stop/play sample in a loop;
+#X text 154 178 Inlet 1 \, sample symbol: set sample;
+#X msg 72 178 sample smppl;
+#X text 107 362 Outlet 1 \, signal: left channel audio output;
+#X text 108 350 Outlet 2 \, signal: right channel audio output;
+#X obj 371 227 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 279 12 tof/sample smppl amen.wav;
-#X obj 207 247 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 181 279 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 172 180 set playback speed;
-#X floatatom 192 203 5 0 0 0 - - -;
-#X text 229 200 set duration (in ms);
-#X obj 144 266 cyclone/Snapshot~ 100;
-#X floatatom 145 288 5 0 0 0 - - -;
-#X text 211 288 Outlet 3 \, signal: progress;
-#X text 234 245 Outlet 4 \, bang: done;
-#X text 152 117 Inlet 1 \, list: play a segment of the sample;
-#X obj 59 229 tof/sample_play~ smppl;
-#X msg 88 119 0.25 0.5;
-#N canvas 242 185 494 344 META 0;
+#X text 146 212 set playback speed;
+#X floatatom 166 235 5 0 0 0 - - -, f 5;
+#X text 203 232 set duration (in ms);
+#X obj 118 298 cyclone/Snapshot~ 100;
+#X floatatom 119 320 5 0 0 0 - - -, f 5;
+#X text 185 320 Outlet 3 \, signal: progress;
+#X text 208 277 Outlet 4 \, bang: done;
+#X text 126 149 Inlet 1 \, list: play a segment of the sample;
+#X obj 33 261 tof/sample_play~ smppl;
+#X msg 62 151 0.25 0.5;
+#N canvas 240 186 494 344 META 0;
 #X text 12 225 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
-#X text 12 45 LICENSE GPL v2;
 #X text 12 205 AUTHOR Thomas Ouellet Fredericks;
 #X text 12 25 DESCRIPTION play a sample;
 #X text 12 65 INLET_0 bang float list sample;
@@ -42,16 +37,25 @@ Wilkes for Pd version 0.42.;
 #X text 12 165 OUTLET_2 signal;
 #X text 12 185 OUTLET_3 bang;
 #X text 12 5 KEYWORDS control abstraction array soundfile;
-#X restore 497 313 pd META;
-#X connect 1 0 23 0;
-#X connect 2 0 23 0;
-#X connect 3 0 23 1;
-#X connect 9 0 23 0;
-#X connect 12 0 13 0;
-#X connect 16 0 23 2;
-#X connect 18 0 19 0;
-#X connect 23 0 0 0;
-#X connect 23 1 0 1;
-#X connect 23 2 18 0;
-#X connect 23 3 14 0;
-#X connect 24 0 23 0;
+#X text 12 45 LICENSE S.I. BSD;
+#X restore 497 371 pd META;
+#X obj 371 251 tof/sample smppl voice.wav;
+#X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
+0;
+#X text 10 48 author: mrtoftrash@gmail.com;
+#X text 10 6 description: Plays a sample;
+#X text 9 26 tags: Sound Table Sample;
+#X text 8 69 version: 2010-10-11 (initial release \, 0.6);
+#X obj 35 349 tof/output~;
+#X connect 0 0 19 0;
+#X connect 1 0 19 0;
+#X connect 2 0 19 1;
+#X connect 6 0 19 0;
+#X connect 9 0 22 0;
+#X connect 12 0 19 2;
+#X connect 14 0 15 0;
+#X connect 19 0 28 0;
+#X connect 19 1 28 1;
+#X connect 19 2 14 0;
+#X connect 19 3 10 0;
+#X connect 20 0 19 0;

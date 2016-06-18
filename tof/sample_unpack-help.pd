@@ -1,30 +1,27 @@
-#N canvas 1 53 763 458 10;
-#X obj 62 387 print rate;
-#X obj 139 388 print file;
-#X obj 323 386 print channels;
-#X msg 172 225 bang;
-#X obj 432 386 print end;
-#X obj 499 385 print start;
-#X msg 62 196 sample smpunpck;
-#X text 67 48 Tags: Sample Sound;
-#X text 65 29 Description: Outputs a sample's information;
-#X text 169 195 Inlet 1 \, sample symbol: output the sample's information
+#N canvas 1 79 763 458 10;
+#X obj 36 379 print rate;
+#X obj 107 379 print file;
+#X obj 274 379 print channels;
+#X msg 146 218 bang;
+#X obj 370 379 print end;
+#X obj 436 379 print start;
+#X msg 36 189 sample smpunpck;
+#X text 143 188 Inlet 1 \, sample symbol: output the sample's information
 ;
-#X text 208 223 Inlet1 \, bang: re-outputs the sample's information
+#X text 182 216 Inlet1 \, bang: re-outputs the sample's information
 ;
-#X obj 367 151 tof/sample smpunpck;
-#X msg 367 124 read \$1;
-#X obj 367 100 openpanel;
-#X obj 367 80 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X text 391 77 Load a sound file (wav);
-#X obj 62 267 tof/sample_unpack;
-#X obj 578 385 print size;
-#X obj 221 387 print basename;
-#N canvas 295 170 494 344 META 0;
+#X obj 544 234 tof/sample smpunpck;
+#X msg 544 207 read \$1;
+#X obj 544 183 openpanel;
+#X obj 544 163 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X text 568 160 Load a sound file (wav);
+#X obj 36 269 tof/sample_unpack;
+#X obj 514 379 print size;
+#X obj 179 379 print basename;
+#N canvas 305 220 494 344 META 0;
 #X text 12 245 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
-#X text 12 45 LICENSE GPL v2;
 #X text 12 225 AUTHOR Thomas Ouellet Fredericks;
 #X text 12 85 OUTLET_0 float;
 #X text 12 5 KEYWORDS control filesystem soundfile;
@@ -36,16 +33,25 @@ Wilkes for Pd version 0.42.;
 #X text 12 165 OUTLET_4 float;
 #X text 12 185 OUTLET_5 float;
 #X text 12 205 OUTLET_6 float;
+#X text 12 45 LICENSE S.I. BSD;
 #X restore 705 415 pd META;
-#X connect 3 0 16 0;
-#X connect 6 0 16 0;
+#X msg 615 184 read voice.wav;
+#X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
+0;
+#X text 10 48 author: mrtoftrash@gmail.com;
+#X text 10 6 description: Outputs a sample's information;
+#X text 9 26 tags: Sample Sound;
+#X text 8 69 version: 2010-08-02 (0.3);
+#X connect 3 0 14 0;
+#X connect 6 0 14 0;
+#X connect 10 0 9 0;
+#X connect 11 0 10 0;
 #X connect 12 0 11 0;
-#X connect 13 0 12 0;
-#X connect 14 0 13 0;
-#X connect 16 0 0 0;
-#X connect 16 1 1 0;
-#X connect 16 2 18 0;
-#X connect 16 3 2 0;
-#X connect 16 4 4 0;
-#X connect 16 5 5 0;
-#X connect 16 6 17 0;
+#X connect 14 0 0 0;
+#X connect 14 1 1 0;
+#X connect 14 2 16 0;
+#X connect 14 3 2 0;
+#X connect 14 4 4 0;
+#X connect 14 5 5 0;
+#X connect 14 6 15 0;
+#X connect 18 0 9 0;

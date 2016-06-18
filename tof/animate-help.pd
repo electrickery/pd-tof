@@ -1,101 +1,106 @@
-#N canvas 1 53 716 557 10;
-#X msg 73 84 fall;
-#X obj 198 182 metro 1000;
-#X obj 199 154 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#N canvas 494 80 716 557 10;
+#X msg 73 140 fall;
+#X obj 198 238 metro 1000;
+#X obj 199 210 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 199 214 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 199 270 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 201 237 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 201 293 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 200 260 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 200 316 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 206 289 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 206 345 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 211 314 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 211 370 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 213 334 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 213 390 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 216 392 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 216 448 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 222 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 222 477 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 238 208 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 238 264 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 243 227 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 243 283 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 250 258 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 250 314 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 245 283 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 245 339 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 255 302 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 255 358 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 267 323 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 267 379 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 256 349 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 256 405 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 260 379 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 260 435 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 169 361 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 169 417 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 345 391 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 345 447 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 351 420 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 351 476 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 367 207 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 367 263 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 372 226 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 372 282 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 379 257 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 379 313 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 374 282 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 374 338 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 384 301 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 384 357 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 396 322 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 396 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 385 348 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 385 404 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 389 378 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 389 434 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 298 354 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 298 410 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 465 383 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 465 439 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 471 412 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 471 468 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 487 199 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 487 255 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 492 218 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 492 274 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 499 249 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 499 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 494 274 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 494 330 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 504 293 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 504 349 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 516 314 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 516 370 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 509 370 delay 250;
-#X obj 208 368 delay 250;
-#X obj 505 340 delay 250;
-#X text 56 2 Tags: Patch Fun;
-#X text 57 -17 Description: Animates the object boxes inside a patch.
-;
-#X msg 52 56 bang;
-#X text 85 56 Launches the "explosion" animation;
-#X text 108 81 Lanches the "falling" animation;
-#X text 56 22 Version: 0.1;
-#X obj 52 124 tof/animate;
-#N canvas 435 278 494 344 META 0;
+#X obj 509 426 delay 250;
+#X obj 208 424 delay 250;
+#X obj 505 396 delay 250;
+#X msg 52 112 bang;
+#X text 85 112 Launches the "explosion" animation;
+#X text 108 137 Lanches the "falling" animation;
+#X obj 52 180 tof/animate;
+#N canvas 431 280 494 344 META 0;
 #X text 12 105 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
-#X text 12 45 LICENSE GPL v2;
 #X text 12 5 KEYWORDS control abstraction patch_op;
 #X text 12 65 INLET_0 bang fall;
 #X text 12 85 AUTHOR Thomas Ouellet Fredericks;
 #X text 12 25 DESCRIPTION animate the object boxes inside a patch;
+#X text 12 45 LICENSE S.I. BSD;
 #X restore 642 4 pd META;
-#X connect 0 0 48 0;
+#X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
+0;
+#X text 10 48 author: mrtoftrash@gmail.com;
+#X text 9 26 tags: Patch fun;
+#X text 8 69 version: 2009-05-27 (initial release \, 0.1);
+#X text 13 520 animate depends on iemguts/canvasobjectposition and
+zexy/demultiplex.;
+#X text 10 6 description: Animates the object boxes inside a patch.
+;
+#X connect 0 0 45 0;
 #X connect 1 0 3 0;
 #X connect 2 0 1 0;
 #X connect 3 0 4 0;
@@ -136,4 +141,4 @@ Wilkes for Pd version 0.42.;
 #X connect 39 0 9 0;
 #X connect 40 0 19 0;
 #X connect 41 0 29 0;
-#X connect 44 0 48 0;
+#X connect 42 0 45 0;

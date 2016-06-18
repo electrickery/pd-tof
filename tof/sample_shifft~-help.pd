@@ -1,31 +1,26 @@
-#N canvas 1 53 774 568 10;
-#X obj 37 427 dac~;
+#N canvas 1 79 774 568 10;
 #X obj 38 181 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 54 216 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 49 206 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X floatatom 111 250 5 0 0 0 - - -;
-#X text 58 180 Inlet 1 \, bang: Play sample once;
-#X text 73 213 Inlet 1 \, float: Start/stop playing looped sample;
-#X text 34 28 Description: Pitchshifts or timestretches a sample with
-the FFT method;
-#X text 32 58 Tags: Sound Sample Play;
-#X obj 458 120 tof/sample smpfft amen.wav;
-#X text 149 248 Inlet 2 \, float: Pitch (1=normal);
-#X obj 458 97 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X floatatom 281 281 5 0 0 0 - - -;
+#X floatatom 111 245 5 0 0 0 - - -, f 5;
+#X text 67 180 Inlet 1 \, bang: Play sample once;
+#X text 68 203 Inlet 1 \, float: Start/stop playing looped sample;
+#X text 149 243 Inlet 2 \, float: Pitch (1=normal);
+#X obj 509 182 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X floatatom 281 281 5 0 0 0 - - -, f 5;
 #X text 319 280 Inlet 3 \, float: Duration in milliseconds;
-#X obj 285 313 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 281 303 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 320 311 Inlet 3 \, bang: Reset to original duration;
-#X obj 185 399 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X text 320 302 Inlet 3 \, bang: Reset to original duration;
+#X obj 185 426 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 135 435 cyclone/Snapshot~ 100;
-#X floatatom 136 457 5 0 0 0 - - -;
+#X obj 135 462 cyclone/Snapshot~ 100;
+#X floatatom 136 484 5 0 0 0 - - -, f 5;
 #X obj 38 363 tof/sample_shifft~ smpfft;
-#X text 173 458 Outlet 3 \, signal: progress;
-#X text 214 396 Outlet 4 \, bang: done;
+#X text 173 485 Outlet 3 \, signal: progress;
+#X text 214 423 Outlet 4 \, bang: done;
 #N canvas 259 201 494 344 META 0;
 #X text 12 235 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
@@ -42,14 +37,23 @@ Wilkes for Pd version 0.42.;
 #X text 12 25 DESCRIPTION pitchshift or timestretch a sample with the
 FFT method;
 #X restore 718 518 pd META;
-#X connect 1 0 18 0;
-#X connect 2 0 18 0;
-#X connect 3 0 18 1;
-#X connect 10 0 8 0;
-#X connect 11 0 18 2;
-#X connect 13 0 18 2;
-#X connect 16 0 17 0;
-#X connect 18 0 0 0;
-#X connect 18 1 0 1;
-#X connect 18 2 16 0;
-#X connect 18 3 15 0;
+#X obj 509 205 tof/sample smpfft voice.wav;
+#X obj 37 458 tof/output~;
+#X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
+0;
+#X text 10 58 author: mrtoftrash@gmail.com;
+#X text 10 6 description: Pitchshifts or timestretches a sample with
+the FFT method;
+#X text 9 36 tags: Sound Sample pitch shift timestretch;
+#X text 8 79 version: 2010-08-02 (0.4);
+#X connect 0 0 14 0;
+#X connect 1 0 14 0;
+#X connect 2 0 14 1;
+#X connect 6 0 18 0;
+#X connect 7 0 14 2;
+#X connect 9 0 14 2;
+#X connect 12 0 13 0;
+#X connect 14 0 19 0;
+#X connect 14 1 19 1;
+#X connect 14 2 12 0;
+#X connect 14 3 11 0;

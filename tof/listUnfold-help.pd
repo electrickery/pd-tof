@@ -1,18 +1,18 @@
-#N canvas 1 53 833 496 10;
+#N canvas 1 80 833 496 10;
 #X msg 103 315 anything works too;
 #X msg 91 288 symbol test;
-#X obj 62 27 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
+#X obj 3 2 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
 0;
-#X text 67 77 author: mrtoftrash@gmail.com;
+#X text 8 61 author: mrtoftrash@gmail.com;
 #X obj 100 392 tof/listUnfold;
-#X obj 464 388 tof/listUnfold wait;
+#X obj 464 392 tof/listUnfold wait;
 #X obj 493 339 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 67 66 tags: lists;
-#X obj 100 418 print ATOM;
-#X obj 181 419 print INDEX;
-#X obj 464 414 print ATOM;
-#X obj 575 411 print INDEX;
+#X text 8 41 tags: lists;
+#X obj 100 447 print ATOM;
+#X obj 181 447 print INDEX;
+#X obj 464 447 print ATOM;
+#X obj 575 447 print INDEX;
 #X msg 60 259 list a b c d e f g;
 #X msg 464 312 list m n o p q r s t u v;
 #X text 468 293 step 1: add list;
@@ -21,18 +21,18 @@
 -1 -1;
 #X text 147 342 bang to interrupt output;
 #X text 52 206 listUnfold has two modes:;
-#X text 68 27 description: output the individual elements of a list
-and their indices \, either immediately or on bangs.;
-#X text 67 88 version: 2009-10-06 (added the second mode);
+#X text 9 7 description: output the individual elements of a list and
+their indices \, either immediately or on bangs.;
+#X text 8 80 version: 2009-10-06 (added the second mode);
 #X text 56 229 default mode: output everything once it is received.
 ;
 #X text 428 226 "wait" or "manually" mode: output one element for every
 bang .;
-#X obj 61 133 cnv 15 400 30 empty empty empty 20 12 0 14 -261234 -66577
+#X obj 2 108 cnv 15 400 30 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X text 69 139 listUnfold is deprecated. Please use list_unfold instead.
+#X text 10 114 listUnfold is deprecated. Please use list_unfold instead.
 ;
-#N canvas 327 180 494 344 META 0;
+#N canvas 323 182 494 344 META 0;
 #X text 12 155 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
 #X text 12 135 AUTHOR Thomas Ouellet Fredericks;
@@ -42,7 +42,7 @@ and their indices \, either immediately or on bangs;
 #X text 12 95 OUTLET_0 float symbol;
 #X text 12 115 OUTLET_1 float;
 #X text 12 5 KEYWORDS control list_op deprecated;
-#X text 12 55 LICENSE GPL v2;
+#X text 12 55 LICENSE S.I. BSD;
 #X restore 747 450 pd META;
 #X connect 0 0 4 0;
 #X connect 1 0 4 0;
