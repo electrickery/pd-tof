@@ -31,7 +31,7 @@ to_ascii_code.class.sources  = src/to_ascii_code.c
 
 datafiles = \
 LICENSE.txt \
-README.txt \
+README.md \
 $(wildcard tof/*-help.pd) \
 $(wildcard tof/*.gif) \
 tof/animate.pd \

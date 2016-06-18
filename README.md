@@ -38,7 +38,7 @@
 <dt>phasorshot~</dt>  <dd>phasor~ with features</dd>
 <dt>pix_film</dt>     <dd>Gem based movie player</dd>
 <dt>pmenu</dt>        <dd>pop-up menu tool</dd>
-<dt>sample_granule</dt>~<dd>pitchshifting/timestretching sample player</dd>
+<dt>sample_granule~</dt><dd>pitchshifting/timestretching sample player</dd>
 <dt>sample</dt>       <dd>reads wav file into array</dd>
 <dt>sample_packel</dt><dd>edits array start and end</dd>
 <dt>sample_play</dt>  <dd>array sample player</dd>
