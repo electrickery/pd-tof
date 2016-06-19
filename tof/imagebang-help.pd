@@ -52,7 +52,7 @@ from Guenter Geiger and [moonlib/image] from Antoine Rousseau;
 #X text 26 3 Description: a bang with an image;
 #X text 27 17 Tags: ui;
 #X text 27 31 Contact: mrtoftrash@gmail.com;
-#N canvas 605 332 450 466 more_options 0;
+#N canvas 491 431 450 466 more_options 0;
 #X obj 41 52 tof/imagebang;
 #X obj 41 30 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -60,35 +60,49 @@ from Guenter Geiger and [moonlib/image] from Antoine Rousseau;
 -1;
 #X text 62 44 This is the default image used if no GIFs are specified
 \, or they cannot be found;
-#X obj 41 219 tof/imagebang;
-#X msg 41 143 -1;
-#X msg 50 165 0;
-#X msg 57 188 250;
-#X msg 92 188 1000;
-#X text 127 144 Sets the flash time to indefinitly;
-#X text 127 165 Resets the flash time to the preset time;
-#X text 128 188 Sets the flash time in ms;
-#X obj 42 361 tof/imagebang;
-#X obj 106 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 41 229 tof/imagebang;
+#X text 175 134 Sets the flash time to indefinitly;
+#X text 175 155 Resets the flash time to the preset time;
+#X text 176 185 Sets the flash time in ms;
+#X obj 41 361 tof/imagebang;
+#X obj 112 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 43 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 42 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 42 312 setsend ib-foo;
-#X msg 49 333 setsend ib-bar;
-#X obj 106 386 r ib-bar;
-#X obj 43 386 r ib-foo;
-#X text 40 293 The setsend and setreceive change the send and receive
-name;
+#X msg 41 133 flashtime -1;
+#X msg 50 155 flashtime 0;
+#X msg 66 200 flashtime 1000;
+#X msg 57 178 flashtime 250;
+#X text 15 5 Some [bang] like extensions;
+#X text 39 286 The send and receive messages change the send and receive
+name, f 62;
+#X msg 41 312 send ib-s-foo;
+#X msg 48 334 send ib-s-bar;
+#X obj 42 386 r ib-s-foo;
+#X obj 112 386 r ib-s-bar;
+#X obj 233 361 tof/imagebang;
+#X msg 233 312 receive ib-r-foo;
+#X msg 240 334 receive ib-r-bar;
+#X obj 232 392 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 232 419 s ib-r-foo;
+#X obj 302 419 s ib-r-bar;
+#X obj 302 392 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;
-#X connect 5 0 4 0;
-#X connect 6 0 4 0;
-#X connect 7 0 4 0;
-#X connect 8 0 4 0;
-#X connect 15 0 12 0;
-#X connect 16 0 12 0;
-#X connect 17 0 13 0;
-#X connect 18 0 14 0;
+#X connect 11 0 4 0;
+#X connect 12 0 4 0;
+#X connect 13 0 4 0;
+#X connect 14 0 4 0;
+#X connect 17 0 8 0;
+#X connect 18 0 8 0;
+#X connect 19 0 10 0;
+#X connect 20 0 9 0;
+#X connect 22 0 21 0;
+#X connect 23 0 21 0;
+#X connect 24 0 25 0;
+#X connect 27 0 26 0;
 #X restore 511 449 pd more_options;
 #X connect 1 0 17 0;
 #X connect 4 0 5 0;
