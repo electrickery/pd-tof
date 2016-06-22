@@ -1,4 +1,4 @@
-#N canvas 1 79 774 568 10;
+#N canvas 359 152 774 568 10;
 #X obj 38 181 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 49 206 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
@@ -17,7 +17,7 @@
 #X obj 185 426 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 135 462 cyclone/Snapshot~ 100;
-#X floatatom 136 484 5 0 0 0 - - -, f 5;
+#X floatatom 135 484 5 0 0 0 - - -, f 5;
 #X obj 38 363 tof/sample_shifft~ smpfft;
 #X text 173 485 Outlet 3 \, signal: progress;
 #X text 214 423 Outlet 4 \, bang: done;

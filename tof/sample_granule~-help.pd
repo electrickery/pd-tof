@@ -1,7 +1,7 @@
-#N canvas 1 80 716 518 10;
+#N canvas 1 81 716 518 10;
 #X obj 25 140 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 41 175 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 41 175 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X floatatom 107 299 5 0 0 0 - - -, f 5;
 #X text 45 139 Inlet 1 \, bang: Play sample once;
@@ -19,12 +19,12 @@ samples);
 -1 -1;
 #X text 236 343 Inlet 3 \, bang: Reset to original duration;
 #X text 145 297 Inlet 2 \, float: Pitch (1=original pitch);
-#X obj 260 411 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 190 411 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 197 430 cyclone/Snapshot~ 100;
-#X floatatom 197 452 5 0 0 0 - - -, f 5;
-#X text 234 453 Outlet 3 \, signal: progress;
-#X text 286 408 Outlet 4 \, bang: done;
+#X obj 136 430 cyclone/Snapshot~ 100;
+#X floatatom 136 452 5 0 0 0 - - -, f 5;
+#X text 173 453 Outlet 3 \, signal: progress;
+#X text 216 408 Outlet 4 \, bang: done;
 #N canvas 430 191 494 344 META 0;
 #X text 12 235 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;

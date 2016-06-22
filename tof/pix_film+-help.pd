@@ -1,4 +1,4 @@
-#N canvas 1 80 536 537 10;
+#N canvas 1 81 536 537 10;
 #X obj 113 193 openpanel;
 #X obj 112 170 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -21,7 +21,6 @@
 #X text 158 387 outlet 2 \, float: current frame;
 #X text 171 437 outlet 1 \, gemlist;
 #X text 107 126 inlet 1 \, gemlist;
-#X obj 54 310 tof/pix_film+ mov0.mov;
 #X text 198 309 argument 1 \, (file): opens the movie file (optional)
 ;
 #N canvas 371 163 494 344 META 0;
@@ -46,15 +45,17 @@ Gem;
 Gem.;
 #X text 9 26 tags: Gem File;
 #X text 8 69 version: 2010-05-28 (initial release \, 0.1);
-#X text 22 508 tof/pix_film+ depends on Gem;
+#X obj 54 310 tof/pix_film+ homer.avi;
+#X text 22 501 tof/pix_film+ depends on Gem \, [maxlib/pwrap] \, [ggee/getdir]
+\, [cyclone/tosymbol] and [zexy/relay];
 #X connect 0 0 6 0;
 #X connect 1 0 0 0;
 #X connect 2 0 8 0;
 #X connect 3 0 13 0;
-#X connect 4 0 19 1;
-#X connect 6 0 19 1;
-#X connect 7 0 19 2;
-#X connect 12 0 19 0;
-#X connect 19 0 3 0;
-#X connect 19 1 5 0;
-#X connect 19 2 14 0;
+#X connect 4 0 26 1;
+#X connect 6 0 26 1;
+#X connect 7 0 26 2;
+#X connect 12 0 26 0;
+#X connect 26 0 3 0;
+#X connect 26 1 5 0;
+#X connect 26 2 14 0;

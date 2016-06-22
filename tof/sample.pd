@@ -1,4 +1,4 @@
-#N canvas 1212 405 467 220 10;
+#N canvas 1210 406 467 220 10;
 #N canvas 808 195 871 665 guts 0;
 #X obj 189 294 soundfiler;
 #X obj 138 180 list append \$1;
@@ -161,23 +161,23 @@
 #X connect 49 0 0 0;
 #X connect 50 0 49 0;
 #X connect 51 0 49 0;
-#X restore 23 -20 pd guts;
-#X obj 23 -45 inlet;
-#X text 302 -15 Tables (click to view);
-#X floatatom 23 138 6 0 0 1 rate - -;
-#X symbolatom 29 116 40 0 0 1 file - -;
-#X floatatom 62 7 8 0 0 1 size - -;
-#X floatatom 42 71 5 0 0 1 channels - -;
-#X obj 337 8 table 0-\$1;
-#X obj 337 28 table 1-\$1;
-#X floatatom 55 27 8 0 0 1 start - -;
-#X floatatom 49 49 8 0 0 1 end - -;
-#X symbolatom 36 93 30 0 0 1 basename - -;
-#X obj 71 -44 bng 15 250 50 0 empty empty Open 17 7 0 10 -4034 -1 -1
+#X restore 23 34 pd guts;
+#X obj 23 9 inlet;
+#X text 302 39 Tables (click to view);
+#X floatatom 23 192 6 0 0 1 rate - -, f 6;
+#X symbolatom 29 170 40 0 0 1 file - -, f 40;
+#X floatatom 62 61 8 0 0 1 size - -, f 8;
+#X floatatom 42 125 5 0 0 1 channels - -, f 5;
+#X obj 337 62 table 0-\$1;
+#X obj 337 82 table 1-\$1;
+#X floatatom 55 81 8 0 0 1 start - -, f 8;
+#X floatatom 49 103 8 0 0 1 end - -, f 8;
+#X symbolatom 36 147 30 0 0 1 basename - -, f 30;
+#X obj 71 10 bng 15 250 50 0 empty empty Open 17 7 0 10 -4034 -1 -1
 ;
-#X obj 171 -20 cnv 15 100 20 empty empty empty 20 12 0 14 -260097 -66577
+#X obj 171 34 cnv 15 100 20 empty empty empty 20 12 0 14 -260097 -66577
 0;
-#X text 185 -19 Information;
+#X text 185 35 Information;
 #X connect 0 0 3 0;
 #X connect 0 1 4 0;
 #X connect 0 2 11 0;

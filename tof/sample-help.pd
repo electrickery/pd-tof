@@ -1,7 +1,7 @@
-#N canvas 1 79 683 625 10;
+#N canvas 436 80 683 625 10;
 #X obj 47 166 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 84 559 tof/sample_unpack;
+#X obj 84 582 tof/sample_unpack;
 #X text 51 112 Inlet 1;
 #X text 321 172 symbol: Sample name;
 #X text 281 158 Argument 1;
@@ -18,16 +18,15 @@ or 2;
 #X text 51 307 The following example creates a mono (1 channel) sample
 with a table size of 441000 (10 seconds at 44100hz);
 #X text 62 389 Sample playback:;
-#X text 56 533 Sample development:;
-#X obj 84 579 tof/sample_packel;
+#X text 56 556 Sample development:;
+#X obj 84 602 tof/sample_packel;
 #X text 327 398 Sample record:;
 #X obj 31 225 cnv 15 230 20 empty empty empty 20 12 0 14 -260058 -66577
 0;
 #X text 71 141 bang: Display open panel;
-#X obj 79 505 tof/sample_shifft~;
-#X obj 80 481 tof/sample_granule~;
+#X obj 79 528 tof/sample_shifft~;
+#X obj 80 504 tof/sample_granule~;
 #X obj 350 419 tof/sample_record~;
-#X obj 80 450 dac~;
 #X obj 80 428 tof/sample_play~ test;
 #X obj 80 410 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -50,8 +49,9 @@ Wilkes for Pd version 0.42.;
 #X text 10 6 description: Loads a sound file (wav) as a sample;
 #X text 9 26 tags: File Sound Table Sample;
 #X text 8 69 version: 2010-10-11 (0.4);
-#X connect 0 0 28 0;
+#X obj 80 450 tof/output~;
+#X connect 0 0 27 0;
+#X connect 21 0 33 0;
+#X connect 21 1 33 1;
 #X connect 22 0 21 0;
-#X connect 22 1 21 1;
-#X connect 23 0 22 0;
-#X connect 26 0 28 0;
+#X connect 25 0 27 0;
