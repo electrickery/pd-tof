@@ -35,9 +35,11 @@ README.md \
 $(wildcard tof/*-help.pd) \
 $(wildcard tof/*.gif) \
 $(wildcard tof/*.avi) \
+$(wildcard tof/*.wav) \
 tof/animate.pd \
 tof/gemwin+.pd \
 tof/OSCToParam.pd \
+tof/output~.pd \
 tof/pix_film+.pd \
 tof/sample_granule~.pd \
 tof/sample_packel.pd \
@@ -51,7 +53,7 @@ tof/test-arguments-all.pd \
 tof/test-arguments-comma.pd \
 tof/test-arguments-token.pd \
 tof/test-param-2.pd \
-tof/test-param.pd \
+tof/test-param.pd 
 
 
 externalsdir = ..
