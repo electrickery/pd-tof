@@ -34,6 +34,7 @@ LICENSE.txt \
 README.md \
 $(wildcard tof/*-help.pd) \
 $(wildcard tof/*.gif) \
+$(wildcard tof/*.avi) \
 tof/animate.pd \
 tof/gemwin+.pd \
 tof/OSCToParam.pd \

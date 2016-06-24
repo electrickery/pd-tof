@@ -50,7 +50,7 @@ black -1;
 #X obj 583 383 tof/imagebang - -;
 #X text 405 352 Depricated;
 #X text 25 199 message;
-#X text 28 491 This is version 0.2 \, released 2016-06-21 by fjkraan@xs4all.nl
+#X text 28 491 This is version 0.2.0 \, released 2016-06-24 by fjkraan@xs4all.nl
 , f 62;
 #X text 27 472 Tof is created by Thomas Ouellet Fredericks in 2009-2010
 ;

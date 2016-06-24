@@ -11,7 +11,7 @@
 
 <p>The initial change is replacing the build system by pd-lib-builder. This to simplify creation of a deken package of the libary.</p>
 
-<p>There is is no obvious version number at the library level for tof. Some objects started off at 01. Therefore this release will be 0.2.</p>
+<p>There is is no obvious version number at the library level for tof. Some objects started off at 01. Therefore this release will be 0.2.0.</p>
 
 <p>These are the objects in the tof library:
 <dl>
@@ -65,4 +65,4 @@
 
 <p>For bugs found in this version, please report them to me. Thomas is not responsible for bugs introduced by me.</p>
 
-<p>Fred Jan Kraan fjkraan@xs4all.nl 2016-06-19</p>
+<p>Fred Jan Kraan fjkraan@xs4all.nl 2016-06-24</p>
