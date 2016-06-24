@@ -1,19 +1,19 @@
-#N canvas 1 79 589 396 10;
-#X obj 64 362 print;
-#X msg 103 195 43;
-#X obj 41 108 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#N canvas 1 83 594 396 10;
+#X obj 58 362 print;
+#X msg 97 195 43;
+#X obj 35 108 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 78 155 32;
-#X obj 64 324 tof/from_ascii_code 13;
-#X msg 69 133 54;
-#X msg 125 239 13;
-#X text 104 134 Floats and lists: enter ASCII codes;
-#X text 63 107 Bang: output data;
-#X msg 91 176 65;
-#X text 155 234 Because of [form_ascii_code]'s creation argument \,
+#X msg 72 155 32;
+#X obj 58 324 tof/from_ascii_code 13;
+#X msg 63 133 54;
+#X msg 119 239 13;
+#X text 98 134 Floats and lists: enter ASCII codes;
+#X text 57 107 Bang: output data;
+#X msg 85 176 65;
+#X text 149 234 Because of [form_ascii_code]'s creation argument \,
 the number 13 acts like a bang;
-#X msg 131 265 49 50 51 32 52 53 13;
-#X msg 113 215 49 50 51 32 52 53;
+#X msg 125 265 49 50 51 32 52 53 13;
+#X msg 107 215 49 50 51 32 52 53;
 #N canvas 244 153 494 344 META 0;
 #X text 12 125 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
@@ -23,9 +23,9 @@ Wilkes for Pd version 0.42.;
 #X text 12 85 OUTLET_0 anything;
 #X text 12 5 KEYWORDS control conversion anything_op;
 #X text 12 45 LICENSE S.I. BSD;
-#X restore 537 373 pd META;
+#X restore 537 365 pd META;
 #X text 218 324 Optional argument: output data once that ASCII code
-is received;
+is received, f 51;
 #X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
 0;
 #X text 10 48 author: mrtoftrash@gmail.com;

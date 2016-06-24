@@ -1,4 +1,4 @@
-#N canvas 1 79 979 676 10;
+#N canvas 1 83 979 676 10;
 #X obj 26 585 tof/menubutton 132 22 \$0s \$0r 1 green red orange purple
 0 \, a \, b \, c \, d \, e \, f \, with spaces;
 #X msg 43 134 add a b c d e f;
@@ -8,37 +8,37 @@
 1;
 #X floatatom 392 607 5 0 0 0 - - -, f 5;
 #X text 71 113 Clear menu items;
-#X text 147 132 Add menu items;
+#X text 157 133 Add menu items;
 #X obj 242 587 r \$0s;
 #X obj 392 636 send \$0r;
-#X text 542 315 1: width;
-#X text 542 329 2: height;
-#X text 542 342 3: send name;
-#X text 542 354 4: receive name;
+#X text 555 315 1: width;
+#X text 555 329 2: height;
+#X text 555 342 3: send name;
+#X text 555 354 4: receive name;
 #X text 139 198 Set the saving of the menu items in the patch. Off
 by default.;
-#X floatatom 188 357 5 0 0 0 - - -, f 5;
+#X floatatom 169 357 5 0 0 0 - - -, f 5;
 #X obj 26 621 unpack f s;
 #X floatatom 26 644 5 0 0 0 - - -, f 5;
 #X symbolatom 85 642 10 0 0 0 - - -, f 10;
 #X floatatom 243 642 5 0 0 0 - - -, f 5;
 #X symbolatom 300 640 10 0 0 0 - - -, f 10;
 #X obj 243 611 unpack f s;
-#X msg 189 378 set b;
-#X msg 189 402 set 2;
+#X msg 170 378 set b;
+#X msg 170 402 set 2;
 #X text 126 260 values can be tk colors(red \, blue \, etc) or html
 colors (#ffffff);
-#X msg 184 334 colors default;
+#X msg 145 334 colors default;
 #X text 125 244 colors: background foreground highlight contour;
 #X msg 126 291 colors green red orange purple;
-#X msg 146 314 colors #000000 #ffffff #ff0000 #3a12ff;
-#X text 145 156 Set its size;
+#X msg 134 314 colors #000000 #ffffff #ff0000 #3a12ff;
+#X text 155 157 Set its size;
 #X msg 66 157 size 102 32;
-#X text 165 178 Set its size;
+#X text 175 179 Set its size;
 #X msg 86 179 size 132 22;
-#X msg 186 468 align -1;
-#X msg 188 448 align 0;
-#X msg 187 427 align 1;
+#X msg 177 469 align -1;
+#X msg 177 448 align 0;
+#X msg 177 427 align 1;
 #X obj 542 224 cnv 15 400 60 empty empty empty 20 12 0 14 -4034 -66577
 0;
 #X text 547 232 To move the [menubutton] \, switch to edit mode and
@@ -47,26 +47,26 @@ be disabled allowing you to drag it.;
 #X obj 540 295 cnv 15 400 15 empty empty empty 20 12 0 14 -257985 -66577
 0;
 #X text 543 293 Creation arguments:;
-#X text 542 365 5: save menu items flag;
-#X msg 183 557 add \$1;
-#X obj 183 534 cyclone/tosymbol;
-#X text 543 402 8: highlight color (#000000 html or tk colors);
-#X text 543 391 7: foreground color (#000000 hmtl or tk colors);
-#X text 541 378 6: background color (#000000 html or tk colors);
-#X text 542 415 9: contour color (#000000 html or tk colors);
-#X text 541 428 10: horizontal alignement;
-#X text 537 443 \, : anything after a comma will be parsed as the menu
+#X text 555 365 5: save menu items flag;
+#X msg 176 557 add \$1;
+#X obj 176 534 cyclone/tosymbol;
+#X text 556 402 8: highlight color (#000000 html or tk colors);
+#X text 556 391 7: foreground color (#000000 hmtl or tk colors);
+#X text 554 378 6: background color (#000000 html or tk colors);
+#X text 555 415 9: contour color (#000000 html or tk colors);
+#X text 554 428 10: horizontal alignement;
+#X text 550 443 \, : anything after a comma will be parsed as the menu
 items. Each menu item must be separated by a comma.;
-#X text 229 399 Select an item by index without outputing it;
-#X text 242 427 align right;
-#X text 245 445 align center;
-#X text 249 465 align left;
-#X text 228 356 Select and output a menu item by index;
+#X text 214 403 Select an item by index without outputing it;
+#X text 235 427 align right;
+#X text 237 447 align center;
+#X text 243 468 align left;
+#X text 209 359 Select and output a menu item by index;
 #X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -260097 -66577
 0;
 #X text 12 11 description: a button with a popup menu;
-#X msg 183 511 with spaces;
-#X text 180 491 Adding items with spaces;
+#X msg 176 511 with spaces;
+#X text 173 491 Adding items with spaces;
 #X obj 540 521 cnv 15 400 30 empty empty empty 20 12 0 14 -232576 -66577
 0;
 #X text 544 499 The [menubutton] at left was created with the following:
@@ -74,7 +74,7 @@ items. Each menu item must be separated by a comma.;
 #X text 546 519 [tof/menubutton 132 22 \$0s \$0r 1 green red orange
 purple 0 \, a \, b \, c \, d \, e \, f \, with spaces];
 #X text 105 619 output: index name;
-#X text 235 376 Select an item by name without outputing it;
+#X text 216 379 Select an item by name without outputing it;
 #N canvas 29 335 494 344 META 0;
 #X text 12 165 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;

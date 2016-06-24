@@ -1,5 +1,5 @@
-#N canvas 1 79 587 515 10;
-#X floatatom 263 313 5 0 0 0 - - -, f 5;
+#N canvas 1 83 587 515 10;
+#X floatatom 263 271 5 0 0 0 - - -, f 5;
 #X obj 2 3 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
 0;
 #X text 7 47 author: mrtoftrash@gmail.com;
@@ -10,15 +10,13 @@
 #X obj 198 216 osc~ 200;
 #X text 45 152 First source: signal inlets to the left.;
 #X text 137 197 Second source: signal inlets to the right.;
-#X obj 266 292 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+#X obj 266 250 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
 -1 -1 0 1;
-#X text 274 271 Crossfade: 0-1;
-#X text 201 252 The right most inlet controls the linear crossfade
-value.;
+#X text 274 229 Crossfade: 0-1;
 #X text 7 2 description: crossfades 2 multi-channel sources;
 #X obj 46 395 tof/crossfade~ 2;
-#X msg 263 335 \$1 5;
-#X obj 263 362 line~;
+#X msg 263 293 \$1 5;
+#X obj 263 320 line~;
 #X text 51 114 Argument 1: The number of channels for each source (defaults
 to 2);
 #X text 8 26 tags: signal mix~;
@@ -34,13 +32,15 @@ Wilkes for Pd version 0.42.;
 #X text 12 25 LICENSE S.I. BSD;
 #X restore 515 473 pd META;
 #X obj 46 448 tof/output~;
-#X connect 0 0 15 0;
-#X connect 4 0 14 0;
-#X connect 5 0 14 2;
-#X connect 6 0 14 1;
-#X connect 7 0 14 3;
+#X text 172 354 The right-most inlet controls the linear crossfade
+value.;
+#X connect 0 0 14 0;
+#X connect 4 0 13 0;
+#X connect 5 0 13 2;
+#X connect 6 0 13 1;
+#X connect 7 0 13 3;
 #X connect 10 0 0 0;
-#X connect 14 0 20 0;
-#X connect 14 1 20 1;
-#X connect 15 0 16 0;
-#X connect 16 0 14 4;
+#X connect 13 0 19 0;
+#X connect 13 1 19 1;
+#X connect 14 0 15 0;
+#X connect 15 0 13 4;

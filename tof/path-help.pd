@@ -1,4 +1,4 @@
-#N canvas 1 79 1002 632 10;
+#N canvas 1 83 1004 632 10;
 #X obj 27 587 print RESULT;
 #X obj 27 336 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
 -1;
@@ -8,8 +8,8 @@
 #X text 7 52 author: mrtoftrash@gmail.com;
 #X text 7 76 version: 2009-06-07 (initial release);
 #X text 52 332 <- a bang will output the root patch's path;
-#X text 171 355 <- Sending a relative path will append that path to
-the root patch's path;
+#X text 181 355 <- Sending a relative path will append that path to
+the root patch's path, f 44;
 #X text 86 429 Linux and OS X;
 #X text 93 469 Windows;
 #X obj 517 34 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
@@ -22,7 +22,7 @@ the root patch's path;
 #X symbolatom 517 223 50 0 0 0 - - -, f 50;
 #X text 548 50 Anything else will be treated as a path;
 #X obj 517 192 path relative;
-#X text 672 148 <- Relative paths are unchanged;
+#X text 682 148 <- Relative paths are unchanged;
 #X text 84 416 Absolute paths are unchanged;
 #X obj 518 272 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
 -1;
@@ -33,8 +33,8 @@ the root patch's path;
 #X text 7 30 tags: file tof;
 #X text 176 162 -- keywords --;
 #X text 683 250 -- current --;
-#X text 648 304 <- Sending a relative path will append that path to
-the current patch's path;
+#X text 661 304 <- Sending a relative path will append that path to
+the current patch's path, f 47;
 #X text 658 9 -- relative --;
 #X obj 518 415 bng 15 250 50 0 empty empty empty 0 -6 0 8 -262144 -1
 -1;
@@ -44,7 +44,7 @@ the current patch's path;
 #X symbolatom 544 505 50 0 0 0 - - -, f 50;
 #X symbolatom 518 594 50 0 0 0 - - -, f 50;
 #X text 549 431 Anything else will be treated as a path;
-#X text 671 527 <- Relative paths are unchanged;
+#X text 678 529 <- Relative paths are unchanged;
 #X text 653 387 -- relative & current --;
 #X obj 518 563 path relative current;
 #X text 543 413 <- a bang will output the current patch's path;

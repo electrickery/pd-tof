@@ -1,16 +1,16 @@
-#N canvas 1 79 756 631 10;
-#X obj 221 209 key;
+#N canvas 1 83 756 631 10;
+#X obj 229 209 key;
 #X msg 124 244 clear;
-#X obj 221 235 sel 65;
-#X text 267 235 <- Shift+A will open the menu;
+#X obj 229 235 sel 65;
+#X text 278 235 <- Shift+A will open the menu;
 #X msg 45 108 add a bb ccc dddd eeeee;
 #X msg 230 342 2;
-#X msg 261 343 3;
-#X text 191 109 add items;
-#X obj 265 439 r \$0pmenu;
-#X obj 332 444 bng 15 250 50 0 \$0pmenu empty empty 17 7 0 10 -262144
+#X msg 262 342 3;
+#X text 218 109 add items;
+#X obj 255 439 r \$0pmenu;
+#X obj 332 439 bng 15 250 50 0 \$0pmenu empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg 291 342 -1;
+#X msg 294 342 -1;
 #X msg 224 309 colors green purple grey;
 #X obj 45 481 tof/pmenu 1 1 black white red;
 #X text 298 558 3: background color (#000000 html or tk colors);
@@ -35,14 +35,14 @@ item that was last selected). On (1) by default.;
 #X obj 111 216 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X text 130 212 Pop the menu;
-#X text 249 201 You can assign any key to pop the menu (Shift+A) in
+#X text 260 201 You can assign any key to pop the menu (Shift+A) in
 this case.;
-#X text 322 341 Select and output a menu item by index;
+#X text 325 341 Select and output a menu item by index;
 #X msg 276 371 set a;
-#X msg 290 393 symbol a;
-#X text 346 392 Select an item by name and output it;
+#X msg 281 393 symbol a;
+#X text 346 393 Select an item by name and output it;
 #X text 320 371 Select an item by name without outputing it;
-#X text 354 442 <- you can pop the menu from any gui by sending a bang
+#X text 354 437 <- you can pop the menu from any gui by sending a bang
 to \$0pmenu (because a receive is associated to it);
 #N canvas 280 164 494 344 META 0;
 #X text 12 168 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan

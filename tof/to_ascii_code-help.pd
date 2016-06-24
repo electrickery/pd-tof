@@ -1,9 +1,9 @@
-#N canvas 1 79 571 322 10;
-#X msg 19 118 test;
-#X msg 152 119 1234;
-#X obj 19 199 tof/to_ascii_code 13;
-#X msg 62 118 list abcdef;
-#X obj 19 277 print codes;
+#N canvas 1 83 571 322 10;
+#X msg 8 118 test;
+#X msg 141 119 1234;
+#X obj 8 199 tof/to_ascii_code 13;
+#X msg 51 118 list abcdef;
+#X obj 8 277 print codes;
 #X text 158 198 Optionnal argument: append ASCII code (in this case
 13 \, a carriage return);
 #N canvas 288 134 494 344 META 0;

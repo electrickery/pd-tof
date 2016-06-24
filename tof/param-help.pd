@@ -1,10 +1,10 @@
-#N canvas 1 79 406 396 10;
+#N canvas 1 83 460 396 10;
 #N canvas 427 335 525 231 /id 0;
 #X text 26 42 Abstraction /id:;
 #X text 63 67 If an abstraction's arguments contains the "/id" keyword
 \, the symbol following the "/id" keyword \, instead of the abstraction's
 name \, will be used to build the path.;
-#X restore 352 340 pd /id;
+#X restore 388 362 pd /id;
 #N canvas 90 56 933 657 /name 0;
 #X floatatom 459 165 5 0 0 0 - - -, f 5;
 #X floatatom 459 215 5 0 0 0 - - -, f 5;
@@ -381,14 +381,14 @@ and this can slow down Pure Data.;
 #X connect 27 0 23 0;
 #X connect 31 0 23 0;
 #X restore 9 313 pd gui;
-#X text 70 183 Defines a parameter to save/restore/route/display.;
-#X text 73 205 Can save/restore any number of things in a param file.
-;
-#X text 73 226 Outputs the current param path.;
-#X text 73 247 Outputs information about the params.;
-#X text 73 268 Saves/restores params in a param file.;
-#X text 72 289 Routes messages to params.;
-#X text 73 310 Automatically builds a gui for params.;
+#X text 76 183 Defines a parameter to save/restore/route/display.;
+#X text 77 205 Can save/restore any number of things in a param file.
+, f 50;
+#X text 77 231 Outputs the current param path.;
+#X text 77 252 Outputs information about the params.;
+#X text 77 273 Saves/restores params in a param file.;
+#X text 76 294 Routes messages to params.;
+#X text 77 315 Automatically builds a gui for params.;
 #X text 8 151 Open the folowing subpatches for more information on
 each class.;
 #X text 8 112 [param] contains multiple classes. The class is selected
@@ -400,7 +400,7 @@ by the value of the first argument.;
 #X text 8 1 description: [param] is a state saving and message routing
 system.;
 #X text 6 75 version: 2009-10-27 (de localized release);
-#X text 5 341 Keyword for defining the param path inside abstractions:
+#X text 4 345 Keyword for defining the param path inside abstractions:
 ;
 #N canvas 379 227 494 344 META 0;
 #X text 12 97 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
@@ -410,4 +410,4 @@ Wilkes for Pd version 0.42.;
 #X text 12 5 KEYWORDS control;
 #X text 12 45 LICENSE S.I. BSD except objectlist.h which is based on
 iemguts/iemguts-objlist.h from IOhannes m zmölnig;
-#X restore 345 370 pd META;
+#X restore 386 384 pd META;

@@ -1,10 +1,10 @@
-#N canvas 1 79 763 458 10;
+#N canvas 1 83 763 458 10;
 #X obj 36 379 print rate;
-#X obj 107 379 print file;
-#X obj 274 379 print channels;
+#X obj 113 379 print file;
+#X obj 295 379 print channels;
 #X msg 146 218 bang;
-#X obj 370 379 print end;
-#X obj 436 379 print start;
+#X obj 400 379 print end;
+#X obj 469 379 print start;
 #X msg 36 189 sample smpunpck;
 #X text 143 188 Inlet 1 \, sample symbol: output the sample's information
 ;
@@ -17,8 +17,8 @@
 -1 -1;
 #X text 568 160 Load a sound file (wav);
 #X obj 36 269 tof/sample_unpack;
-#X obj 514 379 print size;
-#X obj 179 379 print basename;
+#X obj 552 379 print size;
+#X obj 190 379 print basename;
 #N canvas 305 220 494 344 META 0;
 #X text 12 245 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;

@@ -1,19 +1,19 @@
-#N canvas 1 79 571 373 10;
-#X msg 25 131 bang;
-#X obj 25 243 print;
-#X symbolatom 70 242 10 0 0 0 - - -, f 10;
+#N canvas 1 83 571 373 10;
+#X msg 10 131 bang;
+#X obj 10 243 print;
+#X symbolatom 55 242 10 0 0 0 - - -, f 10;
 #X obj 1 3 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
 0;
 #X text 6 47 author: mrtoftrash@gmail.com;
 #X text 5 24 tags: initialization patch;
 #X text 6 68 version: 2009-09-23 (release 2: added "root" keyword)
 ;
-#X text 187 136 ARGUMENT:;
+#X text 142 136 ARGUMENT:;
 #X text 6 2 description: gets the \$0 of a patch.;
-#X text 186 155 float: How much recursion you want (If set to 1 \,
+#X text 141 155 float: How much recursion you want (If set to 1 \,
 it will get the parent patch's \$0. If set to 2 \, it will get the
 parent's parent's \$0 \, etc);
-#X text 183 208 root: Get the \$0 of the root patch;
+#X text 138 208 root: Get the \$0 of the root patch;
 #N canvas 242 197 494 344 META 0;
 #X text 12 125 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
@@ -24,7 +24,7 @@ Wilkes for Pd version 0.42.;
 #X text 12 5 KEYWORDS control abstraction_op symbol_op;
 #X text 12 25 LICENSE S.I. BSD;
 #X restore 513 300 pd META;
-#X obj 25 185 tof/getdollarzero;
+#X obj 10 185 tof/getdollarzero;
 #X connect 0 0 12 0;
 #X connect 12 0 1 0;
 #X connect 12 0 2 0;

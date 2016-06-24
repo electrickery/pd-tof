@@ -1,51 +1,48 @@
-#N canvas 241 285 922 529 10;
+#N canvas 239 289 922 529 10;
 #X obj 509 461 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 2 3 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
 0;
 #X text 10 57 author: mrtoftrash@gmail.com;
 #X text 8 78 version: 2009-04-14 (initial release);
-#X obj 435 131 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 438 131 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 435 220 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 438 220 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 435 271 print;
-#X obj 435 179 print;
-#X obj 435 303 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 438 271 print;
+#X obj 438 179 print;
+#X obj 438 303 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 435 351 print;
-#X text 631 484 <- open it;
-#X obj 435 154 tof/argument 1;
-#X obj 435 244 tof/argument 1 32;
-#X obj 435 325 tof/argument;
-#X text 18 176 [argument n default];
+#X obj 438 351 print;
+#X text 650 484 <- open it;
+#X obj 438 154 tof/argument 1;
+#X obj 438 244 tof/argument 1 32;
+#X obj 438 325 tof/argument;
+#X text 3 176 [argument n default];
 #X text 9 6 description: Outputs the patch's creation arguments individually.
 ;
-#X text 529 147 This help patch is a file and therefore has no creation
+#X text 503 108 This help patch is a file and therefore has no creation
 arguments. The [argument] to the left has no default value \, so nothing
 will be outputed.;
-#X text 527 323 With no arguments \, [argument] outputs the patch's
+#X text 514 289 With no arguments \, [argument] outputs the patch's
 \$0 as symbol.;
-#X text 440 407 Inside the following abstraction \, three [argument]
-objects output the creation arguments. Look inside for an explenation
-of the printed output.;
 #X text 530 460 <- bang to print;
-#X text 547 237 As stated before \, this help patch is a file and has
+#X text 508 198 As stated before \, this help patch is a file and has
 no creation arguments. But the [argument] to the left has a default
 value and will output it.;
-#X text 19 199 argument 1: patch's creation argument to output.;
-#X text 18 216 argument 2: default value to output if the patch's creation
+#X text 4 199 argument 1: patch's creation argument to output.;
+#X text 3 216 argument 2: default value to output if the patch's creation
 argument is not set or if the wrong type.;
-#X text 17 253 inlet 1 bang: outputs the n-th patch creation argument
+#X text 2 253 inlet 1 bang: outputs the n-th patch creation argument
 or the default value if there is no n-th creation argument.;
-#X text 18 289 outlet 1 anything: outputs the n-th patch creation argument
+#X text 3 289 outlet 1 anything: outputs the n-th patch creation argument
 or the default value if there is no n-th creation argument.;
-#X text 14 331 If the patch's n-th creation argument is not of the
-same type as the default value \, the default value will be outputed
-instead.;
+#X text 2 331 If the patch's n-th creation argument is not of the same
+type as the default value \, the default value will be outputed instead.
+;
 #X text 9 35 tags: initialization patch;
-#X text 14 126 see also:;
-#X obj 86 129 tof/arguments;
+#X text 2 126 see also:;
+#X obj 74 129 tof/arguments;
 #X obj 509 485 ./test-argument a b;
 #N canvas 444 284 494 344 META 0;
 #X text 12 135 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
@@ -58,7 +55,10 @@ Wilkes for Pd version 0.42.;
 ;
 #X text 12 25 LICENSE S.I. BSD;
 #X restore 867 484 pd META;
-#X connect 0 0 29 0;
+#X text 440 407 Inside the following abstraction \, three [argument]
+objects output the creation arguments. Look inside for an explanation
+of the printed output.;
+#X connect 0 0 28 0;
 #X connect 4 0 11 0;
 #X connect 5 0 12 0;
 #X connect 8 0 13 0;

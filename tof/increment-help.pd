@@ -1,4 +1,4 @@
-#N canvas 1 80 640 515 10;
+#N canvas 1 84 640 515 10;
 #X obj 2 3 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
 0;
 #X text 6 41 author: mrtoftrash@gmail.com;
@@ -14,7 +14,7 @@
 #X obj 57 343 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 80 371 set 43;
-#X text 179 413 Argument 1: start value (defaults to 0);
+#X text 192 413 Argument 1: start value (defaults to 0);
 #X obj 196 237 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 57 277 tof/increment;
@@ -27,7 +27,7 @@
 #X text 99 122 bang: outputs and increments the value;
 #X text 100 135 float: sets increment amount and outputs incremented
 value;
-#X text 179 428 Argument 2: incrementation amount (defaults to 1);
+#X text 192 428 Argument 2: incrementation amount (defaults to 1);
 #X msg 81 165 2;
 #X msg 97 393 1;
 #N canvas 215 219 494 344 META 0;

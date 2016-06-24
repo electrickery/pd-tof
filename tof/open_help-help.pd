@@ -1,4 +1,4 @@
-#N canvas 1 79 488 503 10;
+#N canvas 1 83 488 503 10;
 #X msg 29 141 symbol list;
 #X msg 109 175 symbol until;
 #X obj 1 3 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
@@ -17,7 +17,7 @@ help file and tries to open it.;
 as an argument \, open_help will open that abstraction's or external's
 help file when you send a bang to the inlet or when you CLICK open_help.
 ;
-#X text 188 387 <- CLICK;
+#X text 212 388 <- CLICK;
 #N canvas 427 139 494 344 META 0;
 #X text 12 115 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;

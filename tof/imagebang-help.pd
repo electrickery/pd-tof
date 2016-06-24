@@ -1,4 +1,4 @@
-#N canvas 1 79 658 555 10;
+#N canvas 1 83 658 555 10;
 #X obj 45 338 print;
 #X obj 45 152 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -52,7 +52,7 @@ from Guenter Geiger and [moonlib/image] from Antoine Rousseau;
 #X text 26 3 Description: a bang with an image;
 #X text 27 17 Tags: ui;
 #X text 27 31 Contact: mrtoftrash@gmail.com;
-#N canvas 491 431 450 466 more_options 0;
+#N canvas 489 435 450 466 more_options 0;
 #X obj 41 52 tof/imagebang;
 #X obj 41 30 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -61,33 +61,33 @@ from Guenter Geiger and [moonlib/image] from Antoine Rousseau;
 #X text 62 44 This is the default image used if no GIFs are specified
 \, or they cannot be found;
 #X obj 41 229 tof/imagebang;
-#X text 175 134 Sets the flash time to indefinitly;
-#X text 175 155 Resets the flash time to the preset time;
-#X text 176 185 Sets the flash time in ms;
+#X text 157 164 Sets the flash time to indefinitly;
+#X text 157 185 Resets the flash time to the preset time;
+#X text 160 128 Sets the flash time in ms;
 #X obj 41 361 tof/imagebang;
-#X obj 112 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 120 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 42 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 41 133 flashtime -1;
-#X msg 50 155 flashtime 0;
-#X msg 66 200 flashtime 1000;
-#X msg 57 178 flashtime 250;
+#X msg 59 163 flashtime -1;
+#X msg 68 185 flashtime 0;
+#X msg 48 141 flashtime 1000;
+#X msg 41 121 flashtime 250;
 #X text 15 5 Some [bang] like extensions;
 #X text 39 286 The send and receive messages change the send and receive
 name, f 62;
 #X msg 41 312 send ib-s-foo;
 #X msg 48 334 send ib-s-bar;
 #X obj 42 386 r ib-s-foo;
-#X obj 112 386 r ib-s-bar;
+#X obj 120 386 r ib-s-bar;
 #X obj 233 361 tof/imagebang;
 #X msg 233 312 receive ib-r-foo;
 #X msg 240 334 receive ib-r-bar;
 #X obj 232 392 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 232 419 s ib-r-foo;
-#X obj 302 419 s ib-r-bar;
-#X obj 302 392 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 310 419 s ib-r-bar;
+#X obj 310 392 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X connect 0 0 2 0;
 #X connect 1 0 0 0;

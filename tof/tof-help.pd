@@ -1,4 +1,4 @@
-#N canvas 931 124 901 519 10;
+#N canvas 106 96 901 519 10;
 #X obj 406 99 tof/animate;
 #X obj 29 69 tof/argument;
 #X obj 29 94 tof/arguments;

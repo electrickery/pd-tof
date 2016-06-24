@@ -1,4 +1,4 @@
-#N canvas 1 81 536 537 10;
+#N canvas 1 85 536 537 10;
 #X obj 113 193 openpanel;
 #X obj 112 170 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -11,18 +11,18 @@
 #X msg 113 218 open \$1;
 #X floatatom 180 278 5 0 0 0 - - -, f 5;
 #X obj 333 156 tof/gemwin+;
-#X text 218 280 inlet 3 \, float: speed;
-#X text 159 248 inlet 2 \, 0/1: stop/play;
-#X text 167 217 inlet 2 \, open (file): opens the movie file;
+#X text 228 280 inlet 3 \, float: speed;
+#X text 169 248 inlet 2 \, 0/1: stop/play;
+#X text 177 217 inlet 2 \, open (file): opens the movie file;
 #X obj 54 128 gemhead;
 #X obj 54 439 rectangle 5.333 4;
 #X floatatom 184 368 5 0 0 0 - - -, f 5;
-#X text 220 369 outlet 3 \, float: total number of frames;
-#X text 158 387 outlet 2 \, float: current frame;
+#X text 230 369 outlet 3 \, float: total number of frames;
+#X text 168 387 outlet 2 \, float: current frame;
 #X text 171 437 outlet 1 \, gemlist;
 #X text 107 126 inlet 1 \, gemlist;
-#X text 198 309 argument 1 \, (file): opens the movie file (optional)
-;
+#X text 232 308 argument 1 \, (file): opens the movie file (optional)
+, f 32;
 #N canvas 371 163 494 344 META 0;
 #X text 12 205 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;

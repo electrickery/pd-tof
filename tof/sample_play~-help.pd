@@ -1,28 +1,28 @@
-#N canvas 1 79 553 401 10;
+#N canvas 1 83 553 401 10;
 #X obj 33 105 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 47 126 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X floatatom 109 215 5 0 0 0 - - -, f 5;
-#X text 59 103 Inlet 1 \, bang: play sample once;
-#X text 64 123 Inlet 1 \, float: stop/play sample in a loop;
-#X text 154 178 Inlet 1 \, sample symbol: set sample;
+#X text 72 103 Inlet 1 \, bang: play sample once;
+#X text 77 123 Inlet 1 \, float: stop/play sample in a loop;
+#X text 167 178 Inlet 1 \, sample symbol: set sample;
 #X msg 72 178 sample smppl;
-#X text 107 362 Outlet 1 \, signal: left channel audio output;
-#X text 108 350 Outlet 2 \, signal: right channel audio output;
+#X text 126 362 Outlet 1 \, signal: left channel audio output;
+#X text 125 350 Outlet 2 \, signal: right channel audio output;
 #X obj 371 227 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 181 279 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X text 146 212 set playback speed;
+#X text 159 212 set playback speed;
 #X floatatom 166 235 5 0 0 0 - - -, f 5;
-#X text 203 232 set duration (in ms);
+#X text 216 232 set duration (in ms);
 #X obj 118 298 cyclone/Snapshot~ 100;
 #X floatatom 119 320 5 0 0 0 - - -, f 5;
 #X text 185 320 Outlet 3 \, signal: progress;
 #X text 208 277 Outlet 4 \, bang: done;
-#X text 126 149 Inlet 1 \, list: play a segment of the sample;
-#X obj 33 261 tof/sample_play~ smppl;
+#X text 139 149 Inlet 1 \, list: play a segment of the sample;
+#X obj 33 259 tof/sample_play~ smppl;
 #X msg 62 151 0.25 0.5;
 #N canvas 240 186 494 344 META 0;
 #X text 12 225 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
@@ -46,7 +46,7 @@ Wilkes for Pd version 0.42.;
 #X text 10 6 description: Plays a sample;
 #X text 9 26 tags: Sound Table Sample;
 #X text 8 69 version: 2010-10-11 (initial release \, 0.6);
-#X obj 35 349 tof/output~;
+#X obj 34 349 tof/output~;
 #X connect 0 0 19 0;
 #X connect 1 0 19 0;
 #X connect 2 0 19 1;
