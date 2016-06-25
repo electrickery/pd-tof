@@ -78,7 +78,8 @@ static void breakpoints_dump(t_breakpoints* e)
      t_atom* a = argv;
      int i;
 
-     SETFLOAT(a,e->finalvalues[0]);argc++;
+     SETFLOAT(a, e->finalvalues[0]);
+     argc++;
      for (i=1;i <= e->last_state;i++) {
 	  SETFLOAT(argv+argc,e->duration[i] - e->duration[i-1]);
 	  argc++;
@@ -284,9 +285,6 @@ static void bindsym(t_pd* x,t_symbol* o,t_symbol* s)
 
 static void *breakpoints_new(t_symbol *s,int argc,t_atom* argv)
 {
-	
-	
-	
      t_breakpoints *x = (t_breakpoints *)pd_new(breakpoints_class);
      
      x->borderwidth = 1;
@@ -374,70 +372,92 @@ static void *breakpoints_new(t_symbol *s,int argc,t_atom* argv)
 
 
 static void breakpoints_motion(t_breakpoints *x, t_floatarg dx, t_floatarg dy);
-static void breakpoints_click(t_breakpoints *x,
+/*static void breakpoints_click(t_breakpoints *x,
     t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl,
-    t_floatarg alt);
+    t_floatarg alt); */
 static void breakpoints_key(t_breakpoints *x, t_floatarg f);
 
 t_widgetbehavior breakpoints_widgetbehavior;
 
+static void breakpoints_status(t_breakpoints* x) {
+    post("---===### breakpoints status ###===---");
+    post("x_val:          %f", x->x_val);
+    post("x_state:        %d", x->x_state);
+    post("last_state:     %d", x->last_state);
+    char *stateString = "??     ";
+    if (x->sustain_state == 0) stateString = "NONE   ";
+    if (x->sustain_state == 1) stateString = "ATTACK ";
+    if (x->sustain_state == -1) stateString = "SUSTAIN";
+
+    post("sustain_state:  (%d) %s", x->sustain_state, stateString);
+    post("envchanged:     %d", x->envchanged);
+
+    post("finalvalues:    0x%08X", x->finalvalues);
+    post("duration:       0x%08X", x->duration);
+
+    post("totaldur:       %f", x->totaldur);
+    post("args:           %d", x->args);
+    post("resizing:       %d", x->resizing);
+    post("resizeable:     %d", x->resizeable);
+    post("borderwidth:    %d", x->borderwidth);
+
+    post("r_sym:         '%s'", (x->r_sym) ? x->r_sym->s_name : "-");
+    post("s_sym:         '%s'", (x->s_sym) ? x->s_sym->s_name : "-");
+    post("d_sym:         '%s'", (x->d_sym) ? x->d_sym->s_name : "-");
+    post("c_sym:         '%s'", (x->c_sym) ? x->c_sym->s_name : "-");
+
+    post("min:            %f", x->min);
+    post("max:            %f", x->max);
+
+    post("x_clock:        0x%08X", x->x_clock);
+    post("x_freeze:       %f", x->x_freeze);
+
+    post("x_f:            %f", x->x_f);
+    stateString = "??     ";
+    if (x->state == 0) stateString = "NONE   ";
+    if (x->state == 1) stateString = "ATTACK ";
+    if (x->state == -1) stateString = "SUSTAIN";
+    post("state:        (%d) %s", x->state, stateString);
+}
 
 static void breakpoints_free(t_breakpoints *x) {
-       
-     
      if (x->r_sym != &s_)  pd_unbind(&x->x_obj.ob_pd, x->r_sym);
-     
 }
 
 void breakpoints_setup(void)
 {
-    breakpoints_class = class_new(gensym("breakpoints"), (t_newmethod)breakpoints_new, (t_method)breakpoints_free,
-    	sizeof(t_breakpoints), 0,A_GIMME,0);
+    breakpoints_class = class_new(gensym("breakpoints"), 
+        (t_newmethod)breakpoints_new, (t_method)breakpoints_free,
+    	sizeof(t_breakpoints), 0, A_GIMME,0);
 
-   //CLASS_MAINSIGNALIN(breakpoints_class, t_breakpoints, x_f);
-    	/* here we tell Pd about the "dsp" method, which is called back
-	when DSP is turned on. */
-    //class_addmethod(breakpoints_class, (t_method)breakpointssig_dsp, gensym("dsp"), 0);
-
-
-    //class_addcreator((t_newmethod)breakpoints_new,gensym("breakpoints~"),A_GIMME,0);
-    
     class_addfloat(breakpoints_class, breakpoints_float);
+    class_addbang(breakpoints_class, breakpoints_bang);
+    class_addlist(breakpoints_class, breakpoints_list);
 
-    class_addbang(breakpoints_class,breakpoints_bang);
-    class_addlist(breakpoints_class,breakpoints_list);
-    //class_addmethod(breakpoints_class,(t_method)breakpoints_sustain,gensym("sustain"),A_FLOAT,A_NULL);
+    class_addmethod(breakpoints_class, (t_method)breakpoints_motion, 
+        gensym("motion"), A_FLOAT, A_FLOAT, 0);
+    class_addmethod(breakpoints_class, (t_method)breakpoints_key, 
+        gensym("key"), A_FLOAT, 0);
 
-    class_addmethod(breakpoints_class, (t_method)breakpoints_motion, gensym("motion"),A_FLOAT, A_FLOAT, 0);
-    class_addmethod(breakpoints_class, (t_method)breakpoints_key, gensym("key"),
-    	A_FLOAT, 0);
+    class_addmethod(breakpoints_class, (t_method)breakpoints_totaldur,
+        gensym("duration"), A_FLOAT, NULL);
+    class_addmethod(breakpoints_class, (t_method)breakpoints_setresize,
+        gensym("resize"), A_FLOAT, A_NULL);
 
-    class_addmethod(breakpoints_class,(t_method)breakpoints_totaldur,gensym("duration"),A_FLOAT,NULL);
-    //class_addmethod(breakpoints_class,(t_method)breakpoints_freeze,gensym("freeze"),A_FLOAT,NULL);
-    class_addmethod(breakpoints_class,(t_method)breakpoints_setresize,gensym("resize"),A_FLOAT,A_NULL);
-
-    //class_addmethod(breakpoints_class,(t_method)breakpoints_release,gensym("release"),A_NULL);
-    breakpoints_widgetbehavior.w_getrectfn =   breakpoints_getrect;
-    breakpoints_widgetbehavior.w_displacefn =    breakpoints_displace;
-    breakpoints_widgetbehavior.w_selectfn = breakpoints_select;
+    breakpoints_widgetbehavior.w_getrectfn  = breakpoints_getrect;
+    breakpoints_widgetbehavior.w_displacefn = breakpoints_displace;
+    breakpoints_widgetbehavior.w_selectfn   = breakpoints_select;
     breakpoints_widgetbehavior.w_activatefn = NULL;
-    //breakpoints_widgetbehavior.w_activatefn =   breakpoints_activate;
-    breakpoints_widgetbehavior.w_deletefn =   breakpoints_delete;
-    breakpoints_widgetbehavior.w_visfn =   breakpoints_vis;
-    breakpoints_widgetbehavior.w_clickfn = (t_clickfn) breakpoints_newclick;
-    //breakpoints_widgetbehavior.w_clickfn = NULL;
-#if PD_MINOR_VERSION < 37
-    breakpoints_widgetbehavior.w_propertiesfn = NULL;
-    //breakpoints_widgetbehavior.w_savefn =   breakpoints_save;
-    breakpoints_widgetbehavior.w_savefn =  NULL;
-#endif
+    breakpoints_widgetbehavior.w_deletefn   = breakpoints_delete;
+    breakpoints_widgetbehavior.w_visfn      = breakpoints_vis;
+    breakpoints_widgetbehavior.w_clickfn    = 
+        (t_clickfn)breakpoints_newclick;
 
-    class_setwidget(breakpoints_class,&breakpoints_widgetbehavior);
-#if PD_MINOR_VERSION >= 37
-    //class_setsavefn(breakpoints_class,&breakpoints_save);
-#endif
-    class_addmethod(breakpoints_class,(t_method)breakpoints_dump,gensym("dump"),A_NULL);
-
+    class_setwidget(breakpoints_class, &breakpoints_widgetbehavior);
+    class_addmethod(breakpoints_class, (t_method)breakpoints_dump,
+        gensym("dump"), A_NULL);
+    class_addmethod(breakpoints_class, (t_method) breakpoints_status, 
+        gensym("status"), A_NULL);
 }
 
 

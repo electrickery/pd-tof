@@ -71,7 +71,7 @@ static void draw_inlets(t_breakpoints *x, t_glist *glist, int firsttime, int nin
             }
             else
             {
-                    sys_vgui(".x%x.c coords %xi%d %d %d %d %d\n",
+                sys_vgui(".x%x.c coords %xi%d %d %d %d %d\n",
                     glist_getcanvas(glist), x, i,
                     x_onset,           y_onset,
                     x_onset + IOWIDTH, y_onset + IOHEIGHT);
