@@ -18,56 +18,67 @@
 #define LINECOLOR "grey30"
 
 #define BORDER 2
-
+// IOWIDTH comes from g_canvas.h
+#define IOHEIGHT 1
+// $canvas create rectangle $x-pos $y-pos $width $height [--tags ...]
 
 static void draw_inlets(t_breakpoints *x, t_glist *glist, int firsttime, int nin, int nout)
 {
 
-   if (x->r_sym == &s_) {
-     int n = nout;
-     int nplus, i;
-     int xpos = text_xpix(&x->x_obj,glist);
-     int ypos = text_ypix(&x->x_obj,glist);
+    if (x->r_sym == &s_) 
+    {
+        int n = nout;
+        int nplus, i;
+        int xpos = text_xpix(&x->x_obj,glist);
+        int ypos = text_ypix(&x->x_obj,glist);
 
-     nplus = (n == 1 ? 1 : n-1);
-     for (i = 0; i < n; i++)
-     {
-	  int onset = xpos + (x->w.width - IOWIDTH + 3 * BORDER) * i / nplus - BORDER;
-	  // OUTLETS
-	  if (firsttime)
-	       sys_vgui(".x%x.c create rectangle %d %d %d %d -tags %xo%d \n",
-			glist_getcanvas(glist),
-			onset, ypos + x->w.height - 2 + 2*BORDER,
-			onset + IOWIDTH, ypos + x->w.height  - 1+ 2*BORDER,
-			x, i);
-	  else
-	       sys_vgui(".x%x.c coords %xo%d %d %d %d %d\n",
-			glist_getcanvas(glist), x, i,
-			onset, ypos + x->w.height - 2 + 2*BORDER,
-			onset + IOWIDTH, ypos + x->w.height -1 + 2*BORDER);
-     }
-     n = nin; 
-     nplus = (n == 1 ? 1 : n-1);
-     for (i = 0; i < n; i++)
-     {
-	  int onset = xpos + (x->w.width - IOWIDTH + 3 * BORDER) * i / nplus - BORDER;
-	  // INLETS
-	  if (firsttime)
-	       sys_vgui(".x%x.c create rectangle %d %d %d %d -tags %xi%d\n",
-			glist_getcanvas(glist),
-			onset, ypos - BORDER + 1,
-			     onset + IOWIDTH, ypos + 2 - BORDER,
-			x, i);
-	  else
-	       sys_vgui(".x%x.c coords %xi%d %d %d %d %d\n",
-			glist_getcanvas(glist), x, i,
-			onset, ypos - BORDER + 1,
-			onset + IOWIDTH, ypos + 2 - BORDER);
-	  
-     }
-     }
+        nplus = (n == 1 ? 1 : n-1);
+        for (i = 0; i < n; i++)
+        {
+            int x_onset = xpos + (x->w.width - IOWIDTH + 3 * BORDER) * i / nplus - BORDER;
+            int y_onset = ypos + x->w.height - 1 + 2 * BORDER;
+            // OUTLETS
+            if (firsttime)
+            {
+                sys_vgui(".x%x.c create rectangle %d %d %d %d -tags %xo%d \n",
+                    glist_getcanvas(glist),
+                    x_onset,           y_onset,
+                    x_onset + IOWIDTH, y_onset - IOHEIGHT,
+                    x, i);
+            }
+            else
+            {
+                sys_vgui(".x%x.c coords %xo%d %d %d %d %d\n",
+                    glist_getcanvas(glist), x, i,
+                    x_onset,           y_onset,
+                    x_onset + IOWIDTH, y_onset - IOHEIGHT);
+            }
+        }
+        n = nin; 
+        nplus = (n == 1 ? 1 : n-1);
+        for (i = 0; i < n; i++)
+        {
+            int x_onset = xpos + (x->w.width - IOWIDTH + 3 * BORDER) * i / nplus - BORDER;
+            int y_onset = ypos - BORDER + 1;
+            // INLETS
+            if (firsttime)
+            {
+                sys_vgui(".x%x.c create rectangle %d %d %d %d -tags %xi%d\n",
+                    glist_getcanvas(glist),
+                    x_onset,           y_onset,
+                    x_onset + IOWIDTH, y_onset + IOHEIGHT,
+                    x, i);
+            }
+            else
+            {
+                    sys_vgui(".x%x.c coords %xi%d %d %d %d %d\n",
+                    glist_getcanvas(glist), x, i,
+                    x_onset,           y_onset,
+                    x_onset + IOWIDTH, y_onset + IOHEIGHT);
+             }
+         }
+    }
 }
-
 
 
 static int breakpoints_next_doodle(t_breakpoints *x, struct _glist *glist,
