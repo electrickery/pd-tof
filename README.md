@@ -11,7 +11,7 @@
 
 <p>The initial change is replacing the build system by pd-lib-builder. This to simplify creation of a deken package of the libary.</p>
 
-<p>There is is no obvious version number at the library level for tof. Some objects started off at 01. Therefore this release will be 0.2.0.</p>
+<p>The next planned version is 0.3.0.</p>
 
 <p>These are the objects in the tof library:
 <dl>
@@ -23,9 +23,9 @@
 <dt>common~</dt>      <dd>signal bus object</dd>
 <dt>crossfade~</dt>   <dd>multi-channel stereo crossfade</dd>
 <dt>folderpanel</dt>  <dd>opens Tk directory selector</dd>
-<dt>from_ascii_code</dt><dd>converts ASCII to messages</dd>
+<dt>from_ascii_code</dt> <dd>converts ASCII to messages</dd>
 <dt>gemwin+</dt>      <dd>Gem window manager </dd>
-<dt>getdollarzero</dt><dd>get window id of current or parent window (recursive)</dd>
+<dt>getdollarzero</dt> <dd>get window id of current or parent window (recursive)</dd>
 <dt>imagebang</dt>    <dd>GIF based bang</dd>
 <dt>increment</dt>    <dd>increments float on bang</dd>
 <dt>iterate</dt>      <dd>iterates over range of floats</dd>
@@ -42,15 +42,15 @@
 <dt>phasorshot~</dt>  <dd>phasor~ with features</dd>
 <dt>pix_film</dt>     <dd>Gem based movie player</dd>
 <dt>pmenu</dt>        <dd>pop-up menu tool</dd>
-<dt>sample_granule~</dt><dd>pitchshifting/timestretching sample player</dd>
+<dt>sample_granule~</dt> <dd>pitchshifting/timestretching sample player</dd>
 <dt>sample</dt>       <dd>reads wav file into array</dd>
-<dt>sample_packel</dt><dd>edits array start and end</dd>
+<dt>sample_packel</dt> <dd>edits array start and end</dd>
 <dt>sample_play</dt>  <dd>array sample player</dd>
-<dt>sample_record</dt><dd>writes signal stream to array</dd>
-<dt>sample_shift~</dt><dd>fft based pitchshifting/timestretching sample player</dd>
-<dt>sample_unpack</dt><dd>outputs array meta information and original wav file name</dd>
+<dt>sample_record</dt> <dd>writes signal stream to array</dd>
+<dt>sample_shift~</dt> <dd>fft based pitchshifting/timestretching sample player</dd>
+<dt>sample_unpack</dt> <dd>outputs array meta information and original wav file name</dd>
 <dt>streamMinMax</dt> <dd>outputs minimum and maximum of a stream of floats</dd>
-<dt>to_ascii_code</dt><dd>convert message characters to list of floats</dd>
+<dt>to_ascii_code</dt> <dd>convert message characters to list of floats</dd>
 </dl></p>
 
 <p>Dependencies and derivations:
@@ -65,4 +65,7 @@
 
 <p>For bugs found in this version, please report them to me. Thomas is not responsible for bugs introduced by me.</p>
 
-<p>Fred Jan Kraan fjkraan@xs4all.nl 2016-06-24</p>
+<p>The original location of this repository is at <a href="https://github.com/electrickery/pd-tof">
+ https://github.com/electrickery/pd-tof</a>.
+
+<p>Fred Jan Kraan fjkraan@xs4all.nl 2016-06-25</p>
