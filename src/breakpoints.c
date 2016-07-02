@@ -418,6 +418,11 @@ static void breakpoints_status(t_breakpoints* x) {
     if (x->state == 1) stateString = "ATTACK ";
     if (x->state == -1) stateString = "SUSTAIN";
     post("state:        (%d) %s", x->state, stateString);
+    post("compiled against Pd version:  %d.%d.%d",  
+        PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
+    int major, minor, bugfix;
+    sys_getversion(&major, &minor, &bugfix);
+    post("this Pd version: %d.%d.%d", major, minor, bugfix);
 }
 
 static void breakpoints_free(t_breakpoints *x) {
