@@ -5,9 +5,11 @@
 
  * This code is licensed under the 3-clause BSD license with an        *
  * exception for the code from  moonlib/image                          *
- * fjkraan@xs4all.nl. 2016-06-14                                       *
+ * fjkraan@xs4all.nl. 2016-06-14                                       */
+ 
+#define VERSION 0.6 
 
- * Version 0.5 new behaviour:                                          *
+/* Version 0.5 new behaviour:                                          *
  * * default images instead of object load fail when image files are   *
  *   not found                                                         *
  * * like bang: change send and receive symbol                         *
@@ -346,7 +348,7 @@ static void imagebang_createDefaultImage(t_imagebang *x, t_symbol *image, unsign
 
 static void imagebang_status(t_imagebang *x) 
 {
-    post("--==## imagebang status ##==--");
+    post("--==## imagebang %0.1f status ##==--", VERSION);
     post("width:      %d", x->width);
     post("height:     %d", x->height);
     post("image_a:    %s", x->image_a->s_name);
@@ -356,7 +358,11 @@ static void imagebang_status(t_imagebang *x)
     post("clockflash: %d", x->clockflash);
     post("clockbrk:   %d", x->clockbrk);
     post("flashing;   %d", x->flashing);
-}
+    post("compiled against Pd version:  %d.%d.%d",  
+        PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
+    int major, minor, bugfix;
+    sys_getversion(&major, &minor, &bugfix);
+    post("this Pd version: %d.%d.%d", major, minor, bugfix);}
 
 static void imagebang_setsend(t_imagebang *x, t_symbol *newSend)
 {
@@ -427,7 +433,7 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 //            sys_vgui("pdsend {test %x_imagebang}\n", x->image_a);
 		} else {
             if (imagebang_pd_has_logpost())
-                logpost(NULL, 4, "[imagebang] could not find \"%s\"", image_a->s_name);
+                logpost(NULL, 4, "[imagebang] could not find \"%s\" for off-image. Will use default.", image_a->s_name);
 		}
     }
 
@@ -442,25 +448,21 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 //            sys_vgui("pdsend {test %x_imagebang}\n", x->image_b);
 		} else {
             if (imagebang_pd_has_logpost())
-                post("[imagebang] could not find \"%s\"", image_b->s_name);
+                logpost(NULL, 4, "[imagebang] could not find \"%s\" for on-image. Will use default.", image_b->s_name);
         }
     }
 
-	// Plan B; use build in defaults (which look just like a bang)
+	// Plan B; use build in defaults (which look similar but different to a bang)
 	if (x->image_a == NULL) {
         image_a = gensym("bangOff");
         imagebang_createDefaultImage(x, image_a, bangOffXbmString);
-        if (imagebang_pd_has_logpost())
-            logpost(NULL, 4, "[imagebang] used default for Off; \"%s\" instead", image_a->s_name);
         x->image_a = image_a;
     }        
     if (x->image_b == NULL) {
         image_b = gensym("bangOn");
         imagebang_createDefaultImage(x, image_b, bangOnXbmString);
-        if (imagebang_pd_has_logpost())
-            logpost(NULL, 4, "[imagebang]  used default for On; \"%s\" instead", image_b->s_name);
         x->image_b = image_b;
-	}
+    }
 
 	x->send = NULL;
 	if ( argc > 2 && (argv+2)->a_type == A_SYMBOL ) {
@@ -520,7 +522,6 @@ void imagebang_setup(void)
 
     imagebang_widgetbehavior.w_clickfn = (t_clickfn)imagebang_click;
     
-
 #if PD_MINOR_VERSION < 37
 	imagebang_widgetbehavior.w_propertiesfn = NULL; 
     //imagebang_widgetbehavior.w_savefn =   imagebang_save;
@@ -532,6 +533,8 @@ void imagebang_setup(void)
    // class_setsavefn(imagebang_class,&imagebang_save);
 #endif
 
+    if (imagebang_pd_has_logpost())
+        logpost(NULL, 4, "tof/imagebang version %1.1f", VERSION);
 }
 
 
