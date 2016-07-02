@@ -1,5 +1,7 @@
 <h2>tof</h2>
 
+<p>Tof is a collection of objects and abstractions covering a wide range in functionality.</p>
+
 <p>This git-fork of the Pure-data library tof is cloned from https://git.puredata.info/cgit/svn2git/libraries/tof.git, 
  which is the svn-to-git from https://sourceforge.net/p/pure-data/svn/HEAD/tree/trunk/externals/tof/.</p>
 

@@ -1,5 +1,4 @@
 ToDo:
-- imagebang: remove post (or move to log level) message when placeholder image '-' is specified
 - more formatting of sub-patches
 
   
@@ -8,12 +7,14 @@ Changed in 0.3.0 ():
 - refactored the xlet draw code in w_breakpoints.h
 - changed imagebang default on to a not-all-black square
 - added this ToDo.txt
+- moved imagebang default image behaviour logging to logpost leven
+- bumped imagebang version to 0.6 and added logpost at load time
 
 
 Changed in 0.2.0 (2016-06-24):
 - Default images for imagebang
 - Standardized and reformatted help-patches
-- Introduced library version number mayor.minor.bugfix: 0.2.0
+- Introduced library version number major.minor.bugfix: 0.2.0
 
 
 
