@@ -1,4 +1,4 @@
-#N canvas 1 100 905 635 10;
+#N canvas 1 101 905 635 10;
 #X obj 25 182 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X msg 18 144 0 1125 0.671429 300 0.557143 700 0.571429 0 0.792857
@@ -76,6 +76,9 @@ on [ggee/envgen] by Guenter Geiger;
 #X text 528 239 The breakpoints below was created with the following:
 [breakpoints 100 50 3000 \$0r \$0s \$0d];
 #X text 538 275 It can now be controlld remotely:;
+#X obj 232 394 vsl 15 140 0 1 0 0 empty \$0-trace empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 137 593 s \$0-trace;
 #X connect 0 0 16 0;
 #X connect 1 0 16 0;
 #X connect 2 0 1 0;
@@ -85,6 +88,7 @@ on [ggee/envgen] by Guenter Geiger;
 #X connect 6 0 14 0;
 #X connect 9 0 16 0;
 #X connect 10 0 29 0;
+#X connect 10 0 51 0;
 #X connect 11 0 16 0;
 #X connect 16 0 10 0;
 #X connect 16 1 12 0;

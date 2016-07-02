@@ -1,4 +1,4 @@
-#N canvas 494 80 716 557 10;
+#N canvas 833 103 716 557 10;
 #X msg 73 140 fall;
 #X obj 198 238 metro 1000;
 #X obj 199 210 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
@@ -96,10 +96,9 @@ Wilkes for Pd version 0.42.;
 #X text 10 48 author: mrtoftrash@gmail.com;
 #X text 9 26 tags: Patch fun;
 #X text 8 69 version: 2009-05-27 (initial release \, 0.1);
-#X text 13 520 animate depends on iemguts/canvasobjectposition and
-zexy/demultiplex.;
 #X text 10 6 description: Animates the object boxes inside a patch.
 ;
+#X text 13 520 animate depends on iemguts/canvasobjectposition.;
 #X connect 0 0 45 0;
 #X connect 1 0 3 0;
 #X connect 2 0 1 0;

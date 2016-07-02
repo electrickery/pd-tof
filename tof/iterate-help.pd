@@ -1,4 +1,4 @@
-#N canvas 1 79 638 606 10;
+#N canvas 1 80 638 606 10;
 #X obj 0 3 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
 0;
 #X text 5 51 author: mrtoftrash@gmail.com;
@@ -34,16 +34,18 @@
 #X text 59 503 Iterate 5 times from 15 with a step of -0.5:;
 #X text 281 255 Optional argument 2: step value;
 #X text 24 262 Inlet 3: step value;
-#N canvas 220 153 494 344 META 0;
-#X text 12 145 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
+#N canvas 387 216 494 344 META 0;
+#X text 12 163 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
 Wilkes for Pd version 0.42.;
-#X text 12 125 AUTHOR Thomas Ouellet Fredericks;
+#X text 12 143 AUTHOR Thomas Ouellet Fredericks;
 #X text 12 5 KEYWORDS control;
-#X text 12 45 INLET_0 bang float start step;
-#X text 12 65 INLET_1 float;
-#X text 12 85 INLET_2 float;
-#X text 12 105 OUTLET_0 float;
-#X text 12 25 LICENSE S.I. BSD;
+#X text 12 63 INLET_0 bang float start step;
+#X text 12 83 INLET_1 float;
+#X text 12 103 INLET_2 float;
+#X text 12 123 OUTLET_0 float;
+#X text 12 43 LICENSE S.I. BSD;
+#X text 12 24 DESCRIPTION iterates through numbers (as a "for" loop)
+;
 #X restore 571 556 pd META;
 #X obj 39 167 tof/iterate;
 #X obj 39 345 tof/iterate;

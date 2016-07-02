@@ -1,7 +1,7 @@
-#N canvas 1 81 716 518 10;
+#N canvas 1 83 716 518 10;
 #X obj 25 140 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 41 175 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 41 175 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X floatatom 107 299 5 0 0 0 - - -, f 5;
 #X text 45 139 Inlet 1 \, bang: Play sample once;
@@ -21,7 +21,6 @@ samples);
 #X text 145 297 Inlet 2 \, float: Pitch (1=original pitch);
 #X obj 190 411 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 136 430 cyclone/Snapshot~ 100;
 #X floatatom 136 452 5 0 0 0 - - -, f 5;
 #X text 173 453 Outlet 3 \, signal: progress;
 #X text 216 408 Outlet 4 \, bang: done;
@@ -41,7 +40,6 @@ granular method;
 #X text 12 195 OUTLET_3 bang;
 #X text 12 55 LICENSE S.I. BSD;
 #X restore 635 473 pd META;
-#X obj 479 176 tof/sample smpgranu voice.wav;
 #X obj 25 381 tof/sample_granule~ smpgranu;
 #X obj 24 433 tof/output~;
 #X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -249661 -66577
@@ -51,19 +49,29 @@ granular method;
 the granular method;
 #X text 9 35 tags: Sound Sample Play;
 #X text 8 78 version: 2010-08-02 (0.3);
-#X text 11 495 [tof/sample_granule~] depends on [zexy/demultiplex]
-\, cyclone/trapezoid] \, [cyclone/pong~], f 92;
-#X connect 0 0 22 0;
-#X connect 1 0 22 0;
-#X connect 2 0 22 1;
-#X connect 6 0 22 0;
-#X connect 7 0 22 0;
-#X connect 8 0 22 0;
-#X connect 9 0 21 0;
-#X connect 10 0 22 2;
-#X connect 12 0 22 2;
-#X connect 16 0 17 0;
-#X connect 22 0 23 0;
-#X connect 22 1 23 1;
-#X connect 22 2 16 0;
-#X connect 22 3 15 0;
+#X obj 479 176 tof/sample smpgranu tof/voice.wav;
+#X text 11 495 [tof/sample_granule~] depends on [cyclone/trapezoid]
+and [cyclone/pong~], f 92;
+#X obj 136 430 snapshot~;
+#X obj 357 413 metro 100;
+#X obj 357 393 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 139 472 hsl 128 15 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 10783 1;
+#X connect 0 0 20 0;
+#X connect 1 0 20 0;
+#X connect 2 0 20 1;
+#X connect 6 0 20 0;
+#X connect 7 0 20 0;
+#X connect 8 0 20 0;
+#X connect 9 0 27 0;
+#X connect 10 0 20 2;
+#X connect 12 0 20 2;
+#X connect 16 0 32 0;
+#X connect 20 0 21 0;
+#X connect 20 1 21 1;
+#X connect 20 2 29 0;
+#X connect 20 3 15 0;
+#X connect 29 0 16 0;
+#X connect 30 0 29 0;
+#X connect 31 0 30 0;
