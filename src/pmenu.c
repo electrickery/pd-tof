@@ -278,8 +278,6 @@ static void *pmenu_new(t_symbol *s, int argc, t_atom *argv)
     DEBUG(post("pmenu new start");)
 
     t_pmenu *x = (t_pmenu *)pd_new(pmenu_class);
-    int i;
-	
 
 
     x->current_selection = -1;

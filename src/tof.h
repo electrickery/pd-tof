@@ -5,7 +5,7 @@
  *      
  * tof.h is part of the tof library and licensed under the 3-clause    *
  * BSD license.                                                        *
- * fjkraan@xs4all.nl. 2016-06-15                                       *
+ * fjkraan@xs4all.nl. 2016-10-30                                      *
  */
 
 #ifndef TOF
@@ -18,6 +18,9 @@
 #define IS_A_SYMBOL(atom,index) ((atom+index)->a_type == A_SYMBOL)
 #define IS_A_FLOAT(atom,index) ((atom+index)->a_type == A_FLOAT)
 
+#define TOF_MAJOR_VERSION  0
+#define TOF_MINOR_VERSION  2
+#define TOF_BUGFIX_VERSION 1
 
 
 //static char tof_buf_temp_a[MAXPDSTRING];

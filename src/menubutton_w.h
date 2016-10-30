@@ -16,22 +16,22 @@ static int menubutton_w_is_visible(t_menubutton* x) {
 static void menubutton_w_disable(t_menubutton*x, t_float f){
  
   int i = (int)f;
-    sys_vgui(".x%x.c.s%x configure -state \"%s\"\n", x->x_glist, x, i?"disabled":"active");
+    sys_vgui(".x%lx.c.s%lx configure -state \"%s\"\n", x->x_glist, x, i?"disabled":"active");
 }
 
 static void menubutton_w_text(t_menubutton* x, t_symbol* s) {
-sys_vgui(".x%x.c.s%x configure -text \"%s\"\n",x->x_glist, x, s->s_name);
+sys_vgui(".x%lx.c.s%lx configure -text \"%s\"\n",x->x_glist, x, s->s_name);
 }
 
 static void menubutton_w_clear(t_menubutton* x){
-	sys_vgui(".x%x.c.s%x.menu delete 0 end ; .x%x.c.s%x configure -text \"%s\"\n", x->x_glist, x,x->x_glist, x,"");
+	sys_vgui(".x%lx.c.s%lx.menu delete 0 end ; .x%lx.c.s%lx configure -text \"%s\"\n", x->x_glist, x,x->x_glist, x,"");
 	//sys_vgui(".x%x.c.s%x.menu delete 0 end \n", x->x_glist, x);
 	//sys_vgui(".x%x.c.s%x configure -text \"%s\"\n", x->x_glist, x,"");
 
 }
 
 static void menubutton_w_additem(t_menubutton* x, t_symbol *label, int i) {
-	sys_vgui(".x%x.c.s%x.menu add command -label \"%s\" -command {.x%x.c.s%x configure -text \"%s\" ; select%x \"%d\"} \n",
+	sys_vgui(".x%lx.c.s%lx.menu add command -label \"%s\" -command {.x%lx.c.s%lx configure -text \"%s\" ; select%lx \"%d\"} \n",
                    x->x_glist, x, label->s_name, x->x_glist, x, label->s_name, x, i);
 
 }
@@ -41,24 +41,24 @@ static void menubutton_w_additem(t_menubutton* x, t_symbol *label, int i) {
 static void menubutton_w_set_align(t_menubutton* x) {
 	
 	if ( x->halign == -1 ) {
-		sys_vgui(".x%x.c.s%x configure -anchor w\n", x->x_glist, x);
+		sys_vgui(".x%lx.c.s%lx configure -anchor w\n", x->x_glist, x);
 	} else if ( x->halign == 0 ) {
-		sys_vgui(".x%x.c.s%x configure -anchor center\n", x->x_glist, x);
+		sys_vgui(".x%lx.c.s%lx configure -anchor center\n", x->x_glist, x);
 	} else {
-		sys_vgui(".x%x.c.s%x configure -anchor e\n", x->x_glist, x);
+		sys_vgui(".x%lx.c.s%lx configure -anchor e\n", x->x_glist, x);
 	}
 	
 }
 
 static void menubutton_w_apply_colors(t_menubutton* x) {
 	
-	sys_vgui(".x%x.c.s%x configure -background \"%s\" -foreground \"%s\" -activeforeground \"%s\" -activebackground \"%s\"\n", 
+	sys_vgui(".x%lx.c.s%lx configure -background \"%s\" -foreground \"%s\" -activeforeground \"%s\" -activebackground \"%s\"\n", 
 	x->x_glist, x, x->bg_color->s_name,x->fg_color->s_name,x->fg_color->s_name,x->hi_color->s_name);
 	
-	sys_vgui(".x%x.c.s%x.menu configure -background \"%s\" -foreground \"%s\" -activeforeground \"%s\" -activebackground \"%s\"\n", 
+	sys_vgui(".x%lx.c.s%lx.menu configure -background \"%s\" -foreground \"%s\" -activeforeground \"%s\" -activebackground \"%s\"\n", 
 	x->x_glist, x, x->bg_color->s_name,x->fg_color->s_name,x->fg_color->s_name,x->hi_color->s_name);
 
-    sys_vgui(".x%x.c itemconfigure  %xR -outline \"%s\"\n", x->x_glist, x,x->co_color->s_name);
+    sys_vgui(".x%lx.c itemconfigure  %lxR -outline \"%s\"\n", x->x_glist, x,x->co_color->s_name);
 }
 
 
@@ -75,19 +75,19 @@ static void menubutton_w_draw_inlets(t_menubutton *x, t_glist *glist, int draw, 
      {
 	  int onset = text_xpix(&x->x_obj, glist) + (x->x_width - IOWIDTH) * i / nplus;
 	  if (draw==CREATE) {
-	       sys_vgui(".x%x.c create rectangle %d %d %d %d -outline blue -tags {%xo%d %xo}\n",
+	       sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline blue -tags {%lxo%d %lxo}\n",
 			glist_getcanvas(glist),
 			onset, text_ypix(&x->x_obj, glist) + x->x_height + 1 ,
 			onset + IOWIDTH, text_ypix(&x->x_obj, glist) + x->x_height+2,
 			x, i, x);
 	  } else if (draw==UPDATE) {
-	       sys_vgui(".x%x.c coords %xo%d %d %d %d %d\n",
+	       sys_vgui(".x%lx.c coords %lxo%d %d %d %d %d\n",
 			glist_getcanvas(glist), x, i,
 			onset, text_ypix(&x->x_obj, glist) + x->x_height +1,
 			onset + IOWIDTH, text_ypix(&x->x_obj, glist) + x->x_height+2);
 		} else {
 			
-			sys_vgui(".x%x.c delete %xo\n",glist_getcanvas(glist),x); // Added tag for all outlets of one instance 
+			sys_vgui(".x%lx.c delete %lxo\n",glist_getcanvas(glist),x); // Added tag for all outlets of one instance 
 		}
      }
  /* inlets */
@@ -97,18 +97,18 @@ static void menubutton_w_draw_inlets(t_menubutton *x, t_glist *glist, int draw, 
      {
 	  int onset = text_xpix(&x->x_obj, glist) + (x->x_width - IOWIDTH) * i / nplus;
 	  if (draw==CREATE) {
-	       sys_vgui(".x%x.c create rectangle %d %d %d %d -outline blue -tags {%xi%d %xi}\n",
+	       sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline blue -tags {%lxi%d %lxi}\n",
 			glist_getcanvas(glist),
 			onset, text_ypix(&x->x_obj, glist)-2,
 			     onset + IOWIDTH, text_ypix(&x->x_obj, glist)-1,
 			x, i, x);
 	  } else if (draw==UPDATE) {
-	       sys_vgui(".x%x.c coords %xi%d %d %d %d %d\n",
+	       sys_vgui(".x%lx.c coords %lxi%d %d %d %d %d\n",
 			glist_getcanvas(glist), x, i,
 			onset, text_ypix(&x->x_obj, glist)-2,
 			onset + IOWIDTH, text_ypix(&x->x_obj, glist)-1);
 	  } else {
-		  sys_vgui(".x%x.c delete %xi\n",glist_getcanvas(glist),x); // Added tag for all inlets of one instance
+		  sys_vgui(".x%lx.c delete %lxi\n",glist_getcanvas(glist),x); // Added tag for all inlets of one instance
 	  }
      }
      DEBUG(post("draw inlet end");)
@@ -122,7 +122,7 @@ static void menubutton_w_draw_handle(t_menubutton *x, t_glist *glist, int draw) 
   int onset = text_xpix(&x->x_obj, glist) ;
   
   if (draw==CREATE) {
-	  sys_vgui(".x%x.c create rectangle %d %d %d %d -tags %xhandle -outline blue -fill blue\n",
+	  sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxhandle -outline blue -fill blue\n",
 	     glist_getcanvas(glist),
 	     onset, text_ypix(&x->x_obj, glist) ,
 	     onset + (x->x_width) , text_ypix(&x->x_obj, glist) + x->x_height ,
@@ -135,7 +135,7 @@ static void menubutton_w_draw_handle(t_menubutton *x, t_glist *glist, int draw) 
 	     x);
 	     */
   } else if (draw==UPDATE) {
-	  sys_vgui(".x%x.c coords %xhandle %d %d %d %d\n",
+	  sys_vgui(".x%lx.c coords %lxhandle %d %d %d %d\n",
 	     glist_getcanvas(glist), x, 
 	     onset, text_ypix(&x->x_obj, glist) ,
 	     onset + (x->x_width) , text_ypix(&x->x_obj, glist) + x->x_height );
@@ -146,7 +146,7 @@ static void menubutton_w_draw_handle(t_menubutton *x, t_glist *glist, int draw) 
 	     onset + HANDLEWIDTH, text_ypix(&x->x_obj, glist) + x->x_height );
 	     */
   } else {
-	  sys_vgui(".x%x.c delete  %xhandle\n",glist_getcanvas(glist),x,0);
+	  sys_vgui(".x%lx.c delete  %lxhandle\n",glist_getcanvas(glist),x,0);
   }
   
   
@@ -179,11 +179,11 @@ static void menubutton_w_create_widget(t_menubutton *x)
   if(x->initialized)
 	DEBUG(post("destroying previous widget");)
     {
-      sys_vgui("destroy .x%x.c.s%x\n",x->x_glist,x);
+      sys_vgui("destroy .x%lx.c.s%lx\n",x->x_glist,x);
       
       // Create menubutton and menu 
       
-      sys_vgui("set %xw .x%x.c.s%x ; menubutton $%xw -justify left -relief flat -indicatoron 0 -text \"%s\" -direction flush -menu $%xw.menu ; menu $%xw.menu -relief solid -tearoff 0 \n",
+      sys_vgui("set %lxw .x%lx.c.s%lx ; menubutton $%lxw -justify left -relief flat -indicatoron 0 -text \"%s\" -direction flush -menu $%lxw.menu ; menu $%lxw.menu -relief solid -tearoff 0 \n",
 		x,x->x_glist,x,x,temp_name->s_name,x,x);
 		
 		menubutton_w_set_align(x);
@@ -202,7 +202,7 @@ static void menubutton_w_create_widget(t_menubutton *x)
         }
     }
 
-  DEBUG(post("id: .x%x.c.s%x", x->x_glist, x);)
+  DEBUG(post("id: .x%lx.c.s%lx", x->x_glist, x);)
   DEBUG(post("create_widget end");)
 }
 
@@ -211,25 +211,25 @@ static void menubutton_w_draw_contour(t_menubutton *x, t_glist *glist, int draw)
 	
 	 int onset = text_xpix(&x->x_obj, glist);
 	 if (draw==CREATE) {
-    sys_vgui(".x%x.c create rectangle %d %d %d %d -tags %xR -outline \"%s\" \n",
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxR -outline \"%s\" \n",
 	     glist_getcanvas(glist),
 	     onset, text_ypix(&x->x_obj, glist) ,
 	     onset + x->x_width, text_ypix(&x->x_obj, glist) + x->x_height,
 	     x,x->co_color->s_name); 
   } else if (draw==UPDATE) {
-    sys_vgui(".x%x.c coords %xR %d %d %d %d\n",
+    sys_vgui(".x%lx.c coords %lxR %d %d %d %d\n",
 	     glist_getcanvas(glist), x, 
 	     onset, text_ypix(&x->x_obj, glist) ,
 	     onset + x->x_width, text_ypix(&x->x_obj, glist) + x->x_height );
   } else {
-	  sys_vgui(".x%x.c delete  %xR\n",glist_getcanvas(glist),x,0);
+	  sys_vgui(".x%lx.c delete  %lxR\n",glist_getcanvas(glist),x,0);
   }
 	
 }
 
 static void  menubutton_w_resize(t_menubutton* x) {
 	
-	sys_vgui(".x%x.c itemconfigure %xS -width %i -height %i \n", x->x_glist, x,x->x_width-1,x->x_height-1);
+	sys_vgui(".x%lx.c itemconfigure %lxS -width %i -height %i \n", x->x_glist, x,x->x_width-1,x->x_height-1);
 	menubutton_w_draw_contour(x,x->x_glist,UPDATE);
 	canvas_fixlinesfor(x->x_glist,(t_text*) x);
 }
@@ -246,18 +246,18 @@ static void menubutton_w_drawme(t_menubutton *x, t_glist *glist, int draw)
 		 /* by drawing, we "initialize" the popup */
 		x->initialized=1;
 		
-       DEBUG(post("glist %x canvas %x",x->x_glist,canvas);)
+       DEBUG(post("glist %lx canvas %lx",x->x_glist,canvas);)
        menubutton_w_draw_contour(x,glist,CREATE);
        x->x_glist = canvas;
        menubutton_w_create_widget(x);	       
        
-       sys_vgui(".x%x.c create window %d %d -width %d -height %d -anchor nw -window .x%x.c.s%x -tags %xS\n", 
+       sys_vgui(".x%lx.c create window %d %d -width %d -height %d -anchor nw -window .x%lx.c.s%lx -tags %lxS\n", 
 		canvas,text_xpix(&x->x_obj, glist) + 1, text_ypix(&x->x_obj, glist) + 1, x->x_width -1, x->x_height -1, x->x_glist,x,x);
               
      }     
      else if (draw==UPDATE) {
 		menubutton_w_draw_contour(x,glist,UPDATE);
-       sys_vgui(".x%x.c coords %xS %d %d\n",
+       sys_vgui(".x%lx.c coords %lxS %d %d\n",
 		canvas, x,
 		text_xpix(&x->x_obj, glist) + 1, text_ypix(&x->x_obj, glist) +1);
      } else {
@@ -265,8 +265,8 @@ static void menubutton_w_drawme(t_menubutton *x, t_glist *glist, int draw)
 		  DEBUG(post("erase start");)
        if(x->initialized){
 		  menubutton_w_draw_contour(x,glist,DESTROY);	
-         sys_vgui("destroy .x%x.c.s%x\n",glist_getcanvas(glist),x);
-         sys_vgui(".x%x.c delete %xS\n",glist_getcanvas(glist), x);
+         sys_vgui("destroy .x%lx.c.s%lx\n",glist_getcanvas(glist),x);
+         sys_vgui(".x%lx.c delete %lxS\n",glist_getcanvas(glist), x);
          
        }
 		DEBUG(post("erase end");)
