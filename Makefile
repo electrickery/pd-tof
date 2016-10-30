@@ -53,7 +53,8 @@ tof/test-arguments-all.pd \
 tof/test-arguments-comma.pd \
 tof/test-arguments-token.pd \
 tof/test-param-2.pd \
-tof/test-param.pd 
+tof/test-param.pd \
+tof/tof-meta.pd
 
 
 externalsdir = ..
