@@ -12,6 +12,7 @@
 
 /* CHANGES
  
+ 0.32 changed %x to %lx. This failed on MaxOSX-64-bit (fjk, 2016-10-30).
  0.31 %p or %x in sprintf and sysvgui do not seem to give the same result, 
       so generate the name in sprintf and feed it as a string to sysvgui
  0.3 Added the possibility of adding anything (instead of only symbols)
@@ -319,7 +320,7 @@ static void *pmenu_new(t_symbol *s, int argc, t_atom *argv)
 
       /* define proc in tcl/tk where "pmenu%p" is the receive, "callback" is the method, and "$index" is an argument. */
     //sys_vgui("proc select%x {index} {\n pdsend \"pmenu%p callback $index \"\n }\n",x,x); 
-    sys_vgui("proc select%x {index} {\n pdsend \"%s callback $index \"\n }\n",x,pmenu_buffer); 
+    sys_vgui("proc select%lx {index} {\n pdsend \"%s callback $index \"\n }\n",x,pmenu_buffer); 
 
     x->outlet1 = outlet_new(&x->x_obj, &s_float);
 	x->outlet2 = outlet_new(&x->x_obj, &s_list);

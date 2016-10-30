@@ -10,8 +10,12 @@
  * fjkraan@xs4all.nl. 2016-06-15                                       *
  */
 
-
-
+/* CHANGES
+ * 
+ * 0.3.1 changed %x to %lx. This failed on MaxOSX-64-bit (fjk, 2016-10-30).
+ * 0.3   first versioned version (derived from help-patch).
+ * 
+ */
 
 /* Append " x " to the following line to show debugging messages */
 #define DEBUG(x)
@@ -468,7 +472,7 @@ static void *menubutton_new(t_symbol *s, int argc, t_atom *argv)
       pd_bind(&x->x_obj.ob_pd, x->x_sym);
 
       /* define proc in tcl/tk where "menubutton%p" is the receive, "callback" is the method, and "$index" is an argument. */
-    sys_vgui("proc select%x {index} {\n pdsend \"menubutton%p callback $index \"\n }\n",x,x); 
+    sys_vgui("proc select%lx {index} {\n pdsend \"menubutton%p callback $index \"\n }\n",x,x); 
 
 
     outlet_new(&x->x_obj, &s_symbol);

@@ -9,8 +9,12 @@ static int menubutton_w_is_visible(t_menubutton* x) {
 	
 }
 
-
-
+/* CHANGES
+ * 
+ * 0.3.1 changed %x to %lx. This failed on MaxOSX-64-bit (fjk, 2016-10-30).
+ * 0.3   first versioned version (derived from help-patch).
+ * 
+ */
 
 
 static void menubutton_w_disable(t_menubutton*x, t_float f){
