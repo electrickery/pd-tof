@@ -1,0 +1,11 @@
+#N canvas 690 435 450 350 10;
+#X text 16 82 LIBRARY tof;
+#X text 16 100 VERSION 0.2.1;
+#X text 16 118 AUTHOR Thomas Ouellet Fredericks;
+#X text 17 136 RELEASE_DATE 2016;
+#X text 18 155 WEBSITE https://github.com/electrickery/pd-tof;
+#X text 18 175 HELP_PATCH_AUTHORS Thomas Ouellet Fredericks.;
+#X text 16 16 KEYWORDS signal message GUI;
+#X text 16 34 LICENSE SIBSD (with bits GPL);
+#X text 16 52 DESCRIPTION a collection of objects and abstractions
+covering a wide range in functionality.;

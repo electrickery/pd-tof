@@ -1,4 +1,4 @@
-#N canvas 106 96 901 519 10;
+#N canvas 104 96 901 519 10;
 #X obj 406 99 tof/animate;
 #X obj 29 69 tof/argument;
 #X obj 29 94 tof/arguments;
@@ -50,7 +50,8 @@ black -1;
 #X obj 583 383 tof/imagebang - -;
 #X text 405 352 Depricated;
 #X text 25 199 message;
-#X text 28 491 This is version 0.2.0 \, released 2016-06-24 by fjkraan@xs4all.nl
-, f 62;
 #X text 27 472 Tof is created by Thomas Ouellet Fredericks in 2009-2010
 ;
+#X obj 773 495 tof-meta;
+#X text 28 491 This is version 0.2.1 \, released 2016-06-24 by fjkraan@xs4all.nl
+, f 62;
