@@ -65,11 +65,11 @@ static void imagebang_bang(t_imagebang *x)
 	
 	t_glist* glist = glist_getcanvas(x->glist);
     if(x->flashing) {
-		sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_a);
+		sys_vgui(".x%lx.c itemconfigure %lximage -image %lx_imagebang \n", glist, x,x->image_a);
         clock_delay(x->clock_brk, x->clockbrk);
         //x->flashed = 1;
     } else  {
-		sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_b);
+		sys_vgui(".x%lx.c itemconfigure %lximage -image %lx_imagebang \n", glist, x,x->image_b);
         x->flashing = 1;
         
     }
@@ -85,7 +85,7 @@ static void imagebang_flash_timeout(t_imagebang *x)
 {
 	t_glist* glist = glist_getcanvas(x->glist);
     x->flashing = 0;
-    sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_a);
+    sys_vgui(".x%lx.c itemconfigure %lximage -image %lx_imagebang \n", glist, x,x->image_a);
     
 }
 
@@ -93,7 +93,7 @@ static void imagebang_brk_timeout(t_imagebang *x)
 {
 	t_glist* glist = glist_getcanvas(x->glist);
     x->flashing = 1;
-    sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_b);
+    sys_vgui(".x%lx.c itemconfigure %lximage -image %lx_imagebang \n", glist, x,x->image_b);
     
 }
 
@@ -131,20 +131,20 @@ static int imagebang_click(t_imagebang *x, struct _glist *glist,
 static void imagebang_drawme(t_imagebang *x, t_glist *glist, int firsttime) {
      if (firsttime) {	
 		 
-		 DEBUG(post("Rendering: \n   %x_imagebang:%s \n   %x_imagebang:%s",
+		 DEBUG(post("Rendering: \n   %lx_imagebang:%s \n   %lx_imagebang:%s",
                                               x->image_a,  x->image_a->s_name, x->image_b, x->image_b->s_name);)
 		 
-		sys_vgui(".x%lx.c create image %d %d -anchor nw -image %x_imagebang -disabledimage %x_imagebang -tags %ximage\n", 
+		sys_vgui(".x%lx.c create image %d %d -anchor nw -image %lx_imagebang -disabledimage %lx_imagebang -tags %lximage\n", 
 			glist_getcanvas(glist),
 			text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist),x->image_a,x->image_b,x);
 	  
 	  
-	   sys_vgui("pdsend \"%s _imagesize [image width %x_imagebang] [image height %x_imagebang]\"\n", 
+	   sys_vgui("pdsend \"%s _imagesize [image width %lx_imagebang] [image height %lx_imagebang]\"\n", 
                                x->receive->s_name,        x->image_a,                 x->image_a);
 	   
 	   
      } else {
-	  sys_vgui(".x%lx.c coords %ximage %d %d\n",
+	  sys_vgui(".x%lx.c coords %lximage %d %d\n",
 		   glist_getcanvas(glist), x,
 		   text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist));
      }
@@ -155,7 +155,7 @@ static void imagebang_drawme(t_imagebang *x, t_glist *glist, int firsttime) {
 void imagebang_erase(t_imagebang* x,t_glist* glist)
 {
      int n;
-     sys_vgui(".x%lx.c delete %ximage\n",
+     sys_vgui(".x%lx.c delete %lximage\n",
 	      glist_getcanvas(glist), x);
 
 }
@@ -186,7 +186,7 @@ static void imagebang_displace(t_gobj *z, t_glist *glist,
     t_imagebang *x = (t_imagebang *)z;
     x->x_obj.te_xpix += dx;
     x->x_obj.te_ypix += dy;
-    sys_vgui(".x%lx.c coords %xSEL %d %d %d %d\n",
+    sys_vgui(".x%lx.c coords %lxSEL %d %d %d %d\n",
 		   glist_getcanvas(glist), x,
 		   text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist),
 		   text_xpix(&x->x_obj, glist) + x->width, text_ypix(&x->x_obj, glist) + x->height);
@@ -199,14 +199,14 @@ static void imagebang_select(t_gobj *z, t_glist *glist, int state)
 {
     t_imagebang *x = (t_imagebang *)z;
     if (state) {
-	    sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %xSEL -outline blue\n",
+	    sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxSEL -outline blue\n",
 		    glist_getcanvas(glist),
 		    text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist),
 		    text_xpix(&x->x_obj, glist) + x->width, text_ypix(&x->x_obj, glist) + x->height,
 		    x);
      }
      else {
-	     sys_vgui(".x%lx.c delete %xSEL\n", glist_getcanvas(glist), x);
+	     sys_vgui(".x%lx.c delete %lxSEL\n", glist_getcanvas(glist), x);
      }
 }
 
@@ -253,12 +253,12 @@ static void imagebang_flashtime(t_imagebang *x, t_float f)
     t_glist* glist = glist_getcanvas(x->glist);
     if (f == 0)
     {
-        sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_a);
+        sys_vgui(".x%lx.c itemconfigure %lximage -image %lx_imagebang \n", glist, x,x->image_a);
         x->flashing = 0;
         return;
     }
     // f < 0
-    sys_vgui(".x%lx.c itemconfigure %ximage -image %x_imagebang \n", glist, x,x->image_b);
+    sys_vgui(".x%lx.c itemconfigure %lximage -image %lx_imagebang \n", glist, x,x->image_b);
     x->flashing = 1;
 }
 
@@ -274,17 +274,17 @@ static void imagebang_free(t_imagebang *x) {
 	
 	// check first if variable has been unset and image is unused
     // then delete image and unset variable
-     DEBUG(sys_vgui("pdsend \"DEBUG b in use [image inuse %x_imagebang]\"\n",x->image_b);)
-     DEBUG(sys_vgui("pdsend \"DEBUG a in use [image inuse %x_imagebang]\"\n",x->image_a);)
+     DEBUG(sys_vgui("pdsend \"DEBUG b in use [image inuse %lx_imagebang]\"\n",x->image_b);)
+     DEBUG(sys_vgui("pdsend \"DEBUG a in use [image inuse %lx_imagebang]\"\n",x->image_a);)
     
-    sys_vgui("if { [info exists %x_imagebang] == 1 && [image inuse %x_imagebang] == 0} { image delete %x_imagebang \n unset %x_imagebang\n} \n",
+    sys_vgui("if { [info exists %lx_imagebang] == 1 && [image inuse %lx_imagebang] == 0} { image delete %lx_imagebang \n unset %lx_imagebang\n} \n",
         x->image_b, x->image_b, x->image_b, x->image_b);
-    sys_vgui("if { [info exists %x_imagebang] == 1 && [image inuse %x_imagebang] == 0} { image delete %x_imagebang \n unset %x_imagebang\n} \n",
+    sys_vgui("if { [info exists %lx_imagebang] == 1 && [image inuse %lx_imagebang] == 0} { image delete %lx_imagebang \n unset %lx_imagebang\n} \n",
         x->image_a, x->image_a, x->image_a, x->image_a);
     
-    DEBUG(sys_vgui("pdsend \"DEBUG b exists [info exists %x_imagebang] \"\n",
+    DEBUG(sys_vgui("pdsend \"DEBUG b exists [info exists %lx_imagebang] \"\n",
         x->image_b);)
-    DEBUG(sys_vgui("pdsend \"DEBUG a exists [info exists %x_imagebang] \"\n",
+    DEBUG(sys_vgui("pdsend \"DEBUG a exists [info exists %lx_imagebang] \"\n",
         x->image_a);)
     
     if (x->receive) {
@@ -342,7 +342,7 @@ static unsigned char bangMask_bits[] = {\n\
    
 static void imagebang_createDefaultImage(t_imagebang *x, t_symbol *image, unsigned char *xbmString)
 {
-        sys_vgui("if { [info exists %x_imagebang] == 0 } { image create bitmap %x_imagebang -data \"%s\" -maskdata \"%s\"\n set %x_imagebang 1\n} \n",
+        sys_vgui("if { [info exists %lx_imagebang] == 0 } { image create bitmap %lx_imagebang -data \"%s\" -maskdata \"%s\"\n set %lx_imagebang 1\n} \n",
                                      image,                                     image,               xbmString,       bangMaskXbmString, image);
 } 
 
@@ -428,7 +428,7 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 			x->image_a = gensym(fname);
 			//sys_vgui("set %x_a \"%s\" \n",x,fname);
 			// Create the image only if the class has not already loaded the same image (with the same symbolic path name)
-			sys_vgui("if { [info exists %x_imagebang] == 0 } { image create photo %x_imagebang -file \"%s\"\n set %x_imagebang 1\n} \n",
+			sys_vgui("if { [info exists %lx_imagebang] == 0 } { image create photo %lx_imagebang -file \"%s\"\n set %lx_imagebang 1\n} \n",
                                                      x->image_a,                               x->image_a,          fname,     x->image_a); 
 //            sys_vgui("pdsend {test %x_imagebang}\n", x->image_a);
 		} else {
@@ -443,7 +443,7 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
 		if (fname) {
 			x->image_b = gensym(fname);
 			//sys_vgui("set %x_b \"%s\" \n",x,fname);
-			sys_vgui("if { [info exists %x_imagebang] == 0} { image create photo %x_imagebang -file \"%s\"\n set %x_imagebang 1\n} \n",
+			sys_vgui("if { [info exists %lx_imagebang] == 0} { image create photo %lx_imagebang -file \"%s\"\n set %lx_imagebang 1\n} \n",
                                                      x->image_b,                              x->image_b,          fname,     x->image_b);
 //            sys_vgui("pdsend {test %x_imagebang}\n", x->image_b);
 		} else {

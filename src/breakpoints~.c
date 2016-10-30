@@ -284,7 +284,7 @@ static void *breakpoints_new(t_symbol *s,int argc,t_atom* argv)
      x->finalvalues = getbytes( x->args*sizeof(t_float));
      x->duration = getbytes( x->args*sizeof(t_float));
 #ifdef DEBUG
-     post("finalvalues %x",x->finalvalues);
+     post("finalvalues %lx",x->finalvalues);
 #endif
      /* widget */
      
