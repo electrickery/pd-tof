@@ -168,12 +168,12 @@ static void breakpoints_create_doodles(t_breakpoints *x, t_glist *glist)
      ypos = (int) (text_ypix(&x->x_obj,glist) + x->w.height);
      for (i=0;i<=x->last_state;i++) {
      yvalue = (x->finalvalues[i] - yBase) / ySize * yscale;
-	  sprintf(guistr,".x%lx.c create oval %d %d %d %d -tags %lxD%d",(unsigned int)glist_getcanvas(glist),
+	  sprintf(guistr,".x%lx.c create oval %d %d %d %d -tags %lxD%d", glist_getcanvas(glist),
 		   (int) (xpos+(x->duration[i] * xscale) - 2),
 		   (int) (ypos - yvalue - 2),
 		   (int) (xpos+(x->duration[i] * xscale)+2),
 		   (int) (ypos - yvalue + 2),
-		   (unsigned int)x,i);
+		   x,i);
 
 	  if (i == x->w.grabbed) {
 	  	strcat(guistr," -fill red\n");
@@ -227,14 +227,14 @@ static void breakpoints_shownum(t_breakpoints *x,t_glist* glist)
      breakpoints_delnum(x);
 
      sys_vgui(".x%lx.c create text %d %d -text %.2fxl%.2f -tags %lxT\n",
-	     (unsigned int)glist_getcanvas(x->w.glist),
+	     glist_getcanvas(x->w.glist),
 	     
 	     (int) (xpos+(x->duration[i] * xscale) +3),
 	     (int) (ypos - (x->finalvalues[i]-yBase)/ySize*yscale - 10),
 	     
 	     x->finalvalues[i],
 	     x->duration[i],
-	     (unsigned int)x);
+	     x);
      clock_delay(x->w.numclock,700);
 }
 
@@ -262,19 +262,7 @@ static void breakpoints_create(t_breakpoints *x, t_glist *glist)
      xscale = x->w.width/x->duration[x->last_state];
      yscale = x->w.height;
      
-/*     sprintf(buf,".x%lx.c create line",(unsigned int)glist_getcanvas(glist));
-     for (i=0;i<=x->last_state;i++) {
-	  sprintf(num," %d %d ",(int)(xpos + x->duration[i]*xscale),
-		                (int)(ypos + x->w.height- (x->finalvalues[i]-yBase)/ySize*yscale));
-	  strcat(buf,num);
-     }
-     
-     sprintf(num,"-tags %pP -fill "LINECOLOR"\n",x);
-     strcat(buf,num);
-     sys_vgui("%s",buf);
-*/
-     
-     sys_vgui(".x%lx.c create line", (unsigned int)glist_getcanvas(glist));
+     sys_vgui(".x%lx.c create line", glist_getcanvas(glist));
      for (i=0;i<=x->last_state;i++) {
           sys_vgui(" %d %d ",(int)(xpos + x->duration[i]*xscale),
                 (int)(ypos + x->w.height- (x->finalvalues[i]-yBase)/ySize*yscale));
@@ -296,8 +284,7 @@ int i;
      float ySize = x->max - x->min;
      float yBase =  x->min;
 
-     sys_vgui(".x%lx.c coords %lxS \
-%d %d %d %d\n",
+     sys_vgui(".x%lx.c coords %lxS %d %d %d %d\n",
 	      glist_getcanvas(glist), x,
 	      xpos - BORDER, ypos -BORDER,
 	      xpos + x->w.width+2*BORDER, ypos + x->w.height+2*BORDER);
@@ -306,17 +293,7 @@ int i;
      xscale = x->w.width/x->duration[x->last_state];
      yscale = x->w.height;
      
-/*     sprintf(buf,".x%lx.c coords %pP",(unsigned int)glist_getcanvas(glist),x);
-
-     for (i=0;i<=x->last_state;i++) {
-	  sprintf(num," %d %d ",(int)(xpos + x->duration[i]*xscale),
-		                (int) (ypos + x->w.height - (x->finalvalues[i]-yBase)/ySize*yscale));
-	  strcat(buf,num);
-     }
-     strcat(buf,"\n");
-     sys_vgui("%s",buf); */
-     
-     sys_vgui(".x%lx.c coords %lxP", (unsigned int)glist_getcanvas(glist), x);
+     sys_vgui(".x%lx.c coords %lxP", glist_getcanvas(glist), x);
      for (i=0;i<=x->last_state;i++) {
           sys_vgui(" %d %d ",(int)(xpos + x->duration[i]*xscale),
 		                (int) (ypos + x->w.height - (x->finalvalues[i]-yBase)/ySize*yscale));
@@ -348,8 +325,6 @@ static void breakpoints_erase(t_breakpoints* x,t_glist* glist)
      sys_vgui(".x%lx.c delete %lxS\n",
 	      glist_getcanvas(glist), x);
 
-/*     sys_vgui(".x%lx.c delete %pP\n",
-	      glist_getcanvas(glist), x); */
      sys_vgui(".x%lx.c delete %lxP\n",
 	      glist_getcanvas(glist), x);
 
