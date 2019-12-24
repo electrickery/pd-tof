@@ -426,8 +426,8 @@ void breakpoints_tilde_setup(void)
     //class_setsavefn(breakpoints_class,&breakpoints_save);
 #endif
     class_addmethod(breakpoints_class,(t_method)breakpoints_dump,gensym("dump"),A_NULL);
-
-
+    class_addmethod(breakpoints_class, (t_method)breakpoints_zoom,
+        gensym("zoom"), A_CANT, 0);
 }
 
 
