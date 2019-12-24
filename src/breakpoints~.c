@@ -354,6 +354,8 @@ static void *breakpoints_new(t_symbol *s,int argc,t_atom* argv)
      x->out3 = outlet_new(&x->x_obj, &s_bang);
      
      //x->x_clock = clock_new(x, (t_method) breakpoints_tick);
+     
+     x->x_zoom = 1;
      return (x);
 }
 

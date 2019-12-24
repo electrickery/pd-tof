@@ -34,13 +34,13 @@ typedef struct _breakpoints
      int sustain_state;
      int envchanged;
 
-     t_float* finalvalues;
-     t_float* duration;
+     t_float* finalvalues;  // y value
+     t_float* duration;     // x value
      t_float  totaldur;
      t_int    args; /* get rid of that */
      t_int resizing;
      t_int resizeable;
-	t_int borderwidth;
+     t_int borderwidth;
 
      t_symbol* r_sym; //receive symbol
      t_symbol* s_sym; //send symbol
@@ -53,10 +53,10 @@ typedef struct _breakpoints
      t_clock* x_clock;
      t_float x_freeze;
 
-      t_float x_f;    	/* place to hold inlet's value if it's set by message */
+     t_float x_f;    	/* place to hold inlet's value if it's set by message */
 
-      int state;
-
+     int state;
+     int x_zoom;
 
      t_outlet* out2;
      t_outlet* out3;

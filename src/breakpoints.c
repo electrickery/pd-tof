@@ -16,7 +16,6 @@
 #define STATES  100
 
 
-
 #include "breakpoints~.h"
 
 #include "w_breakpoints.h"
@@ -367,6 +366,8 @@ static void *breakpoints_new(t_symbol *s,int argc,t_atom* argv)
      x->out3 = outlet_new(&x->x_obj, &s_bang);
      
      x->x_clock = clock_new(x, (t_method) breakpoints_tick);
+     
+     x->x_zoom = 1;
      return (x);
 }
 
@@ -392,8 +393,11 @@ static void breakpoints_status(t_breakpoints* x) {
     post("sustain_state:  (%d) %s", x->sustain_state, stateString);
     post("envchanged:     %d", x->envchanged);
 
-    post("finalvalues:    0x%08X", x->finalvalues);
-    post("duration:       0x%08X", x->duration);
+    int i;
+    for (i = 0; i <= x->last_state; i++) {
+        post("  x->finalvalues[%d]: %.2f\n  x->duration[%d]:   %.2f", 
+                i, x->finalvalues[i], i, x->duration[i]);
+    }
 
     post("totaldur:       %f", x->totaldur);
     post("args:           %d", x->args);
@@ -406,6 +410,8 @@ static void breakpoints_status(t_breakpoints* x) {
     post("d_sym:         '%s'", (x->d_sym) ? x->d_sym->s_name : "-");
     post("c_sym:         '%s'", (x->c_sym) ? x->c_sym->s_name : "-");
 
+    post("width:          %d", x->w.width);
+    post("height:         %d", x->w.height);
     post("min:            %f", x->min);
     post("max:            %f", x->max);
 
@@ -418,6 +424,7 @@ static void breakpoints_status(t_breakpoints* x) {
     if (x->state == 1) stateString = "ATTACK ";
     if (x->state == -1) stateString = "SUSTAIN";
     post("state:        (%d) %s", x->state, stateString);
+    post("x_zoom:         %d", x->x_zoom);
     post("compiled against Pd version:  %d.%d.%d",  
         PD_MAJOR_VERSION, PD_MINOR_VERSION, PD_BUGFIX_VERSION);
     int major, minor, bugfix;
@@ -433,7 +440,7 @@ void breakpoints_setup(void)
 {
     breakpoints_class = class_new(gensym("breakpoints"), 
         (t_newmethod)breakpoints_new, (t_method)breakpoints_free,
-    	sizeof(t_breakpoints), 0, A_GIMME,0);
+        sizeof(t_breakpoints), 0, A_GIMME, 0);
 
     class_addfloat(breakpoints_class, breakpoints_float);
     class_addbang(breakpoints_class, breakpoints_bang);
@@ -463,6 +470,8 @@ void breakpoints_setup(void)
         gensym("dump"), A_NULL);
     class_addmethod(breakpoints_class, (t_method) breakpoints_status, 
         gensym("status"), A_NULL);
+    class_addmethod(breakpoints_class, (t_method)breakpoints_zoom,
+        gensym("zoom"), A_CANT, 0);
 }
 
 

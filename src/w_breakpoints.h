@@ -21,6 +21,7 @@
 // IOWIDTH comes from g_canvas.h
 #define IOHEIGHT 1
 // $canvas create rectangle $x-pos $y-pos $width $height [--tags ...]
+#define DEBUG 1
 
 static void draw_inlets(t_breakpoints *x, t_glist *glist, int firsttime, int nin, int nout)
 {
@@ -29,160 +30,164 @@ static void draw_inlets(t_breakpoints *x, t_glist *glist, int firsttime, int nin
     {
         int n = nout;
         int nplus, i;
-        int xpos = text_xpix(&x->x_obj,glist);
-        int ypos = text_ypix(&x->x_obj,glist);
+        int wxpos = text_xpix(&x->x_obj,glist);
+        int wypos = text_ypix(&x->x_obj,glist);
+        int zoom = x->x_zoom;
 
         nplus = (n == 1 ? 1 : n-1);
         for (i = 0; i < n; i++)
         {
-            int x_onset = xpos + (x->w.width - IOWIDTH + 3 * BORDER) * i / nplus - BORDER;
-            int y_onset = ypos + x->w.height - 1 + 2 * BORDER;
+            int x_onset = wxpos + ((x->w.width - IOWIDTH + 3 * BORDER) * i / nplus - BORDER) * zoom;
+            int y_onset = wypos + (x->w.height - 1 + 2 * BORDER) * zoom;
             // OUTLETS
             if (firsttime)
             {
-                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxo%d \n",
+                sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -tags %lxo%d \n",
                     glist_getcanvas(glist),
-                    x_onset,           y_onset,
-                    x_onset + IOWIDTH, y_onset - IOHEIGHT,
-                    x, i);
+                    x_onset,                  y_onset,
+                    x_onset + IOWIDTH * zoom, y_onset - IOHEIGHT * zoom,
+                    1 * zoom, x, i);
             }
             else
             {
                 sys_vgui(".x%lx.c coords %lxo%d %d %d %d %d\n",
                     glist_getcanvas(glist), x, i,
-                    x_onset,           y_onset,
-                    x_onset + IOWIDTH, y_onset - IOHEIGHT);
+                    x_onset,                  y_onset,
+                    x_onset + IOWIDTH * zoom, y_onset - IOHEIGHT * zoom);
             }
         }
         n = nin; 
         nplus = (n == 1 ? 1 : n-1);
         for (i = 0; i < n; i++)
         {
-            int x_onset = xpos + (x->w.width - IOWIDTH + 3 * BORDER) * i / nplus - BORDER;
-            int y_onset = ypos - BORDER + 1;
+            int x_onset = wxpos + ((x->w.width - IOWIDTH + 3 * BORDER) * i / nplus - BORDER) * zoom;
+            int y_onset = wypos - (BORDER + 1) * zoom;
             // INLETS
             if (firsttime)
             {
-                sys_vgui(".x%lx.c create rectangle %d %d %d %d -tags %lxi%d\n",
+                sys_vgui(".x%lx.c create rectangle %d %d %d %d -width %d -tags %lxi%d\n",
                     glist_getcanvas(glist),
-                    x_onset,           y_onset,
-                    x_onset + IOWIDTH, y_onset + IOHEIGHT,
-                    x, i);
+                    x_onset,                  y_onset,
+                    x_onset + IOWIDTH * zoom, y_onset + IOHEIGHT * zoom,
+                    1 * zoom, x, i);
             }
             else
             {
                 sys_vgui(".x%lx.c coords %lxi%d %d %d %d %d\n",
                     glist_getcanvas(glist), x, i,
-                    x_onset,           y_onset,
-                    x_onset + IOWIDTH, y_onset + IOHEIGHT);
+                    x_onset,                  y_onset,
+                    x_onset + IOWIDTH * zoom, y_onset + IOHEIGHT * zoom);
              }
          }
     }
 }
 
-
 static int breakpoints_next_doodle(t_breakpoints *x, struct _glist *glist,
-                              int xpos,int ypos)
+                              int xpos, int ypos)
 {
     // int ret = -1;
-     float xscale,yscale;
-     int dxpos,dypos;
-     float minval = 100000.0;
-     float tval;
-     int i;
-     int insertpos = -1;
-     float ySize = x->max - x->min;
-     float yBase =  x->min;
+    float xscale,yscale;
+    int dxpos,dypos;
+    float minval = 100000.0;
+    float tval;
+    int i;
+    int insertpos = -1;
+    float ySize = x->max - x->min;
+    float yBase =  x->min;
+    int zoom = x->x_zoom;
+    int wxpos = text_xpix(&x->x_obj, glist);
+    int wypos = text_ypix(&x->x_obj, glist);
+    if (xpos > wxpos + x->w.width) 
+        xpos = wxpos + x->w.width;
 
-     if (xpos > text_xpix(&x->x_obj,glist) + x->w.width) 
-         xpos = text_xpix(&x->x_obj,glist) + x->w.width;
-
-     xscale = x->w.width/x->duration[x->last_state];
-     yscale = x->w.height;
+    xscale = x->w.width / x->duration[x->last_state];
+    yscale = x->w.height;
      
-     dxpos = text_xpix(&x->x_obj,glist);/* + BORDER */;
-     dypos = text_ypix(&x->x_obj,glist) + BORDER;
+    dxpos = wxpos / zoom;/* + BORDER */;
+    dypos = wypos / zoom + BORDER;
 
-     for (i=0;i<=x->last_state;i++) {
-	  float dx2 = (dxpos + (x->duration[i] * xscale)) - xpos;
-	  float dy2 = (dypos + yscale - ( (x->finalvalues[i] - yBase) / ySize * yscale)) - ypos;
+    for (i = 0; i <= x->last_state; i++) {
+        float dx2 = (dxpos + (x->duration[i] * xscale)) - xpos;
+        float dy2 = (dypos + yscale - ( (x->finalvalues[i] - yBase) / ySize * yscale)) - ypos;
 
-	  dx2*=dx2;
-	  dy2*=dy2;
-	  tval = sqrt(dx2+dy2);
+        dx2 *= dx2;
+        dy2 *= dy2;
+        tval = sqrt(dx2 + dy2);
 
-	  if (tval <= minval) {
-	    minval = tval;	    
-	    insertpos = i;
-	  }
-     }
+        if (tval <= minval) {
+            minval = tval;	    
+            insertpos = i;
+        }
+    }
 
      /* decide if we want to make a new one */
-     if (minval > /*5*/ 8 && insertpos >= 0 && !x->x_freeze) {
+    if (minval > /*5*/ 8 && insertpos >= 0 && !x->x_freeze) {
 
-	  while (((dxpos + (x->duration[insertpos] * xscale)) - xpos) < 0)
-	       insertpos++;
-	  while (((dxpos + (x->duration[insertpos-1] * xscale)) - xpos) > 0)
-	       insertpos--;
+        while (((dxpos + (x->duration[insertpos] * xscale)) - xpos) < 0)
+            insertpos++;
+        while (((dxpos + (x->duration[insertpos - 1] * xscale)) - xpos) > 0)
+            insertpos--;
 
-	  if (x->last_state+1 >= x->args)
-	       breakpoints_resize(x,x->args+1);
+        if (x->last_state+1 >= x->args)
+            breakpoints_resize(x,x->args+1);
 
-	  for (i=x->last_state;i>=insertpos;i--) {
-	       x->duration[i+1] = x->duration[i];
-	       x->finalvalues[i+1] = x->finalvalues[i];
-	  }
-	  x->duration[insertpos] = (float)(xpos-dxpos)/x->w.width*x->duration[x->last_state++];
-	  x->w.pointerx = xpos;
-	  x->w.pointery = ypos;
-     }
-     else {
-	  x->w.pointerx = text_xpix(&x->x_obj,glist) + x->duration[insertpos]*x->w.width/x->duration[x->last_state]; 
+        for (i = x->last_state; i >= insertpos; i--) {
+            x->duration[i + 1]    = x->duration[i];
+            x->finalvalues[i + 1] = x->finalvalues[i];
+        }
+        x->duration[insertpos] = (float)(xpos - dxpos) / x->w.width * x->duration[x->last_state++];
+        x->w.pointerx = xpos;
+        x->w.pointery = ypos;
+    }
+    else {
+        x->w.pointerx = dxpos + x->duration[insertpos] * x->w.width / x->duration[x->last_state]; 
 
-
-	  x->w.pointery = ypos;	  
-	  //x->w.pointery = text_ypix(&x->x_obj,glist) +  (1.f - (x->finalvalues[i] - yBase) / ySize) * yscale;	
-     }
-    #ifdef DEBUG
-    post("pointery =%f",x->w.pointery);
-    post("insertpos =%f",insertpos);
-    #endif
-     x->w.grabbed = insertpos;
-     return insertpos;
+        x->w.pointery = ypos;
+        //x->w.pointery = wypos +  (1.f - (x->finalvalues[i] - yBase) / ySize) * yscale;
+    }
+#ifdef DEBUG
+    post("pointery =%f", x->w.pointery);
+    post("insertpos =%f", insertpos);
+#endif
+    x->w.grabbed = insertpos;
+    return insertpos;
 }
 
 static void breakpoints_create_doodles(t_breakpoints *x, t_glist *glist)
 {
-     float xscale,yscale;
-     int xpos,ypos;
-     int i;
-     char guistr[255];
-     float ySize = x->max - x->min;
-     float yBase =  x->min;
-     float yvalue;
+    float xscale, yscale;
+    int xpos, ypos;
+    int i;
+    char guistr[255];
+    float ySize = x->max - x->min;
+    float yBase =  x->min;
+    float yvalue;
+    int zoom = x->x_zoom;
+    
+    xscale = x->w.width/x->duration[x->last_state];
+    yscale = x->w.height;
+    int doodleRadius = 2;
      
-     xscale = x->w.width/x->duration[x->last_state];
-     yscale = x->w.height;
-     
-     xpos = text_xpix(&x->x_obj,glist);
-     ypos = (int) (text_ypix(&x->x_obj,glist) + x->w.height);
-     for (i=0;i<=x->last_state;i++) {
-     yvalue = (x->finalvalues[i] - yBase) / ySize * yscale;
-	  sprintf(guistr,".x%lx.c create oval %d %d %d %d -tags %lxD%d", glist_getcanvas(glist),
-		   (int) (xpos+(x->duration[i] * xscale) - 2),
-		   (int) (ypos - yvalue - 2),
-		   (int) (xpos+(x->duration[i] * xscale)+2),
-		   (int) (ypos - yvalue + 2),
-		   x,i);
+    int wxpos = text_xpix(&x->x_obj,glist);
+    int wypos = text_ypix(&x->x_obj,glist);
+    for (i = 0; i <= x->last_state; i++) {
+        yvalue = ((x->finalvalues[i] - yBase) / ySize * yscale) * zoom;
+        sprintf(guistr,".x%lx.c create oval %d %d %d %d -tags %lxD%d", glist_getcanvas(glist),
+            (int) (wxpos + x->duration[i] * xscale * zoom - doodleRadius * zoom),
+            (int) (wypos + x->w.height    * zoom - yvalue - doodleRadius * zoom),
+            (int) (wxpos + x->duration[i] * xscale * zoom + doodleRadius * zoom),
+            (int) (wypos + x->w.height    * zoom - yvalue + doodleRadius * zoom),
+            x,i);
 
-	  if (i == x->w.grabbed) {
-	  	strcat(guistr," -fill red\n");
-	  } else {
-	   strcat(guistr," -fill "LINECOLOR"\n");
-   	  }
-	  sys_vgui("%s",guistr);
-     }
-     x->w.numdoodles = i;
+        if (i == x->w.grabbed) {
+            strcat(guistr," -fill red\n");
+        } else {
+            strcat(guistr," -fill "LINECOLOR"\n");
+        }
+        sys_vgui("%s", guistr);
+        printf("'%s'\n", guistr);
+    }
+    x->w.numdoodles = i;
 }
 
 
@@ -196,7 +201,6 @@ static void breakpoints_delete_doodles(t_breakpoints *x, t_glist *glist)
 
 static void breakpoints_update_doodles(t_breakpoints *x, t_glist *glist)
 {
-
      breakpoints_delete_doodles(x,glist);
 /* LATER only create new doodles if necessary */
      breakpoints_create_doodles(x, glist);
@@ -206,114 +210,142 @@ static void breakpoints_update_doodles(t_breakpoints *x, t_glist *glist)
 static void breakpoints_delnum(t_breakpoints *x)
 {
      sys_vgui(".x%lx.c delete %lxT\n",glist_getcanvas(x->w.glist),x); 
-     
 }
 
 
 static void breakpoints_shownum(t_breakpoints *x,t_glist* glist) 
 {
-     float xscale,yscale;
-     int xpos,ypos;
-     int i= x->w.grabbed;
-     float ySize = x->max - x->min;
-     float yBase =  x->min;
-
-     xscale = x->w.width/x->duration[x->last_state];
-     yscale = x->w.height;
+    float xscale, yscale;
+    int wxpos, wypos;
+    int i = x->w.grabbed;
+    float ySize = x->max - x->min;
+    float yBase =  x->min;
+    int zoom = x->x_zoom;
+    
+    xscale = x->w.width/x->duration[x->last_state];
+    yscale = x->w.height / ySize;
      
-     xpos = text_xpix(&x->x_obj,glist);
-     ypos = (int) (text_ypix(&x->x_obj,glist) + x->w.height);
+    wxpos = text_xpix(&x->x_obj,glist);
+    wypos = text_ypix(&x->x_obj,glist);
 
-     breakpoints_delnum(x);
+    breakpoints_delnum(x);
 
-     sys_vgui(".x%lx.c create text %d %d -text %.2fxl%.2f -tags %lxT\n",
-	     glist_getcanvas(x->w.glist),
-	     
-	     (int) (xpos+(x->duration[i] * xscale) +3),
-	     (int) (ypos - (x->finalvalues[i]-yBase)/ySize*yscale - 10),
-	     
-	     x->finalvalues[i],
-	     x->duration[i],
-	     x);
-     clock_delay(x->w.numclock,700);
+    sys_vgui(".x%lx.c create text %d %d -text %.2fx%.2f -tags %lxT\n",
+        glist_getcanvas(x->w.glist),
+        (int) (wxpos + ((x->duration[i] * xscale) + 3) * zoom),
+        (int) (wypos + x->w.height - ((x->finalvalues[i] - yBase) * yscale - 10) * zoom),
+        x->duration[i],
+        x->finalvalues[i],
+        x);
+    clock_delay(x->w.numclock, 700);
 }
 
 
 
+static void breakpoints_create_background(t_breakpoints *x, t_glist *glist)
+{
+    int wxpos = text_xpix(&x->x_obj,glist);
+    int wypos = text_ypix(&x->x_obj,glist);
+    
+    int zoom = x->x_zoom;
+    int zWidth  = x->w.width * zoom;
+    int zHeight = x->w.height * zoom;
+    int zBorder = BORDER * zoom;
+
+    x->w.numclock = clock_new(x, (t_method) breakpoints_delnum);     
+    sys_vgui(".x%lx.c create rectangle %d %d %d %d  -tags %lxS -fill %s -width %d\n",
+        glist_getcanvas(glist),
+        wxpos - zBorder, wypos - zBorder,
+        wxpos + zWidth + 2 * zBorder, wypos + zHeight + 2 * zBorder,
+        x, BACKGROUNDCOLOR, x->borderwidth * zoom);
+}
+
+static void breakpoints_create_lines(t_breakpoints *x, t_glist *glist)
+{
+    int i;
+    float xscale,yscale;
+    int wxpos, wypos;
+    float ySize = x->max - x->min;
+    float yBase =  x->min;
+    xscale = x->w.width / x->duration[x->last_state];
+    yscale = x->w.height;
+    int zoom = x->x_zoom;
+     
+    wxpos = text_xpix(&x->x_obj,glist);
+    wypos = text_ypix(&x->x_obj,glist);
+    sys_vgui(".x%lx.c create line", glist_getcanvas(glist));
+    for (i = 0; i <= x->last_state; i++) {
+         sys_vgui(" %d %d ",
+             (int)(wxpos + x->duration[i] * xscale * zoom),
+             (int)(wypos + x->w.height * zoom - ((x->finalvalues[i] - yBase) / ySize * yscale) * zoom));
+    }
+    sys_vgui(" -tags %lxP -fill %s\n", x, LINECOLOR);
+}
+     
 static void breakpoints_create(t_breakpoints *x, t_glist *glist)
 {
-     int i;
-     static char  buf[1024];
-     float xscale,yscale;
-     int xpos,ypos;
-     char num[40];
-     float ySize = x->max - x->min;
-     float yBase =  x->min;
-
-     xpos = text_xpix(&x->x_obj,glist);
-     ypos = (int) text_ypix(&x->x_obj,glist);
-     x->w.numclock = clock_new(x, (t_method) breakpoints_delnum);     
-     sys_vgui(".x%lx.c create rectangle %d %d %d %d  -tags %lxS -fill %s -width %d\n",
-	      glist_getcanvas(glist),
-	      xpos-BORDER, ypos-BORDER,
-	      xpos + x->w.width+2*BORDER, ypos + x->w.height+2*BORDER,
-	      x, BACKGROUNDCOLOR, x->borderwidth);
-     
-     xscale = x->w.width/x->duration[x->last_state];
-     yscale = x->w.height;
-     
-     sys_vgui(".x%lx.c create line", glist_getcanvas(glist));
-     for (i=0;i<=x->last_state;i++) {
-          sys_vgui(" %d %d ",(int)(xpos + x->duration[i]*xscale),
-                (int)(ypos + x->w.height- (x->finalvalues[i]-yBase)/ySize*yscale));
-     }
-     sys_vgui(" -tags %lxP -fill %s\n",x, LINECOLOR);
-     
-     breakpoints_create_doodles(x,glist);
+    breakpoints_create_background(x, glist);
+    breakpoints_create_lines(x, glist);
+    breakpoints_create_doodles(x, glist);
 }
 
 
-static void breakpoints_update(t_breakpoints *x, t_glist *glist)
+static void breakpoints_update_background(t_breakpoints *x, t_glist *glist)
 {
-int i;
-//     static char  buf[1024];
-     float xscale,yscale;
-//     char num[40];
-     int xpos = text_xpix(&x->x_obj,glist);
-     int ypos = text_ypix(&x->x_obj,glist);
-     float ySize = x->max - x->min;
-     float yBase =  x->min;
+    int wxpos = text_xpix(&x->x_obj,glist);
+    int wypos = text_ypix(&x->x_obj,glist);
+    int zoom = x->x_zoom;
+    int zWidth = (x->w.width + 2 * BORDER) * zoom;
+    int zHeight = (x->w.height + 2 * BORDER) * zoom;
+    int zBorder = BORDER * zoom;
+    
+    sys_vgui(".x%lx.c coords %lxS %d %d %d %d\n",
+        glist_getcanvas(glist), x,
+        wxpos - zBorder, wypos - zBorder,
+        wxpos + zWidth,  wypos + zHeight);
+}
 
-     sys_vgui(".x%lx.c coords %lxS %d %d %d %d\n",
-	      glist_getcanvas(glist), x,
-	      xpos - BORDER, ypos -BORDER,
-	      xpos + x->w.width+2*BORDER, ypos + x->w.height+2*BORDER);
-     
-     
+static void breakpoints_update_lines(t_breakpoints *x, t_glist *glist)
+{     
+    float xscale, yscale;
+    int wxpos = text_xpix(&x->x_obj,glist);
+    int wypos = text_ypix(&x->x_obj,glist);
+    int zoom = x->x_zoom;
+    float ySize = x->max - x->min;
+    float yBase =  x->min;
+
      xscale = x->w.width/x->duration[x->last_state];
      yscale = x->w.height;
      
      sys_vgui(".x%lx.c coords %lxP", glist_getcanvas(glist), x);
-     for (i=0;i<=x->last_state;i++) {
-          sys_vgui(" %d %d ",(int)(xpos + x->duration[i]*xscale),
-		                (int) (ypos + x->w.height - (x->finalvalues[i]-yBase)/ySize*yscale));
+     int i;
+     for (i = 0; i <= x->last_state; i++) {
+         
+         sys_vgui(" %d %d ",
+             (int)(wxpos + x->duration[i] * xscale * zoom),
+             (int)(wypos + x->w.height * zoom - ((x->finalvalues[i] - yBase) / ySize * yscale) * zoom));
      }
      sys_vgui("\n"); 
-     
-     
-     breakpoints_update_doodles(x,glist);
-     draw_inlets(x, glist, 0,1,3);
+}
+ 
+static void breakpoints_update(t_breakpoints *x, t_glist *glist)
+{
+    breakpoints_update_background(x,glist);
+    breakpoints_update_lines(x,glist);     
+    breakpoints_update_doodles(x,glist);
+    draw_inlets(x, glist, 0,1,3);
 }
 
 
 
 static void breakpoints_drawme(t_breakpoints *x, t_glist *glist, int firsttime)
 {
+    if (firsttime) 
+        breakpoints_create(x,glist);
+    else 
+        breakpoints_update(x,glist);
 
-     if (firsttime) breakpoints_create(x,glist);
-     else breakpoints_update(x,glist);
-
-     draw_inlets(x, glist, firsttime, 1,3);
+    draw_inlets(x, glist, firsttime, 1,3);
 }
 
 
@@ -321,22 +353,24 @@ static void breakpoints_drawme(t_breakpoints *x, t_glist *glist, int firsttime)
 
 static void breakpoints_erase(t_breakpoints* x,t_glist* glist)
 {
-     //int n;
-     sys_vgui(".x%lx.c delete %lxS\n",
-	      glist_getcanvas(glist), x);
+    // packground
+    sys_vgui(".x%lx.c delete %lxS\n",
+        glist_getcanvas(glist), x);
 
-     sys_vgui(".x%lx.c delete %lxP\n",
-	      glist_getcanvas(glist), x);
+    //lines
+    sys_vgui(".x%lx.c delete %lxP\n",
+        glist_getcanvas(glist), x);
 
+     // in- & out-lets
      if (x->r_sym == &s_) {
-     sys_vgui(".x%lx.c delete %lxi0\n",glist_getcanvas(glist),x);
-     sys_vgui(".x%lx.c delete %lxo0\n",glist_getcanvas(glist),x);
-     sys_vgui(".x%lx.c delete %lxo1\n",glist_getcanvas(glist),x);
-     sys_vgui(".x%lx.c delete %lxo2\n",glist_getcanvas(glist),x);
+         sys_vgui(".x%lx.c delete %lxi0\n", glist_getcanvas(glist),x);
+         sys_vgui(".x%lx.c delete %lxo0\n", glist_getcanvas(glist),x);
+         sys_vgui(".x%lx.c delete %lxo1\n", glist_getcanvas(glist),x);
+         sys_vgui(".x%lx.c delete %lxo2\n", glist_getcanvas(glist),x);
      }
      breakpoints_delete_doodles(x,glist);
 }
-	
+
 
 
 /* ------------------------ breakpoints widgetbehaviour----------------------------- */
@@ -345,23 +379,23 @@ static void breakpoints_erase(t_breakpoints* x,t_glist* glist)
 static void breakpoints_getrect(t_gobj *z, t_glist *owner,
     int *xp1, int *yp1, int *xp2, int *yp2)
 {
-    int width, height;
-    t_breakpoints* s = (t_breakpoints*)z;
+    t_breakpoints* x = (t_breakpoints*)z;
+    int zoom = x->x_zoom;
 
-    width = s->w.width + 2*BORDER;
-    height = s->w.height + 2*BORDER;
-    *xp1 = text_xpix(&s->x_obj,owner)-BORDER;
-    *yp1 = text_ypix(&s->x_obj,owner)-BORDER;
-    *xp2 = text_xpix(&s->x_obj,owner) + width ; //+ 4
-    *yp2 = text_ypix(&s->x_obj,owner) + height ; //+ 4
+    int width  = x->w.width  + 2 * BORDER;
+    int height = x->w.height + 2 * BORDER;
+    *xp1 = text_xpix(&x->x_obj, owner) - BORDER * zoom;
+    *yp1 = text_ypix(&x->x_obj, owner) - BORDER * zoom;
+    *xp2 = text_xpix(&x->x_obj, owner) + width * zoom; //+ 4
+    *yp2 = text_ypix(&x->x_obj, owner) + height *zoom; //+ 4
 }
 
 static void breakpoints_displace(t_gobj *z, t_glist *glist,
     int dx, int dy)
 {
     t_breakpoints *x = (t_breakpoints *)z;
-    x->x_obj.te_xpix += dx;
-    x->x_obj.te_ypix += dy;
+    x->x_obj.te_xpix += dx; // wxpos
+    x->x_obj.te_ypix += dy; // wypos
 
     breakpoints_drawme(x, glist, 0);
     canvas_fixlinesfor(glist,(t_text*) x);
@@ -369,19 +403,11 @@ static void breakpoints_displace(t_gobj *z, t_glist *glist,
 
 static void breakpoints_select(t_gobj *z, t_glist *glist, int state)
 {
-     t_breakpoints *x = (t_breakpoints *)z;
+    // background
+    t_breakpoints *x = (t_breakpoints *)z;
     sys_vgui(".x%lx.c itemconfigure %lxS -fill %s\n", glist, 
-	     x, (state? "blue" : BACKGROUNDCOLOR));
+        x, (state? "blue" : BACKGROUNDCOLOR));
 }
-
-/* 
-static void breakpoints_activate(t_gobj *z, t_glist *glist, int state)
-{
-   t_text *x = (t_text *)z;
-    t_rtext *y = glist_findrtext(glist, x);
-    if (z->g_pd != gatom_class) rtext_activate(y, state);
-}
-*/
 
 static void breakpoints_delete(t_gobj *z, t_glist *glist)
 {
@@ -392,189 +418,137 @@ static void breakpoints_delete(t_gobj *z, t_glist *glist)
        
 static void breakpoints_vis(t_gobj *z, t_glist *glist, int vis)
 {
-    t_breakpoints* s = (t_breakpoints*)z;
+    t_breakpoints* x = (t_breakpoints*)z;
     if (vis)
-	 breakpoints_drawme(s, glist, 1);
+        breakpoints_drawme(x, glist, 1);
     else
-	 breakpoints_erase(s,glist);
+        breakpoints_erase(x, glist);
 }
-
-/*  
-
-static void breakpoints_save(t_gobj *z, t_binbuf *b)
-{
-    t_breakpoints *x = (t_breakpoints *)z;
-    binbuf_addv(b, "ssiisiiffss", gensym("#X"), gensym("obj"),
-                (t_int)x->x_obj.te_xpix, (t_int)x->x_obj.te_ypix,  
-                atom_getsymbol(binbuf_getvec(x->x_obj.te_binbuf)),
-                x->w.width,x->w.height,x->max,x->min,x->r_sym,x->s_sym);
-    binbuf_addv(b, ";");
-}
-
-*/
 
 static void breakpoints_followpointer(t_breakpoints* x,t_glist* glist)
 {
-     float dur;
-     float xscale = x->duration[x->last_state]/x->w.width;
-     float ySize = x->max - x->min;
-     float yBase =  x->min;
+    float dur;
+    float xscale = x->duration[x->last_state] / x->w.width;
+    float ySize = x->max - x->min;
+    float yBase =  x->min;
+    int wxpos = text_xpix(&x->x_obj,glist);
+    int wypos = text_ypix(&x->x_obj,glist);
+    int zoom = x->x_zoom;
 
-     if  ((x->w.grabbed > 0) && (x->w.grabbed < x->last_state)) {
-	  
-	  dur = (x->w.pointerx - text_xpix(&x->x_obj,glist))*xscale;
-	  if (dur < x->duration[x->w.grabbed-1])
-	       dur = x->duration[x->w.grabbed-1];
-	  if (dur > x->duration[x->w.grabbed+1])	  
-	       dur = x->duration[x->w.grabbed+1];
+    if  ((x->w.grabbed > 0) && (x->w.grabbed < x->last_state)) {
+         dur = (x->w.pointerx - wxpos / zoom) * xscale;
+        if (dur < x->duration[x->w.grabbed - 1])
+            dur = x->duration[x->w.grabbed - 1];
+        if (dur > x->duration[x->w.grabbed + 1])
+            dur = x->duration[x->w.grabbed + 1];
 
-	  x->duration[x->w.grabbed] = dur;
-     }
+        x->duration[x->w.grabbed] = dur;
+    }
      
-     float grabbed = (1.0f - (x->w.pointery - (float)text_ypix(&x->x_obj,glist))/(float)x->w.height);
-     #ifdef DEBUG
-     post("grabbed =%f",grabbed);
-     #endif
+    float grabbed = (1.0f - (x->w.pointery - (float)wypos / zoom) / (float)x->w.height);
+#ifdef DEBUG
+    post("grabbed =%f",grabbed);
+#endif
      
-     if (grabbed < 0.0) 
-        grabbed= 0.0;
-     else if (grabbed > 1.0)
-        grabbed= 1.0;
-	  
-     x->finalvalues[x->w.grabbed] = grabbed * ySize + yBase;
-     
+    if (grabbed < 0.0) 
+        grabbed = 0.0;
+    else if (grabbed > 1.0)
+        grabbed = 1.0;
+  
+    x->finalvalues[x->w.grabbed] = grabbed * ySize + yBase;
 
     outlet_bang(x->out3);
-    if (x->c_sym != &s_) pd_bang(x->c_sym->s_thing);
-
+    if (x->c_sym != &s_) 
+        pd_bang(x->c_sym->s_thing);
 }
 
 
-static void breakpoints_motion(t_breakpoints *x, t_floatarg dx, t_floatarg dy)
+static void breakpoints_motion(t_breakpoints *x, t_floatarg zdx, t_floatarg zdy)
 {
-	if (x->w.shift) {
-	  x->w.pointerx+=dx/1000.f;
-	  x->w.pointery+=dy/1000.f;
-     }
-     else
-     {
-	  x->w.pointerx+=dx;
-	  x->w.pointery+=dy;
-     }
-     if (!x->resizing)
-	  breakpoints_followpointer(x,x->w.glist);
-     else {
-	       x->w.width+=dx;
-	       x->w.height+=dy;
-     }
-     breakpoints_shownum(x,x->w.glist);
-     breakpoints_update(x,x->w.glist);
+    int zoom = x->x_zoom;
+    float dx = zdx / zoom;
+    float dy = zdy / zoom;
+    if (x->w.shift) 
+    {
+        x->w.pointerx += dx / 1000.f;
+        x->w.pointery += dy / 1000.f;
+    }
+    else
+    {
+        x->w.pointerx += dx;
+        x->w.pointery += dy;
+    }
+    if (!x->resizing)
+        breakpoints_followpointer(x, x->w.glist);
+    else 
+    {
+        x->w.width  += dx;
+        x->w.height += dy;
+    }
+    breakpoints_shownum(x, x->w.glist);
+    breakpoints_update(x, x->w.glist);
 }
 
 static void breakpoints_key(t_breakpoints *x, t_floatarg f)
 {
-     if (f == 8.0 && x->w.grabbed < x->last_state &&  x->w.grabbed > 0) {
-	  int i;
+    if (f == 8.0 && x->w.grabbed < x->last_state &&  x->w.grabbed > 0) 
+    {
+        int i;
+        for (i = x->w.grabbed; i <= x->last_state; i++) 
+        {
+             x->duration[i]    = x->duration[i + 1];
+             x->finalvalues[i] = x->finalvalues[i + 1];
+        }
 
-	  for (i=x->w.grabbed;i<=x->last_state;i++) {
-	       x->duration[i] = x->duration[i+1];
-	       x->finalvalues[i] = x->finalvalues[i+1];
-	  }
-
-	  x->last_state--;
-	  x->w.grabbed--;
-	  breakpoints_update(x,x->w.glist);
-	  outlet_bang(x->out3);
-	  if (x->c_sym != &s_) pd_bang(x->c_sym->s_thing);
+        x->last_state--;
+        x->w.grabbed--;
+        breakpoints_update(x, x->w.glist);
+        outlet_bang(x->out3);
+        if (x->c_sym != &s_) 
+            pd_bang(x->c_sym->s_thing);
      }
 }
 
-
-/* 
-static int bng_newclick(t_gobj *z, struct _glist *glist, int xpix, int ypix, int shift, int alt, int dbl, int doit)
-{
-    if(doit)
-        bng_click((t_bng *)z, (t_floatarg)xpix, (t_floatarg)ypix, (t_floatarg)shift, 0, (t_floatarg)alt);
-    return (1);
-}
-*/
-
 static int breakpoints_newclick(t_breakpoints *x, struct _glist *glist,
-    int xpos, int ypos, int shift, int alt, int dbl, int doit)
+    int zxpos, int zypos, int shift, int alt, int dbl, int doit)
 {
     // check if user wants to resize 
-     float wxpos = text_xpix(&x->x_obj,glist);
-     float wypos = (text_ypix(&x->x_obj,glist));
-
-     if (doit){
+    float wxpos = text_xpix(&x->x_obj,glist);
+    float wypos = (text_ypix(&x->x_obj,glist));
+    int zoom = x->x_zoom;
+    int xpos = zxpos / zoom;
+    int ypos = zypos / zoom;
+    
+    if (doit) 
+    {
      
-         #ifdef DEBUG
-     
+#ifdef DEBUG
      post("clicked");
-      #endif
+#endif
 
-         
-          /*
-          
-          if ( (xpos >= wxpos + BORDER) && (xpos <= wxpos + x->w.width - BORDER) \
-             && (ypos >= wypos + BORDER) && (ypos <= wypos + x->w.height - BORDER) ) {
-          */
-         
-         
-         if ( (xpos >= wxpos ) && (xpos <= wxpos + x->w.width ) \
-             && (ypos >= wypos ) && (ypos <= wypos + x->w.height ) ) {
-              #ifdef DEBUG
-             post("inside");
-              #endif
-             
-         breakpoints_next_doodle(x,glist,xpos,ypos);
+        if ((zxpos >= wxpos ) && (zxpos <= wxpos + x->w.width * zoom ) \
+            && (zypos >= wypos ) && (zypos <= wypos + x->w.height * zoom ) ) {
 
-         glist_grab(x->w.glist, &x->x_obj.te_g, (t_glistmotionfn) breakpoints_motion,
-                    (t_glistkeyfn) breakpoints_key, xpos, ypos);
+#ifdef DEBUG
+            post("inside");
+#endif
+
+            breakpoints_next_doodle(x, glist, xpos, ypos);
+
+            glist_grab(x->w.glist, &x->x_obj.te_g, 
+                (t_glistmotionfn) breakpoints_motion,
+                (t_glistkeyfn) breakpoints_key, zxpos, zypos);
              
-         x->w.shift = shift;
-         breakpoints_followpointer(x,glist);
-         breakpoints_shownum(x,glist);
-         breakpoints_update(x,glist);
-         
-         
-         }
-         
-     }
-     return (1);
+            x->w.shift = shift;
+            breakpoints_followpointer(x, glist);
+            breakpoints_shownum(x, glist);
+            breakpoints_update(x, glist);
+        }
+    }
+    return (1);
 }
 
-/*
-static int breakpoints_newclick(t_breakpoints *x, struct _glist *glist,
-    int xpos, int ypos, int shift, int alt, int dbl, int doit)
+void breakpoints_zoom(t_breakpoints *x, t_floatarg zoom)
 {
-    //check if user wants to resize
-     float wxpos = text_xpix(&x->x_obj,glist);
-     float wypos = (int) (text_ypix(&x->x_obj,glist) + x->w.height);
-
-     if (doit){
-         breakpoints_next_doodle(x,glist,xpos,ypos);
-
-         glist_grab(x->w.glist, &x->x_obj.te_g, (t_glistmotionfn) breakpoints_motion,
-                    (t_glistkeyfn) breakpoints_key, xpos, ypos);
-
-         x->resizing = 0;     
-         if (x->resizeable && (xpos > wxpos + x->w.width) && 
-             (ypos > wypos)) {
-             x->resizing = 1;     
-             
-         }
-         
-         if (xpos > wxpos + BORDER && (xpos < wxpos + x->w.width - BORDER) \
-             ypos > wypos + BORDER && (ypos < wypos + x->w.height - BORDER) ) {
-         x->w.shift = shift;
-         breakpoints_followpointer(x,glist);
-         breakpoints_shownum(x,glist);
-         breakpoints_update(x,glist);
-         }
-     }
-     return (1);
+     x->x_zoom = (zoom < 1) ? 1 : (int)zoom;
 }
-
-*/
-
