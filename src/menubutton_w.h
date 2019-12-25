@@ -83,13 +83,13 @@ static void menubutton_w_draw_iolets(t_menubutton *x, t_glist *glist, int draw, 
      DEBUG(post("draw iolet");)
      for (i = 0; i < n; i++)
      {
-        int onset = wxpos + zWidth - zIOWidth) * i / nplus;
+        int onset = wxpos + (zWidth - zIOWidth) * i / nplus;
         if (draw == CREATE)
         {
             sys_vgui(".x%lx.c create rectangle %d %d %d %d -outline blue -tags {%lxo%d %lxo}\n",
                 glist_getcanvas(glist),
                 onset,            wypos + zHeight + 1 * zoom,
-                onset + zIOWidth, wypos, glist) + zHeight + 2 * zoom,
+                onset + zIOWidth, wypos + zHeight + 2 * zoom,
                 x, i, x);
         } 
         else if (draw == UPDATE)
@@ -340,7 +340,7 @@ static void menubutton_w_displace(t_gobj *z, t_glist *glist,
     if (glist_isvisible(glist))
     {
         menubutton_w_draw_handle(x, glist, UPDATE);
-        menubutton_w_draw_inlets(x, glist, UPDATE, 1, 1);
+        menubutton_w_draw_iolets(x, glist, UPDATE, 1, 1);
         menubutton_w_drawme(x, glist, UPDATE);
         canvas_fixlinesfor(glist,(t_text*) x);
     }
@@ -357,13 +357,13 @@ static void menubutton_w_select(t_gobj *z, t_glist *glist, int state)
         if (state)
         {
             menubutton_w_draw_handle(x, glist, CREATE);
-            menubutton_w_draw_inlets(x, glist, CREATE, 1,1 );
+            menubutton_w_draw_iolets(x, glist, CREATE, 1,1 );
             menubutton_w_drawme(x, glist, DESTROY);
         }
         else
         {
             menubutton_w_draw_handle(x, glist, DESTROY);
-            menubutton_w_draw_inlets(x, glist, DESTROY, 1, 1);
+            menubutton_w_draw_iolets(x, glist, DESTROY, 1, 1);
             menubutton_w_drawme(x, glist, CREATE);
         }
     }
