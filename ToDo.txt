@@ -1,8 +1,14 @@
 ToDo:
 - more formatting of sub-patches
+- full zoom support for imagebang
 
-  
-Changed in 0.3.0 ():
+Changed in 0.2.2 (2019-12-26):
+- added zoom support for breakpoints and breakpoints~
+- added partial zoom support for menubutton
+- added partial zoom support for imagebang
+
+
+Changed in 0.2.1 ():
 - Add github repository name and url to README.md
 - refactored the xlet draw code in w_breakpoints.h
 - changed imagebang default on to a not-all-black square

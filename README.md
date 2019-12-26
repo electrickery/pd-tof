@@ -13,7 +13,7 @@
 
 <p>The initial change is replacing the build system by pd-lib-builder. This to simplify creation of a deken package of the libary.</p>
 
-<p>The next planned version is 0.3.0.</p>
+<p>This is version 0.2.2. The next planned version is 0.3.0.</p>
 
 <p>These are the objects in the tof library:
 <dl>
@@ -70,4 +70,4 @@
 <p>The original location of this repository is at <a href="https://github.com/electrickery/pd-tof">
  https://github.com/electrickery/pd-tof</a>.
 
-<p>Fred Jan Kraan fjkraan@xs4all.nl 2019-12-24</p>
+<p>Fred Jan Kraan fjkraan@xs4all.nl 2019-12-26</p>
