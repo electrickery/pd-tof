@@ -7,7 +7,12 @@
  * exception for the code from  moonlib/image                          *
  * fjkraan@xs4all.nl. 2016-06-14                                       */
  
-#define VERSION 0.6 
+#define VERSION "0.6.1"
+/* Version 0.6.x new behaviour:                                        *
+ * * rudimentary supprt for zoom; the default images can zoom.         *
+ * * (cleanup of the code, reducing compiler warnings)                 *
+ * * changed version to standard triplet                               *
+ */
 
 /* Version 0.5 new behaviour:                                          *
  * * default images instead of object load fail when image files are   *
@@ -29,7 +34,7 @@
 #endif
 
 /* Append " x " to the following line to show debugging messages */
-#define DEBUG(x) x
+#define DEBUG(x)
 
 #define CLOCKFLASH 250
 #define CLOCKBRK   50
@@ -48,12 +53,12 @@ typedef struct _imagebang
     int width;
     int height;
     int x_zoom;
-    t_symbol*  image_a;
-    t_symbol*  image_b;
-    t_symbol*  image_a1;
-    t_symbol*  image_b1;
-    t_symbol*  image_a2;
-    t_symbol*  image_b2;
+    t_symbol* image_a;
+    t_symbol* image_b;
+    t_symbol* image_a1;
+    t_symbol* image_b1;
+    t_symbol* image_a2;
+    t_symbol* image_b2;
     t_symbol* receive;
     t_symbol* send;
     t_clock* clock_flash;
@@ -72,7 +77,7 @@ static void imagebang_switchimage(t_imagebang *x, t_symbol* image)
 
 static void imagebang_bang(t_imagebang *x)
 {
-    t_glist* glist = glist_getcanvas(x->glist);
+//    t_glist* glist = glist_getcanvas(x->glist);
     if(x->flashing) {
         imagebang_switchimage(x, x->image_a);
         clock_delay(x->clock_brk, x->clockbrk);
@@ -91,27 +96,27 @@ static void imagebang_bang(t_imagebang *x)
 
 static void imagebang_flash_timeout(t_imagebang *x)
 {
-    t_glist* glist = glist_getcanvas(x->glist);
+//    t_glist* glist = glist_getcanvas(x->glist);
     x->flashing = 0;
     imagebang_switchimage(x, x->image_a);
 }
 
 static void imagebang_brk_timeout(t_imagebang *x)
 {
-    t_glist* glist = glist_getcanvas(x->glist);
+//    t_glist* glist = glist_getcanvas(x->glist);
     x->flashing = 1;
     imagebang_switchimage(x, x->image_b);
 }
 
 /* widget helper functions */
 
-static const char* imagebang_get_filename(t_imagebang *x,char *file) {
+static const char* imagebang_get_filename(t_imagebang *x, const char *file) {
     static char fname[MAXPDSTRING];
     char *bufptr;
     int fd;
 
-    fd=open_via_path(canvas_getdir(glist_getcanvas(x->glist))->s_name, 
-        file, "",fname, &bufptr, MAXPDSTRING, 1);
+    fd = open_via_path(canvas_getdir(glist_getcanvas(x->glist))->s_name, 
+        file, "", fname, &bufptr, MAXPDSTRING, 1);
     if(fd>0){
         fname[strlen(fname)]='/';
         DEBUG(post("image file: %s",fname);)
@@ -125,7 +130,7 @@ static const char* imagebang_get_filename(t_imagebang *x,char *file) {
 static int imagebang_click(t_imagebang *x, struct _glist *glist,
         int xpos, int ypos, int shift, int alt, int dbl, int doit) {
     //DEBUG(post("x:%i y:%i dbl:%i doit:%i", xpos, ypos, dbl, doit);)
-    if ( doit) 
+    if (doit) 
         imagebang_bang(x) ;
 
     return (1);
@@ -138,13 +143,12 @@ static void imagebang_drawme(t_imagebang *x, t_glist *glist, int firsttime) {
 
         sys_vgui(".x%lx.c create image %d %d -anchor nw -image %lx_imagebang -disabledimage %lx_imagebang -tags %lximage\n", 
             glist_getcanvas(glist),
-            text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist), x->image_a, x->image_b, x);
-        printf(".x%lx.c create image %d %d -anchor nw -image %lx_imagebang -disabledimage %lx_imagebang -tags %lximage\n", 
-            glist_getcanvas(glist),
-            text_xpix(&x->x_obj, glist), text_ypix(&x->x_obj, glist), x->image_a, x->image_b, x);
-
+            (int)text_xpix(&x->x_obj, glist), (int)text_ypix(&x->x_obj, glist), 
+            x->image_a, x->image_b, x);
+        // this returns the image dimensions via pdsend. The method 'imagebang_imagesize_callback()'
+        // puts them in x->x_width and x->x_height. __x->image_b is assumed to be the same size__
         sys_vgui("pdsend \"%s _imagesize [image width %lx_imagebang] [image height %lx_imagebang]\"\n", 
-            x->receive->s_name,        x->image_a,                 x->image_a);
+            x->receive->s_name, x->image_a, x->image_a);
   
     } else {
         sys_vgui(".x%lx.c coords %lximage %d %d\n",
@@ -155,9 +159,8 @@ static void imagebang_drawme(t_imagebang *x, t_glist *glist, int firsttime) {
 
 void imagebang_erase(t_imagebang* x, t_glist* glist)
 {
-    int n;
     sys_vgui(".x%lx.c delete %lximage\n",
-        glist_getcanvas(glist), x);
+        glist_getcanvas(glist), x->image_a->s_name);
 }
 
 /* ------------------------ image widgetbehaviour----------------------------- */
@@ -211,19 +214,15 @@ static void imagebang_select(t_gobj *z, t_glist *glist, int state)
 
 static void imagebang_activate(t_gobj *z, t_glist *glist, int state)
 {
-/*    t_text *x = (t_text *)z;
-    t_rtext *y = glist_findrtext(glist, x);
-    if (z->g_pd != gatom_class) rtext_activate(y, state);*/
+
 }
 
 static void imagebang_delete(t_gobj *z, t_glist *glist)
 {
     t_text *x = (t_text *)z;
-    //canvas_deletelinesfor(glist_getcanvas(glist), x);
     canvas_deletelinesfor(glist, x);
 }
 
-       
 static void imagebang_vis(t_gobj *z, t_glist *glist, int vis)
 {
     t_imagebang* s = (t_imagebang*)z;
@@ -231,11 +230,6 @@ static void imagebang_vis(t_gobj *z, t_glist *glist, int vis)
         imagebang_drawme(s, glist, 1);
     else
         imagebang_erase(s,glist);
-}
-
-static void imagebang_size(t_imagebang* x,t_floatarg w, t_floatarg h) {
-    x->width = w;
-    x->height = h;
 }
 
 static void imagebang_flashtime(t_imagebang *x, t_float f)
@@ -258,7 +252,7 @@ static void imagebang_flashtime(t_imagebang *x, t_float f)
 }
 
 static void imagebang_imagesize_callback(t_imagebang *x, t_float w, t_float h) {
-    DEBUG(post("received w %f h %f", w, h);)
+    DEBUG(post("received from Tk: w %f h %f", w, h);)
     x->width = w;
     x->height = h;
     canvas_fixlinesfor(x->glist, (t_text*) x);
@@ -267,18 +261,10 @@ static void imagebang_imagesize_callback(t_imagebang *x, t_float w, t_float h) {
 static void imagebang_free(t_imagebang *x) {
     // check first if variable has been unset and image is unused
     // then delete image and unset variable
-    DEBUG(sys_vgui("pdsend \"DEBUG b in use [image inuse %lx_imagebang]\"\n", x->image_b);)
-    DEBUG(sys_vgui("pdsend \"DEBUG a in use [image inuse %lx_imagebang]\"\n", x->image_a);)
-    
     sys_vgui("if { [info exists %lx_imagebang] == 1 && [image inuse %lx_imagebang] == 0} { image delete %lx_imagebang \n unset %lx_imagebang\n} \n",
         x->image_b, x->image_b, x->image_b, x->image_b);
     sys_vgui("if { [info exists %lx_imagebang] == 1 && [image inuse %lx_imagebang] == 0} { image delete %lx_imagebang \n unset %lx_imagebang\n} \n",
         x->image_a, x->image_a, x->image_a, x->image_a);
-    
-    DEBUG(sys_vgui("pdsend \"DEBUG b exists [info exists %lx_imagebang] \"\n",
-        x->image_b);)
-    DEBUG(sys_vgui("pdsend \"DEBUG a exists [info exists %lx_imagebang] \"\n",
-        x->image_a);)
     
     if (x->receive) {
         pd_unbind(&x->x_obj.ob_pd,x->receive);
@@ -287,7 +273,7 @@ static void imagebang_free(t_imagebang *x) {
     clock_free(x->clock_brk);
 }
 
-static unsigned char *bangOffXbmString = "#define bangOff_width 16\n\
+static const char *bangOffXbmString = "#define bangOff_width 16\n\
 #define bangOff_height 16\n\
 static unsigned char bangOff_bits[] = {\n\
    0xff, 0xff, 0xff, 0xff,\n\
@@ -299,7 +285,7 @@ static unsigned char bangOff_bits[] = {\n\
    0x0f, 0xf0, 0x3f, 0xfc,\n\
    0xff, 0xff, 0xff, 0xff };\0";
 
-static unsigned char *bangOnXbmString = "#define bangOn_width 16\n\
+static const char *bangOnXbmString = "#define bangOn_width 16\n\
 #define bangOn_height 16\n\
 static unsigned char bangOn_bits[] = {\n\
    0xff, 0xff, 0x0f, 0xf0,\n\
@@ -311,14 +297,14 @@ static unsigned char bangOn_bits[] = {\n\
    0xf3, 0xcf, 0xe7, 0xe7,\n\
    0x0f, 0xf0, 0xff, 0xff };\0";
 
-static unsigned char *bangMaskXbmString = "#define bangMask_width 16\n\
+static const char *bangMaskXbmString = "#define bangMask_width 16\n\
 #define bangMask_height 16\n\
 static unsigned char bangMask_bits[] = {\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };\0";
 
-static unsigned char *bangOnXbmString_2 = "#define bangOn_2_width 32\n\
+static const char *bangOnXbmString_2 = "#define bangOn_2_width 32\n\
 #define bangOn_2_height 32\n\
 static unsigned char bangOn_2_bits[] = {\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
@@ -333,7 +319,7 @@ static unsigned char bangOn_2_bits[] = {\n\
    0xff, 0x1f, 0xf8, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff  };\0";
  
-static unsigned char *bangOffXbmString_2 = "#define bangOff_2_width 32\n\
+static const char *bangOffXbmString_2 = "#define bangOff_2_width 32\n\
 #define bangOff_2_height 32\n\
 static unsigned char bangOff_2_bits[] = {\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
@@ -348,7 +334,7 @@ static unsigned char bangOff_2_bits[] = {\n\
    0xff, 0x1f, 0xf8, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };\0";
 
-static unsigned char *bangMaskXbmString_2 = "#define bangMask_2_width 32\n\
+static const char *bangMaskXbmString_2 = "#define bangMask_2_width 32\n\
 #define bangMask_2_height 32\n\
 static unsigned char bangMask_2_bits[] = {\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
@@ -363,22 +349,17 @@ static unsigned char bangMask_2_bits[] = {\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,\n\
    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };\0";
    
-static void imagebang_createDefaultImage(t_imagebang *x, t_symbol *image, unsigned char *xbmString)
+static void imagebang_createDefaultImage(t_imagebang *x, t_symbol *image, 
+    const char *xbmString, const char *xbmMaskString)
 {
     sys_vgui("if { [info exists %lx_imagebang] == 0 }\
         { image create bitmap %lx_imagebang -data \"%s\" -maskdata \"%s\"\n set %lx_imagebang 1\n} \n",
-        image, image, xbmString, bangMaskXbmString, image);
-} 
-static void imagebang_createDefaultImage2(t_imagebang *x, t_symbol *image, unsigned char *xbmString)
-{
-    sys_vgui("if { [info exists %lx_imagebang] == 0 }\
-        { image create bitmap %lx_imagebang -data \"%s\" -maskdata \"%s\"\n set %lx_imagebang 1\n} \n",
-        image, image, xbmString, bangMaskXbmString_2, image);
+        image, image, xbmString, xbmMaskString, image);
 } 
 
 static void imagebang_status(t_imagebang *x) 
 {
-    post("--==## imagebang %0.1f status ##==--", VERSION);
+    post("--==## imagebang %s status ##==--", VERSION);
     post("width:      %d", x->width);
     post("height:     %d", x->height);
     post("image_a:    %s", x->image_a->s_name);
@@ -437,9 +418,7 @@ void imagebang_zoom(t_imagebang *x, t_floatarg zoom)
         x->image_a = x->image_a2;
         x->image_b = x->image_b2;
     }
-    t_glist* glist = glist_getcanvas(x->glist);
     imagebang_switchimage(x, x->image_a);
-    printf(".x%lx.c itemconfigure %lximage -image %lx_imagebang \n", glist, x, x->image_a);
 }
 
 static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
@@ -481,11 +460,9 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
             x->image_a = gensym(fname);
             x->image_a1 = gensym(fname);
             x->image_a2 = gensym(fname);
-            //sys_vgui("set %x_a \"%s\" \n",x,fname);
             // Create the image only if the class has not already loaded the same image (with the same symbolic path name)
             sys_vgui("if { [info exists %lx_imagebang] == 0 } { image create photo %lx_imagebang -file \"%s\"\n set %lx_imagebang 1\n} \n",
                                                      x->image_a,                               x->image_a,          fname,     x->image_a); 
-//            sys_vgui("pdsend {test %x_imagebang}\n", x->image_a);
         }
         else
         {
@@ -519,21 +496,21 @@ static void *imagebang_new(t_symbol *s, int argc, t_atom *argv)
     if (x->image_a == NULL)
     {
         image_a = gensym("bangOff_2");
-        imagebang_createDefaultImage2(x, image_a, bangOffXbmString_2);
         x->image_a2 = image_a;
+        imagebang_createDefaultImage(x, image_a, bangOffXbmString_2, bangMaskXbmString_2);
         image_a = gensym("bangOff");
-        imagebang_createDefaultImage(x, image_a, bangOffXbmString);
         x->image_a1 = image_a;
+        imagebang_createDefaultImage(x, image_a, bangOffXbmString, bangMaskXbmString);
         x->image_a = image_a;
     }        
     if (x->image_b == NULL)
     {
         image_b = gensym("bangOn_2");
-        imagebang_createDefaultImage2(x, image_b, bangOnXbmString_2);
         x->image_b2 = image_b;
+        imagebang_createDefaultImage(x, image_b, bangOnXbmString_2, bangMaskXbmString_2);
         image_b = gensym("bangOn");
-        imagebang_createDefaultImage(x, image_b, bangOnXbmString);
         x->image_b1 = image_b;
+        imagebang_createDefaultImage(x, image_b, bangOnXbmString, bangMaskXbmString);
         x->image_b = image_b;
     }
 
@@ -570,8 +547,9 @@ void imagebang_setup(void)
         (t_newmethod)imagebang_new, (t_method)imagebang_free,
         sizeof(t_imagebang),0, A_GIMME,0);
 
+    // called by Tk to return image size
     class_addmethod(imagebang_class, (t_method)imagebang_imagesize_callback,
-                    gensym("_imagesize"), A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym("_imagesize"), A_DEFFLOAT, A_DEFFLOAT, 0); 
     class_addmethod(imagebang_class, (t_method)imagebang_status,
                     gensym("status"), 0);
     class_addmethod(imagebang_class, (t_method)imagebang_setsend,
@@ -610,7 +588,7 @@ void imagebang_setup(void)
 #endif
 
     if (imagebang_pd_has_logpost())
-        logpost(NULL, 4, "tof/imagebang version %1.1f", VERSION);
+        logpost(NULL, 4, "tof/imagebang version %s", VERSION);
 }
 
 
