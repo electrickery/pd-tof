@@ -1,0 +1,36 @@
+animate          Animates the object boxes inside a patch.
+argument         Outputs the patch's creation arguments individually.
+arguments        Outputs and parses the patch's creation arguments.
+breakpoints~     A graphical breakpoint envelope generator.
+breakpoints      A graphical signal~ breakpoint envelope generator.
+common~          "many to many" nonlocal signal connections.
+crossfade~       crossfades 2 multi-channel sources
+folderpanel      queries for a folder
+from_ascii_code  Convert ASCII codes into PD messages
+gemwin+          A more user friendly Gem window manager with mouse pointer information.
+getdollarzero    gets the $0 of a patch.
+imagebang        a bang with an image
+increment        increment a number.
+iterate          iterates through numbers (as a "for" loop).
+list_accum       accumulates anything into a big list. Outputs the list on a bang.
+list_unfold      output the individual elements of a list and their indices, either immediately or on bangs.
+listUnfold       output the individual elements of a list and their indices, either immediately or on bangs. DEPRICATED
+menubutton       a button with a popup menu
+onlyone          makes sure it is the first or only [onlyone] to use that name.
+open_help        searches for an external's or an abstraction's help file and tries to open it.
+openHelp         searches for an external's or an abstraction's help file and tries to open it. DEPRICATED
+OSCToParam       forwards all incomming OSC messages to matching params.
+param            [param] is a state saving and message routing system.
+path             outputs or transform paths.
+phasorshot~      A feature rich phasor~.
+pix_film+        A more user friendly movie file player for Gem.
+pmenu            pops a menu
+sample_granule~  Loads a sound file (wav) as a sample
+sample           Pitch shifts or timestretches a sample with the granular method
+sample_packel    Modifies the properties of a sample
+sample_play~     Plays a sample
+sample_record~   Records into samples
+sample_shifft~   Pitch shifts or time stretches a sample with the FFT method
+sample_unpack    Outputs a sample's information
+streamMinMax     outputs the minimum and maximum float of a stream of numbers.
+to_ascii_code    Convert PD messages into ASCII codes
