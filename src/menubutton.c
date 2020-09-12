@@ -229,7 +229,7 @@ static void menubutton_colors(t_menubutton* x, t_symbol* s, int argc, t_atom* ar
 
 static int menubutton_set_float(t_menubutton* x, t_floatarg item)
 {
-    int i;
+    int i = (int)item;
     if ((i < x->x_num_options) && (i >= 0))
     {
         x->current_selection = i;
@@ -584,7 +584,7 @@ void menubutton_setup(void) {
 
     class_setsavefn(menubutton_class, &menubutton_save);
 
-    post("menubutton v0.12 tof, based on popup by Ben Bogart and button by ggee");
+    post("menubutton v0.13 tof, based on popup by Ben Bogart and button by ggee");
 }
 
 

@@ -1,12 +1,13 @@
-#N canvas 1 83 979 676 10;
+#N canvas 434 368 979 676 10;
 #X obj 26 585 tof/menubutton 132 22 \$0s \$0r 1 green red orange purple
-0 \, a \, b \, c \, d \, e \, f \, with spaces;
+0 \, a \, b \, c \, d \, e \, f \, with\\\ spaces \, a \, b \, c \,
+d \, e \, f \, more\ spaces;
 #X msg 43 134 add a b c d e f;
 #X msg 28 114 clear;
 #X msg 118 227 saveitems \$1;
 #X obj 118 200 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X floatatom 392 607 5 0 0 0 - - -, f 5;
+#X floatatom 392 607 5 0 0 0 - - -;
 #X text 71 113 Clear menu items;
 #X text 157 133 Add menu items;
 #X obj 242 587 r \$0s;
@@ -17,12 +18,12 @@
 #X text 555 354 4: receive name;
 #X text 139 198 Set the saving of the menu items in the patch. Off
 by default.;
-#X floatatom 169 357 5 0 0 0 - - -, f 5;
+#X floatatom 169 357 5 0 0 0 - - -;
 #X obj 26 621 unpack f s;
-#X floatatom 26 644 5 0 0 0 - - -, f 5;
-#X symbolatom 85 642 10 0 0 0 - - -, f 10;
-#X floatatom 243 642 5 0 0 0 - - -, f 5;
-#X symbolatom 300 640 10 0 0 0 - - -, f 10;
+#X floatatom 26 644 5 0 0 0 - - -;
+#X symbolatom 85 642 10 0 0 0 - - -;
+#X floatatom 243 642 5 0 0 0 - - -;
+#X symbolatom 300 640 10 0 0 0 - - -;
 #X obj 243 611 unpack f s;
 #X msg 170 378 set b;
 #X msg 170 402 set 2;
@@ -49,7 +50,6 @@ be disabled allowing you to drag it.;
 #X text 543 293 Creation arguments:;
 #X text 555 365 5: save menu items flag;
 #X msg 176 557 add \$1;
-#X obj 176 534 cyclone/tosymbol;
 #X text 556 402 8: highlight color (#000000 html or tk colors);
 #X text 556 391 7: foreground color (#000000 hmtl or tk colors);
 #X text 554 378 6: background color (#000000 html or tk colors);
@@ -65,7 +65,6 @@ items. Each menu item must be separated by a comma.;
 #X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -260097 -66577
 0;
 #X text 12 11 description: a button with a popup menu;
-#X msg 176 511 with spaces;
 #X text 173 491 Adding items with spaces;
 #X obj 540 521 cnv 15 400 30 empty empty empty 20 12 0 14 -232576 -66577
 0;
@@ -91,6 +90,10 @@ from Guenter Geiger and [bbogart/popup] from Ben Bogart;
 #X text 13 30 tags: ui menu;
 #X text 14 49 author: mrtoftrash@gmail.com;
 #X text 12 70 version: 2009-12-20 (0.3);
+#X obj 176 510 makefilename more\ spaces;
+#X symbolatom 176 534 13 0 0 0 - - -;
+#X obj 155 511 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
 #X connect 0 0 16 0;
 #X connect 1 0 0 0;
 #X connect 2 0 0 0;
@@ -114,5 +117,6 @@ from Guenter Geiger and [bbogart/popup] from Ben Bogart;
 #X connect 34 0 0 0;
 #X connect 35 0 0 0;
 #X connect 41 0 0 0;
-#X connect 42 0 41 0;
-#X connect 56 0 42 0;
+#X connect 65 0 66 0;
+#X connect 66 0 41 0;
+#X connect 67 0 65 0;

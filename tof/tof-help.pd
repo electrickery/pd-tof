@@ -53,5 +53,5 @@ black -1;
 #X text 27 472 Tof is created by Thomas Ouellet Fredericks in 2009-2010
 ;
 #X obj 773 495 tof-meta;
-#X text 28 491 This is version 0.2.2 \, released 2019-12-26 by fjkraan@xs4all.nl
+#X text 28 491 This is version 0.2.3 \, released 20120-09-12 by fjkraan@xs4all.nl
 , f 62;
