@@ -25,15 +25,22 @@ static void pmenu_w_clear(t_pmenu* x){
 
 static void pmenu_w_additem(t_pmenu* x, t_symbol *label, int i) {
 	if ( x->indicator) {
-	sys_vgui("$%lxw add radiobutton -label \"%s\" -command {select%lx \"%d\"} -variable %lxradio -value %d \n",
-                   x, label->s_name, x, i,x,i);
+		sys_vgui("$%lxw add radiobutton -label \"%s\" -command {select%lx \"%d\"} -variable %lxradio -value %d \n",
+			x, label->s_name, x, i,x,i);
                    
-			   } else {
-	sys_vgui("$%lxw add command -label \"%s\" -command {select%lx \"%d\"} \n",
+	} else {
+		sys_vgui("$%lxw add command -label \"%s\" -command {select%lx \"%d\"} \n",
                    x, label->s_name, x, i,x,i);
-			   }
-	if ( i == COLUMNBREAK ) sys_vgui("$%lxw entryconfigure %i -columnbreak  true \n",x,i);
-			   
+	}
+	if (x->max_column_height == 0) {
+		// The 0.2.3 (0.31) and before behaviour; 1st column 30 max, second unlimited
+		if ( i == COLUMNBREAK ) sys_vgui("$%lxw entryconfigure %i -columnbreak  true \n",x,i);
+	} else {
+		// New behaviour; set max. column height for each column
+		int iTrunk = i % x->max_column_height;
+		if (! iTrunk ) sys_vgui("$%lxw entryconfigure %i -columnbreak  true \n",x,i);
+		DEBUG(post("list: %d, column: %d\n", i, iTrunk);)
+	}
 }
 
 static void pmenu_w_apply_colors(t_pmenu* x) {

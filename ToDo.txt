@@ -2,6 +2,14 @@ ToDo:
 - more formatting of sub-patches
 - full zoom support for imagebang
 
+Changed in 0.2.4 (2020-09-14):
+- pmenu: added option for arbitrary column length (thanks to Ingo)
+
+
+Changed in 0.2.3 (2020-09-13):
+- menubutton: Fixed menu option selection bug by float and set (thanks to Oliver Stotz)
+
+
 Changed in 0.2.2 (2019-12-26):
 - added zoom support for breakpoints and breakpoints~
 - added partial zoom support for menubutton

@@ -1,24 +1,24 @@
-#N canvas 1 83 756 631 10;
-#X obj 229 209 key;
+#N canvas 38 208 755 631 10;
+#X obj 251 134 key;
 #X msg 124 244 clear;
-#X obj 229 235 sel 65;
-#X text 278 235 <- Shift+A will open the menu;
+#X obj 251 160 sel 65;
+#X text 300 160 <- Shift+A will open the menu;
 #X msg 45 108 add a bb ccc dddd eeeee;
-#X msg 230 342 2;
-#X msg 262 342 3;
+#X msg 252 267 2;
+#X msg 284 267 3;
 #X text 218 109 add items;
-#X obj 255 439 r \$0pmenu;
-#X obj 332 439 bng 15 250 50 0 \$0pmenu empty empty 17 7 0 10 -262144
+#X obj 277 364 r \$0pmenu;
+#X obj 354 364 bng 15 250 50 0 \$0pmenu empty empty 17 7 0 10 -262144
 -1 -1;
-#X msg 294 342 -1;
-#X msg 224 309 colors green purple grey;
+#X msg 316 267 -1;
+#X msg 246 234 colors green purple grey;
 #X obj 45 481 tof/pmenu 1 1 black white red;
 #X text 298 558 3: background color (#000000 html or tk colors);
 #X text 296 573 4: foreground color (#000000 hmtl or tk colors);
 #X text 298 588 5: highlight color (#000000 html or tk colors);
-#X text 222 279 values can be tk colors(red \, blue \, etc) or html
+#X text 244 204 values can be tk colors(red \, blue \, etc) or html
 colors (#ffffff);
-#X text 221 263 colors: background foreground highlight;
+#X text 243 188 colors: background foreground highlight;
 #X text 297 529 2: focus the item that was last selected when the menu
 pops. On (1) by default.;
 #X text 296 498 1: display the indicator (the little bullet next to
@@ -29,20 +29,18 @@ item that was last selected). On (1) by default.;
 0;
 #X text 303 478 Creation arguments:;
 #X msg 85 194 add \$1;
-#X obj 85 171 cyclone/tosymbol;
-#X msg 85 148 with spaces;
 #X text 82 128 Adding items with spaces;
 #X obj 111 216 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X text 130 212 Pop the menu;
-#X text 260 201 You can assign any key to pop the menu (Shift+A) in
+#X text 282 126 You can assign any key to pop the menu (Shift+A) in
 this case.;
-#X text 325 341 Select and output a menu item by index;
-#X msg 276 371 set a;
-#X msg 281 393 symbol a;
-#X text 346 393 Select an item by name and output it;
-#X text 320 371 Select an item by name without outputing it;
-#X text 354 437 <- you can pop the menu from any gui by sending a bang
+#X text 347 266 Select and output a menu item by index;
+#X msg 298 296 set a;
+#X msg 303 318 symbol a;
+#X text 368 318 Select an item by name and output it;
+#X text 342 296 Select an item by name without outputing it;
+#X text 376 362 <- you can pop the menu from any gui by sending a bang
 to \$0pmenu (because a receive is associated to it);
 #N canvas 280 164 494 344 META 0;
 #X text 12 168 HELP_PATCH_AUTHORS "pd meta" information added by Jonathan
@@ -63,6 +61,15 @@ are GPL;
 #X text 11 28 tags: ui;
 #X text 11 9 description: pops a menu;
 #X text 8 69 version: 2011-01-19 ((0.31);
+#X msg 278 401 max_column_height 60;
+#X obj 85 148 makefilename more\ spaces;
+#X symbolatom 85 172 13 0 0 0 - - -;
+#X obj 64 149 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 419 399 Set the maximum height of the list. Every time this
+value is reached \, a new column wil be started. The default behaviour
+(one 30 item column \, second unlimited) is value 0 The setting is
+intended to be used before adding items., f 50;
 #X connect 0 0 2 0;
 #X connect 1 0 12 0;
 #X connect 2 0 12 0;
@@ -72,11 +79,13 @@ are GPL;
 #X connect 8 0 12 0;
 #X connect 10 0 12 0;
 #X connect 11 0 12 0;
-#X connect 12 0 37 0;
-#X connect 12 1 38 0;
+#X connect 12 0 35 0;
+#X connect 12 1 36 0;
 #X connect 23 0 12 0;
-#X connect 24 0 23 0;
-#X connect 25 0 24 0;
-#X connect 27 0 12 0;
-#X connect 31 0 12 0;
-#X connect 32 0 12 0;
+#X connect 25 0 12 0;
+#X connect 29 0 12 0;
+#X connect 30 0 12 0;
+#X connect 41 0 12 0;
+#X connect 42 0 43 0;
+#X connect 43 0 23 0;
+#X connect 44 0 42 0;

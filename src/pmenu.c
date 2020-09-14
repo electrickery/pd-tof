@@ -22,7 +22,7 @@
 
 
 /* Append " x " to the following line to show debugging messages */
-#define DEBUG(x) 
+#define DEBUG(x)
 
 
 
@@ -55,6 +55,7 @@ typedef struct _pmenu
      t_atom* options;
      int     options_memory;
 	 int     options_count;
+     int     max_column_height;
    
       int indicator;
       int focusing;
@@ -252,9 +253,11 @@ static void pmenu_set(t_pmenu* x, t_symbol *S, int argc, t_atom*argv)
     }
 }
 
-
-
-
+static void pmenu_max_column_height(t_pmenu* x, t_floatarg item)
+{
+    x->max_column_height = (item >= 0.f) ? (int)item : 0;
+    DEBUG(post("x->max_column_height: %d", x->max_column_height);)
+}
 
 
 static t_class *pmenu_class;
@@ -286,6 +289,7 @@ static void *pmenu_new(t_symbol *s, int argc, t_atom *argv)
     x->options_memory=10;
     x->options=getbytes(sizeof(*(x->options)) * x->options_memory);
 	//x->av = getbytes(x->mem_size * sizeof(*(x->av)));
+    x->max_column_height = 0;
  
     x->options_count = 0 ;
   
@@ -363,9 +367,12 @@ void pmenu_setup(void) {
 
 	class_addfloat(pmenu_class, (t_method)pmenu_float);
 
+	class_addmethod(pmenu_class, (t_method)pmenu_max_column_height,
+								  gensym("max_column_height"), A_DEFFLOAT, 0);
+	
 
 
-	post("pmenu v0.31 by tof");
+	post("pmenu v0.32 by tof");
 }
 
 
