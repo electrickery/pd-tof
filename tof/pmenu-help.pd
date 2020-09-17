@@ -1,6 +1,6 @@
-#N canvas 38 208 755 631 10;
+#N canvas 38 208 757 660 10;
 #X obj 251 134 key;
-#X msg 124 244 clear;
+#X msg 106 219 clear;
 #X obj 251 160 sel 65;
 #X text 300 160 <- Shift+A will open the menu;
 #X msg 45 108 add a bb ccc dddd eeeee;
@@ -13,26 +13,26 @@
 #X msg 316 267 -1;
 #X msg 246 234 colors green purple grey;
 #X obj 45 481 tof/pmenu 1 1 black white red;
-#X text 298 558 3: background color (#000000 html or tk colors);
-#X text 296 573 4: foreground color (#000000 hmtl or tk colors);
-#X text 298 588 5: highlight color (#000000 html or tk colors);
+#X text 298 581 3: background color (#000000 html or tk colors);
+#X text 296 596 4: foreground color (#000000 hmtl or tk colors);
+#X text 298 611 5: highlight color (#000000 html or tk colors);
 #X text 244 204 values can be tk colors(red \, blue \, etc) or html
 colors (#ffffff);
 #X text 243 188 colors: background foreground highlight;
-#X text 297 529 2: focus the item that was last selected when the menu
+#X text 297 552 2: focus the item that was last selected when the menu
 pops. On (1) by default.;
-#X text 296 498 1: display the indicator (the little bullet next to
+#X text 296 521 1: display the indicator (the little bullet next to
 item that was last selected). On (1) by default.;
 #X obj 2 2 cnv 15 400 100 empty empty empty 20 12 0 14 -261234 -66577
 0;
-#X obj 300 480 cnv 15 400 15 empty empty empty 20 12 0 14 -257985 -66577
+#X obj 300 503 cnv 15 400 15 empty empty empty 20 12 0 14 -257985 -66577
 0;
-#X text 303 478 Creation arguments:;
+#X text 303 501 Creation arguments:;
 #X msg 85 194 add \$1;
 #X text 82 128 Adding items with spaces;
-#X obj 111 216 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X text 130 212 Pop the menu;
+#X obj 26 300 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 45 296 Pop the menu;
 #X text 282 126 You can assign any key to pop the menu (Shift+A) in
 this case.;
 #X text 347 266 Select and output a menu item by index;
@@ -54,13 +54,12 @@ Wilkes for Pd version 0.42.;
 Bogart and [ggee/button] by Guenter Geiger;
 #X text 12 57 LICENSE S.I. BSD except the bits from bbogart/popup which
 are GPL;
-#X restore 697 602 pd META;
+#X restore 697 625 pd META;
 #X obj 45 520 print index;
 #X obj 144 520 print value;
 #X text 10 48 author: mrtoftrash@gmail.com;
 #X text 11 28 tags: ui;
 #X text 11 9 description: pops a menu;
-#X text 8 69 version: 2011-01-19 ((0.31);
 #X msg 278 401 max_column_height 60;
 #X obj 85 148 makefilename more\ spaces;
 #X symbolatom 85 172 13 0 0 0 - - -;
@@ -69,7 +68,9 @@ are GPL;
 #X text 419 399 Set the maximum height of the list. Every time this
 value is reached \, a new column wil be started. The default behaviour
 (one 30 item column \, second unlimited) is value 0 The setting is
-intended to be used before adding items., f 50;
+intended to be used before adding items. NOTE: This feature is not
+active on MacOS \, where all items are in one column., f 50;
+#X text 8 69 version: 2020-09-17 ((0.32);
 #X connect 0 0 2 0;
 #X connect 1 0 12 0;
 #X connect 2 0 12 0;
@@ -85,7 +86,7 @@ intended to be used before adding items., f 50;
 #X connect 25 0 12 0;
 #X connect 29 0 12 0;
 #X connect 30 0 12 0;
-#X connect 41 0 12 0;
-#X connect 42 0 43 0;
-#X connect 43 0 23 0;
-#X connect 44 0 42 0;
+#X connect 40 0 12 0;
+#X connect 41 0 42 0;
+#X connect 42 0 23 0;
+#X connect 43 0 41 0;
