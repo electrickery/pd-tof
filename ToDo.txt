@@ -1,22 +1,11 @@
 ToDo:
 - more formatting of sub-patches
-- full zoom support for imagebang
 
-Changed in 0.2.4 (2020-09-14):
-- pmenu: added option for arbitrary column length (thanks to Ingo)
-
-
-Changed in 0.2.3 (2020-09-13):
-- menubutton: Fixed menu option selection bug by float and set (thanks to Oliver Stotz)
-
-
-Changed in 0.2.2 (2019-12-26):
-- added zoom support for breakpoints and breakpoints~
-- added partial zoom support for menubutton
-- added partial zoom support for imagebang
-
-
-Changed in 0.2.1 ():
+Changed in 0.3.0 (2022-12-06):
+- Made Makefile.pdlibbuilder location conform tips&tricks
+- Updated maintailer email address
+  
+Changed in 0.2.1 (2016-11-03):
 - Add github repository name and url to README.md
 - refactored the xlet draw code in w_breakpoints.h
 - changed imagebang default on to a not-all-black square

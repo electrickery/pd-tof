@@ -13,7 +13,7 @@
 
 <p>The initial change is replacing the build system by pd-lib-builder. This to simplify creation of a deken package of the libary.</p>
 
-<p>This is version 0.2.2. The next planned version is 0.3.0.</p>
+<p>The next planned version is 0.3.0.</p>
 
 <p>These are the objects in the tof library:
 <dl>
@@ -34,7 +34,7 @@
 <dt>list_accum</dt>   <dd>collects input into a list</dd>
 <dt>list_unfold</dt>  <dd>decomposes list into element values and types</dd>
 <dt>listUnfold</dt>   <dd>depricated version of list_unfold</dd>
-<dt>menubutton</dt>   <dd>drop down menu tool (based on popup by Ben Bogart and button by ggee)</dd>
+<dt>menubutton</dt>   <dd>drop down menu tool</dd>
 <dt>onlyone</dt>      <dd>named uniqueness switch</dd>
 <dt>open_help</dt>    <dd>arbitrary help patch finder/launcher</dd>
 <dt>openHelp</dt>     <dd>depricated version of open_help</dd>
@@ -70,4 +70,4 @@
 <p>The original location of this repository is at <a href="https://github.com/electrickery/pd-tof">
  https://github.com/electrickery/pd-tof</a>.
 
-<p>Fred Jan Kraan fjkraan@xs4all.nl 2019-12-26</p>
+<p>Fred Jan Kraan fjkraan@electrickery.nl 2022-12-06</p>

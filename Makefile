@@ -54,12 +54,7 @@ tof/test-arguments-comma.pd \
 tof/test-arguments-token.pd \
 tof/test-param-2.pd \
 tof/test-param.pd \
-tof/tof-meta.pd
+tof-meta.pd
 
-
-externalsdir = ../..
-
-PDLIBBUILDER_DIR ?= .
-include $(firstword $(wildcard $(PDLIBBUILDER_DIR)/Makefile.pdlibbuilder \
-  $(externalsdir)/Makefile.pdlibbuilder))
- 
+PDLIBBUILDER_DIR=pd-lib-builder/
+include $(PDLIBBUILDER_DIR)/Makefile.pdlibbuilder
